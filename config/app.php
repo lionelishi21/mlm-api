@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Majestic Cares Community'),
 
     /*
     |--------------------------------------------------------------------------
@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -174,7 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        Dirape\Token\TokenServiceProvider::class,
     ],
 
     /*
@@ -226,7 +227,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Token'=>\Dirape\Token\Facades\Facade::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class
     ],
 
 ];

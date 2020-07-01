@@ -32,7 +32,6 @@ class UserTableSeeder extends Seeder
         DB::table('affiliates')->insert([
         	'user_id' => 1,
         	'affiliate_id' => 100100100,
-        	'group_id' => 1
         ]);
     }
 }

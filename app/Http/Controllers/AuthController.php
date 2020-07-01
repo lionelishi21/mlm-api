@@ -7,15 +7,20 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\UserDetail;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\URL;
 use App\Repositories\Affiliates;
 use App\Repositories\Purchases;
+use App\Repositories\Users;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Repositories\CashBonuses;
+use App\Mail\WelcomeMail;
 use Auth;
 
 class AuthController extends Controller
 {
-    
+
+
 
 	/**
 	 * ****************************************
@@ -23,59 +28,74 @@ class AuthController extends Controller
 	 * ****************************************
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
-     ****************************************** 
+     ******************************************
 	 */
     public function register(Request $request) {
 
-        $userdetails = $request->user; 
+        $userdetails = $request->user;
         $payments = $request->payment;
         $hashed_random_password = Hash::make(Str::random(8));
 
         $user = New User;
         $user->first_name = $userdetails['first_name'];
         $user->last_name = $userdetails['last_name'];
+        $user->username = $userdetails['username'];
+        $user->phone_number = $userdetails['phone_number'];
         $user->email = $userdetails['email'];
-        $user->password = bcrypt('password');
+        $user->password = bcrypt('enter4now');
         $user->save();
-    
+
 
         if ( $user->save()) {
             $details = new UserDetail;
             $details->user_id = $user->id;
             $details->address1 = $userdetails['address'];
-            // $details->address2 = $userdetails['address2'];
-            $details->country = $user['country'];
-            $details->state = $user['region'];
+            $details->address2 = $userdetails['address2'];
+            $details->country = $userdetails['country'];
+            $details->postal_code  = $userdetails['zip'];
+            $details->state = $userdetails['region'];
+            $details->city = $userdetails['city'];
             $details->save();
         }
 
-
-        // if ( $user->save()) {
-        //    $newAfiliates = new Affiliates;
-        //    $new = $newAfiliates->createAffiliate($user->id, $userdetails['referral_id']);
-        // }
-
+        /** @var Check for pending cash bonuses $cash */
+        $cash = new CashBonuses;
+        $cash->checkForCashBonuses();
 
         if ( $user->save()) {
             $purchase = new Purchases;
             $purchase->store($userdetails['referral_id'], $user->id);
         }
 
+        if ($user->save()) {
+            $users = new Users;
+            $userToken = $users->generateTemporaryLink($user->id);
+        }
 
-        // $user->sendApiEmailVerificationNotification();
+        $book_link = 'https://maejesticares.com/ebook?token=' .  $userToken;
+        $data = [
+          'name' => $userdetails['first_name'].' '.$userdetails['last_name'],
+          'email' => $userdetails['email'],
+          'book_link' => $book_link,
+          'message' => 'message'
+        ];
+
+        $email = $userdetails['email'];
+
+        Mail::to($email)->send(new WelcomeMail($data));
 
         /**
          * Send confirmation email user went signing up
          * @var array
          */
-         // $user->sendApiEmailVerificationNotification();
-
 
         return response()->json([
             'success' => true,
             'message' => 'Please confirm yourself by click on verify user button sent to you on your email.',
         ]);
     }
+
+
 
     /**
      * ****************************************
@@ -117,7 +137,7 @@ class AuthController extends Controller
      * ****************************************
      */
     public function logout(Request $request) {
-    	
+
         $request->user()->token()->revoke();
         return response()->json([
             'message' => 'Successfully logged out'

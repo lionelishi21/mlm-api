@@ -22,7 +22,6 @@ class CreateUserDetailsTable extends Migration
             $table->string('country')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
-            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
     }

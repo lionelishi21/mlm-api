@@ -14,10 +14,11 @@ class CreateAffiliate extends Migration
     public function up()
     {
         Schema::create('affiliates', function (Blueprint $table) {
+            $table->id();
+
+            $table->nestedSet();
             $table->integer('user_id');
             $table->string('affiliate_id');
-            $table->integer('parent_id')->nullable();
-            $table->integer('group_id');
             $table->timestamps();
         });
     }

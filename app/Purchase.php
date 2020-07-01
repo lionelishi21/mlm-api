@@ -21,6 +21,6 @@ class Purchase extends Model
     }
 
     public function affiliate() {
-    	
+
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ded384fdc8c0fd6873f964a3c6b4756",
+    "content-hash": "1919b1bb13fc5b024892df58c23f8b11",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -111,6 +111,122 @@
             "time": "2020-04-15T15:59:35+00:00"
         },
         {
+            "name": "cartalyst/stripe",
+            "version": "v2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cartalyst/stripe.git",
+                "reference": "f7753a8c947aa7c58abad96db8714e1594160b0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cartalyst/stripe/zipball/f7753a8c947aa7c58abad96db8714e1594160b0c",
+                "reference": "f7753a8c947aa7c58abad96db8714e1594160b0c",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cartalyst\\Stripe\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cartalyst LLC",
+                    "email": "help@cartalyst.com",
+                    "homepage": "https://cartalyst.com"
+                }
+            ],
+            "description": "A comprehensive Stripe API package.",
+            "keywords": [
+                "cartalyst",
+                "php",
+                "stripe"
+            ],
+            "time": "2020-01-03T12:02:51+00:00"
+        },
+        {
+            "name": "cartalyst/stripe-laravel",
+            "version": "v12.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cartalyst/stripe-laravel.git",
+                "reference": "e171e6721e3491daa7eaa8d85ca6d4536086c327"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cartalyst/stripe-laravel/zipball/e171e6721e3491daa7eaa8d85ca6d4536086c327",
+                "reference": "e171e6721e3491daa7eaa8d85ca6d4536086c327",
+                "shasum": ""
+            },
+            "require": {
+                "cartalyst/stripe": "^2.0",
+                "illuminate/support": "^7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "cartalyst/php-cs-fixer-config": "^1.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "component": "implementation",
+                "branch-alias": {
+                    "dev-master": "12.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Cartalyst\\Stripe\\Laravel\\StripeServiceProvider"
+                    ],
+                    "aliases": {
+                        "Stripe": "Cartalyst\\Stripe\\Laravel\\Facades\\Stripe"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cartalyst\\Stripe\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cartalyst LLC",
+                    "email": "help@cartalyst.com",
+                    "homepage": "https://cartalyst.com"
+                }
+            ],
+            "description": "Laravel 7 integration for the Cartalyst Stripe package.",
+            "keywords": [
+                "cartalyst",
+                "laravel",
+                "php",
+                "stripe"
+            ],
+            "time": "2020-03-03T18:50:48+00:00"
+        },
+        {
             "name": "defuse/php-encryption",
             "version": "v2.2.1",
             "source": {
@@ -172,6 +288,62 @@
                 "symmetric key cryptography"
             ],
             "time": "2018-07-24T23:27:56+00:00"
+        },
+        {
+            "name": "dirape/token",
+            "version": "V2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mustafakhaleddev/laravel-token.git",
+                "reference": "653590e561641e94f04c40e3034c6cd3436cda7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mustafakhaleddev/laravel-token/zipball/653590e561641e94f04c40e3034c6cd3436cda7d",
+                "reference": "653590e561641e94f04c40e3034c6cd3436cda7d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dirape\\Token\\TokenServiceProvider"
+                    ],
+                    "aliases": {
+                        "Token": "Dirape\\Token\\Facades\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dirape\\Token\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "MustafaKhaled",
+                    "email": "MustafaKhaled.dev@gmail.com"
+                }
+            ],
+            "description": "Unique Token Generator For Laravel",
+            "keywords": [
+                "PHP token",
+                "generate",
+                "laravel",
+                "laravel token",
+                "token",
+                "token generator",
+                "unique token"
+            ],
+            "time": "2020-04-13T14:56:42+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -470,71 +642,6 @@
                 "validator"
             ],
             "time": "2020-02-13T22:36:52+00:00"
-        },
-        {
-            "name": "emadadly/laravel-uuid",
-            "version": "v1.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/EmadAdly/laravel-uuid.git",
-                "reference": "d851404cc08b81ae8f1e58f82f4d667ed5118df2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/EmadAdly/laravel-uuid/zipball/d851404cc08b81ae8f1e58f82f4d667ed5118df2",
-                "reference": "d851404cc08b81ae8f1e58f82f4d667ed5118df2",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*",
-                "php": "~5.6|~7.0"
-            },
-            "require-dev": {
-                "laravel/framework": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*",
-                "phpunit/phpunit": "5.5.*|7.0.*",
-                "squizlabs/php_codesniffer": "^2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2.1-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Emadadly\\LaravelUuid\\LaravelUuidServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Emadadly\\LaravelUuid\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Emad Adly",
-                    "email": "thedevgist@gmail.com",
-                    "homepage": "http://devgist.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "laravel uuid a simple, automatic UUID generator for any model based on Laravel.",
-            "homepage": "https://github.com/emadadly/laravel-uuid",
-            "keywords": [
-                "Laravel UUID",
-                "emadadly",
-                "generator",
-                "guid",
-                "laravel",
-                "laravel-guid",
-                "laravel-uuid",
-                "uuid"
-            ],
-            "time": "2020-04-12T09:26:42+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -902,6 +1009,65 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "kalnoy/nestedset",
+            "version": "v5.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lazychaser/laravel-nestedset.git",
+                "reference": "d4fe17f9abd3414014bda32a5612c9ed24246f99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/d4fe17f9abd3414014bda32a5612c9ed24246f99",
+                "reference": "d4fe17f9abd3414014bda32a5612c9ed24246f99",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.7.0|~5.8.0|^6.0|^7.0",
+                "illuminate/events": "~5.7.0|~5.8.0|^6.0|^7.0",
+                "illuminate/support": "~5.7.0|~5.8.0|^6.0|^7.0",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v5.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Kalnoy\\Nestedset\\NestedSetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kalnoy\\Nestedset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kalnoy",
+                    "email": "lazychaser@gmail.com"
+                }
+            ],
+            "description": "Nested Set Model for Laravel 5.7 and up",
+            "keywords": [
+                "database",
+                "hierarchy",
+                "laravel",
+                "nested sets",
+                "nsm"
+            ],
+            "time": "2020-03-04T05:33:20+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -1342,61 +1508,6 @@
                 "psysh"
             ],
             "time": "2020-04-07T15:01:31+00:00"
-        },
-        {
-            "name": "laravel/ui",
-            "version": "v2.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/ui.git",
-                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/15368c5328efb7ce94f35ca750acde9b496ab1b1",
-                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^7.0",
-                "illuminate/filesystem": "^7.0",
-                "illuminate/support": "^7.0",
-                "php": "^7.2.5"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Ui\\UiServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Ui\\": "src/",
-                    "Illuminate\\Foundation\\Auth\\": "auth-backend/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Laravel UI utilities and presets.",
-            "keywords": [
-                "laravel",
-                "ui"
-            ],
-            "time": "2020-04-29T15:06:45+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -4868,6 +4979,71 @@
             "time": "2019-10-21T16:45:58+00:00"
         },
         {
+            "name": "emadadly/laravel-uuid",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EmadAdly/laravel-uuid.git",
+                "reference": "d851404cc08b81ae8f1e58f82f4d667ed5118df2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EmadAdly/laravel-uuid/zipball/d851404cc08b81ae8f1e58f82f4d667ed5118df2",
+                "reference": "d851404cc08b81ae8f1e58f82f4d667ed5118df2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*",
+                "php": "~5.6|~7.0"
+            },
+            "require-dev": {
+                "laravel/framework": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*|7.*",
+                "phpunit/phpunit": "5.5.*|7.0.*",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.1-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Emadadly\\LaravelUuid\\LaravelUuidServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Emadadly\\LaravelUuid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emad Adly",
+                    "email": "thedevgist@gmail.com",
+                    "homepage": "http://devgist.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "laravel uuid a simple, automatic UUID generator for any model based on Laravel.",
+            "homepage": "https://github.com/emadadly/laravel-uuid",
+            "keywords": [
+                "Laravel UUID",
+                "emadadly",
+                "generator",
+                "guid",
+                "laravel",
+                "laravel-guid",
+                "laravel-uuid",
+                "uuid"
+            ],
+            "time": "2020-04-12T09:26:42+00:00"
+        },
+        {
             "name": "facade/flare-client-php",
             "version": "1.3.2",
             "source": {
@@ -5200,6 +5376,61 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
+        },
+        {
+            "name": "laravel/ui",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/ui.git",
+                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/15368c5328efb7ce94f35ca750acde9b496ab1b1",
+                "reference": "15368c5328efb7ce94f35ca750acde9b496ab1b1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^7.0",
+                "illuminate/filesystem": "^7.0",
+                "illuminate/support": "^7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Ui\\UiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Ui\\": "src/",
+                    "Illuminate\\Foundation\\Auth\\": "auth-backend/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel UI utilities and presets.",
+            "keywords": [
+                "laravel",
+                "ui"
+            ],
+            "time": "2020-04-29T15:06:45+00:00"
         },
         {
             "name": "mockery/mockery",

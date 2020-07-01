@@ -19,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','username', 'phone_number', 'role_id'
     ];
 
     /**
@@ -51,7 +51,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Purchase', 'user_id', 'id');
     }
 
+//    public function affiliate() {
+//        return $this->hasOne('App\Affiliate', 'user_id', 'id');
+//    }
+
     public function affiliate() {
         return $this->hasMany('App\Affiliate', 'user_id', 'id');
+    }
+
+    public function affiliateId() {
+        return $this->hasOne('App\Affiliate', 'user_id', 'id');
     }
 }

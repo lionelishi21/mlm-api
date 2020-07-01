@@ -13,10 +13,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/mail', function() {
+    return new \App\Mail\WelcomeMail();
+});
+
+Route::get('/testing', 'AffiliateController@testing');
+Route::get('/cash-bonus-email', function() {
+    $data = [
+        'name' => 'Lionel Francis',
+        'amount' => '$100.00',
+        'status' => 'Bronze',
+        'sales' => 12
+    ];
+
+    return new \App\Mail\CashBonus($data);
+});
+
+Route::get('/welcome-email', function() {
+
+    $data = [
+        'name' => 'Bob Donal',
+        'email' => 'email.com',
+        'book_link' =>'\book_link',
+        'message' => 'message'
+    ];
+
+    return new \App\Mail\WelcomeMail($data);
+});

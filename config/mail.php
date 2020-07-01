@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'sendmail'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => env('MAIL_HOST', 'smtp.zoho.com'),
+            'port' => env('MAIL_PORT', 465),
+            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
+            'username' => 'admin@majesticares.com',
+            'password' => 'KI#Ur!C*Z.ML',
             'timeout' => null,
         ],
 
@@ -71,6 +71,9 @@ return [
         ],
     ],
 
+    'username' => env('MAIL_USERNAME'),
+
+    'password' => env('MAIL_PASSWORD'),
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -83,8 +86,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'admin@majestcares.com'),
+        'name' => env('MAIL_FROM_NAME', 'MCC'),
     ],
 
     /*
