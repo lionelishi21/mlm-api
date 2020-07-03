@@ -24,6 +24,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 		  Route::get('/logout', 'AuthController@logout');
 		  Route::get('/user', 'AuthController@user');
+		  Route::get('/link', 'UserController@getLink');
 		  Route::get('/profile', 'UserController@profile');
 
 		  Route::group(['prefix' => 'affiliates'], function() {
@@ -58,6 +59,10 @@ Route::group(['prefix' => 'v1'], function(){
  //    // Only verified users may enter...
  //    //
 	// })->middleware('verified');
+
+    Route::get('/countries', 'CountryStatesCityController@countries');
+    Route::get('/states/{id}', 'CountryStatesCityController@states');
+    Route::get('/cities/{id}', 'CountryStatesCityController@cities');
 
 	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');

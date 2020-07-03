@@ -106,7 +106,16 @@ class Affiliates {
 
 		$chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		$res = "";
-		for ($i = 0; $i < 10; $i++) {
+		for ($i = 0; $i < 12; $i++) {
+
+		    if ($i == 4) {
+		        $res .= '-';
+            }
+
+            if ($i == 8) {
+                $res .= '-';
+            }
+
 		    $res .= $chars[mt_rand(0, strlen($chars)-1)];
 		}
 	    return $res;

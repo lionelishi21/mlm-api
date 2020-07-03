@@ -32,9 +32,11 @@ class AuthController extends Controller
 	 */
     public function register(Request $request) {
 
+
         $userdetails = $request->user;
         $payments = $request->payment;
         $hashed_random_password = Hash::make(Str::random(8));
+
 
         $user = New User;
         $user->first_name = $userdetails['first_name'];
@@ -46,17 +48,16 @@ class AuthController extends Controller
         $user->save();
 
 
-        if ( $user->save()) {
-            $details = new UserDetail;
-            $details->user_id = $user->id;
-            $details->address1 = $userdetails['address'];
-            $details->address2 = $userdetails['address2'];
-            $details->country = $userdetails['country'];
-            $details->postal_code  = $userdetails['zip'];
-            $details->state = $userdetails['region'];
-            $details->city = $userdetails['city'];
-            $details->save();
-        }
+        $details = new UserDetail;
+        $details->user_id = $user->id;
+        $details->address1 = $userdetails['address'];
+        $details->address2 = $userdetails['address1'];
+        $details->country = $userdetails['country'];
+        $details->postal_code  = $userdetails['zip'];
+        $details->state = $userdetails['region'];
+        $details->city = $userdetails['city'];
+        $details->save();
+
 
         /** @var Check for pending cash bonuses $cash */
         $cash = new CashBonuses;
@@ -72,7 +73,8 @@ class AuthController extends Controller
             $userToken = $users->generateTemporaryLink($user->id);
         }
 
-        $book_link = 'https://maejesticares.com/ebook?token=' .  $userToken;
+        $book_link = 'https://maejesticares.com/public/download/mcc_ebook?token=' .  $userToken;
+
         $data = [
           'name' => $userdetails['first_name'].' '.$userdetails['last_name'],
           'email' => $userdetails['email'],

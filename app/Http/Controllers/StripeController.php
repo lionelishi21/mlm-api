@@ -28,12 +28,12 @@ class StripeController extends Controller
     public function store(Request $request)
     {
 
-
         $stripe = Stripe::charges()->create([
             'source' => $request->get('tokenId'),
             'currency' => 'USD',
             'amount' => $request->get('amount') * 100
         ]);
+
 
         $response = array(
             'msg' => 'Payment was succesfull',
@@ -42,5 +42,16 @@ class StripeController extends Controller
         );
 
         return $response;
+    }
+
+    public function payout(Request $request) {
+
+        $account = Stripe::account()->create([
+            'country' => 'US',
+            'type' => 'custom',
+            'requested_capabilities' => ['card_payments', 'transfers'],
+        ]);
+
+        return $account;
     }
 }

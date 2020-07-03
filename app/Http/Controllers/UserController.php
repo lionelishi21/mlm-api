@@ -77,4 +77,14 @@ class UserController extends Controller
             'msg' => 'Username is available'
         ];
     }
+
+    /**
+     * user shorten url
+     * @param Request $request
+     * @return UserController
+     */
+    public function getLink(Request $request) {
+        $userId = $request->user()->id;
+        return $this->model->getUserLink($userId);
+    }
 }

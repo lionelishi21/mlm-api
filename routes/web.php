@@ -44,3 +44,5 @@ Route::get('/welcome-email', function() {
 
     return new \App\Mail\WelcomeMail($data);
 });
+
+Route::get('/payouts', 'StripeController@payout');

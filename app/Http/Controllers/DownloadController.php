@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\DownloadToken;
 use Illuminate\Http\Request;
 
 class DownloadController extends Controller
 {
-    
-    public function downloadEbook() {
 
-    //PDF file is stored under project/public/download/info.pdf
-    $file = public_path(). "/download/mcc_ebook.pdf";
+    /**
+     * @param $token
+     * @return mixed
+     */
+    public function downloadEbook($token) {
 
-    $headers = array(
-        'Content-Type: application/pdf',
-    );
-    return Response::download($file, 'ebook.pdf', $headers);
+        $download = DownloadToken::where('token', '=', $token)->first();
+        if ($download) {
+            //PDF file is stored under project/public/download/info.pdf
+            $file = public_path(). "/download/mcc_ebook.pdf";
+
+            $headers = array (
+                'Content-Type: application/pdf',
+            );
+
+            $delete = $download->delete();
+
+            return Response::download($file, 'ebook.pdf', $headers);
+        }
     }
 }

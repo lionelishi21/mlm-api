@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        Shivella\Bitly\BitlyServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -228,7 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Token'=>\Dirape\Token\Facades\Facade::class,
-        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Bitly' => Shivella\Bitly\Facade\Bitly::class,
     ],
 
 ];

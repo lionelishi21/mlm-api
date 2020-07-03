@@ -7,6 +7,7 @@ use Faker\Factory as Faker;
 use App\Affiliate;
 use Token;
 use App\DownloadToken;
+use Bitly;
 
 use App\Repositories\Purchases;
 
@@ -33,6 +34,25 @@ class Users {
 		}
 	}
 
+    /**
+     * get User link
+     * @param $user_id
+     * @return array
+     */
+    public function getUserLink( $user_id) {
+
+	    $user = Affiliate::where('user_id', '=', $user_id)->first();
+
+	    if ( $user ) {
+	        $link = 'https://majesticares.com?checkout='.$user->affiliate_id;
+	        $shortenLink = $url = Bitly::getUrl($link);
+
+	       return array('link' => $shortenLink);
+//	        return [
+//	            'link' => $shortenLink
+//            ];
+        }
+    }
 
 	public function demo() {
 
