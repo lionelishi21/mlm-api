@@ -15,14 +15,16 @@ class UserTableSeeder extends Seeder
     	DB::table('users')->truncate();
         DB::table('users')->insert([
         	'id' => 1,
-            'first_name' => 'Majestic Cares',
-            'last_name' => 'Community',
+            'first_name' => 'Majestic',
+            'last_name' => 'Cares',
+            'company' => 'Majestic Cares INTL LLC',
             'role_id' => 1,
             'email' => 'admin@majesticares.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('enter4now'),
         ]);
 
         DB::table('user_details')->truncate();
+
         DB::table('user_details')->insert([
         	'user_id' => 1,
         	'address1' => 'Majestice Care Community',
@@ -31,7 +33,7 @@ class UserTableSeeder extends Seeder
         DB::table('affiliates')->truncate();
         DB::table('affiliates')->insert([
         	'user_id' => 1,
-        	'affiliate_id' => 100100100,
+        	'affiliate_id' => '1000-MJKQ-1EF00',
         ]);
     }
 }

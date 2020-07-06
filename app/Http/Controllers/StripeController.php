@@ -40,8 +40,8 @@ class StripeController extends Controller
             'status' => true,
             'stripe' => $stripe
         );
-
         return $response;
+
     }
 
     public function payout(Request $request) {
@@ -53,5 +53,9 @@ class StripeController extends Controller
         ]);
 
         return $account;
+    }
+
+    public function checkout() {
+
     }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Affiliate;
 use App\Escrow;
 use App\Purchase;
+use App\UserDetail;
 use Carbon\Carbon;
 use App\User;
 use Illuminate\Support\Collection;
@@ -103,7 +104,6 @@ class Affiliates {
 	public function generateAffliateIDs() {
 		// $latestAf = Affiliate::orderBy('created_at', 'desc')->first();
 		// $now = Carbon::now()->toDateString();
-
 		$chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		$res = "";
 		for ($i = 0; $i < 12; $i++) {
@@ -151,11 +151,13 @@ class Affiliates {
 
     	foreach($affiliates as $affiliate) {
 
+    	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
     		$response[] = array(
     			'user_id' => $affiliate->user->id,
     			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
     			'email' => $affiliate->user->email,
     			'affiliate_id' => $affiliate->affiliate_id,
+    			'details' => $details,
     			'sales' => $this->getEbookSalesCount($affiliate->user->id),
     			'status' => $this->getAffiliateStatusName($affiliate->user->id)
     		);

@@ -43815,6 +43815,7 @@ class CitiesSeeder extends Seeder
             array('name' => "Lady Lake",'state_id' => 3930),
             array('name' => "Lake Alfred",'state_id' => 3930),
             array('name' => "Lake City",'state_id' => 3930),
+            array('name' => "Lake Wyle",'state_id' => 3930),
             array('name' => "Lake Lucerne",'state_id' => 3930),
             array('name' => "Lake Magdalene",'state_id' => 3930),
             array('name' => "Lake Mary",'state_id' => 3930),
