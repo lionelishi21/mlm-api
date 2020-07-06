@@ -25,8 +25,10 @@ class CountryStatesCityController extends Controller
         ];
     }
 
-    public function cities( $state_id) {
-        $cities = City::where('state_id', '=', $state_id)->get();
+    public function cities( $state_id ) {
+
+        $id = $state_id - 1;
+        $cities = City::where('state_id', '=', $id )->get();
         return [
             'cites' => $cities
         ];
