@@ -42,9 +42,8 @@ class Users {
     public function getUserLink( $user_id) {
 
 	    $user = Affiliate::where('user_id', '=', $user_id)->first();
-
 	    if ( $user ) {
-	        $link = 'https://majesticares.com?checkout='.$user->affiliate_id;
+	        $link = 'https://majesticares.com/checkout?referral_id='.$user->affiliate_id;
 	        $shortenLink = $url = Bitly::getUrl($link);
 
 	       return array('link' => $shortenLink);
