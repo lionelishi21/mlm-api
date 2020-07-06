@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Repositories\CashBonuses;
 use App\Mail\WelcomeMail;
 use Auth;
+use App\Repositories\StripeRepository;
 
 class AuthController extends Controller
 {
@@ -34,9 +35,9 @@ class AuthController extends Controller
 
 
         $userdetails = $request->user;
-        $payments = $request->payment;
-        $hashed_random_password = Hash::make(Str::random(8));
 
+        $stripe = new StripeRepository;
+        $payment = $stripe->store($request->charge['tokenId'], $request->charge['amount']);
 
         $user = New User;
         $user->first_name = $userdetails['first_name'];
@@ -93,6 +94,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
+            'charges' => $payment,
             'message' => 'Please confirm yourself by click on verify user button sent to you on your email.',
         ]);
     }

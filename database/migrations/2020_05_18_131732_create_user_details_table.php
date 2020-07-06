@@ -18,9 +18,9 @@ class CreateUserDetailsTable extends Migration
             $table->integer('user_id');
             $table->string('address1');
             $table->string('address2')->nullable();
-            $table->integer('city')->nullable();
-            $table->integer('country')->nullable();
-            $table->integer('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->timestamps();
         });

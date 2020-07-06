@@ -5,7 +5,7 @@ Hello {{$details['name']}}, and thank you for your purchase! Please download you
 MCC eBook <a href="majesticares.com">(download link here)</a>, and file it in a safe, accessible place.
 
 To access your Affiliate Back Office, go to <a href="https://majesticaring.com/download-ebook">majesticares.com</a>, and "Login" using
-your MCC ID (10022020) as your username, and the temporary password: "enter4now",
+your email and the temporary password: "enter4now",
 and be sure to change your password once you are logged in.
 
 On behalf of MCC, we wholeheartedly, Welcome You!
