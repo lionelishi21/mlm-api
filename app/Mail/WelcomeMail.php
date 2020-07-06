@@ -29,7 +29,7 @@ class WelcomeMail extends Mailable
     public function build()
     {
         return $this->markdown('emails.user-welcome')
-            ->subject('Testing only do not reply')
+            ->subject('Welcome to MCC')
             ->with('details', $this->details);
     }
 }

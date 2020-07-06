@@ -21,7 +21,7 @@ Route::get('/mail', function() {
     return new \App\Mail\WelcomeMail();
 });
 
-Route::get('/testing', 'AffiliateController@testing');
+//Route::get('/testing', 'AffiliateController@testing');
 Route::get('/cash-bonus-email', function() {
     $data = [
         'name' => 'Lionel Francis',
@@ -33,6 +33,7 @@ Route::get('/cash-bonus-email', function() {
     return new \App\Mail\CashBonus($data);
 });
 
+Route::get('/download-ebook', 'DownloadController@downloadEbook');
 Route::get('/welcome-email', function() {
 
     $data = [
@@ -45,4 +46,4 @@ Route::get('/welcome-email', function() {
     return new \App\Mail\WelcomeMail($data);
 });
 
-Route::get('/payouts', 'StripeController@payout');
+//Route::get('/payouts', 'StripeController@payout');
