@@ -6,6 +6,7 @@ use App\CashBonus;
 use Illuminate\Http\Request;
 use App\Repositories\Users;
 use App\Repositories\CashBonuses;
+use Hash;
 
 class UserController extends Controller
 {
@@ -86,5 +87,45 @@ class UserController extends Controller
     public function getLink(Request $request) {
         $userId = $request->user()->id;
         return $this->model->getUserLink($userId);
+    }
+
+
+    /**'this function change user password
+     * @param Request $request
+     * @return array
+     */
+    public function changePassword(Request $request) {
+
+        if (!(Hash::check($request->get('current_password'), $request->user()->password))) {
+            return [
+                'status' => false,
+                'message' => 'Your current password does not matches with the password you provided. Please try again.'
+            ];
+        }
+
+        if(strcmp($request->get('current_password'), $request->get('new_password')) == 0){
+            //Current password and new password are same
+            return [
+                'status' => false,
+                'message' => 'New Password cannot be same as your current password. Please choose a different password.'
+            ];
+        }
+
+        //Change Password
+        $user = $request->user();
+        $user->password = bcrypt($request->get('new_password'));
+        $user->save();
+
+        if ( $user->save()) {
+            return [
+                'status' => true,
+                'message' => 'Password changed successfully !'
+            ];
+        }
+
+        return [
+            'status' => false,
+            'message' => 'Something wen wrong'
+        ];
     }
 }

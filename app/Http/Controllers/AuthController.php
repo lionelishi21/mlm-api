@@ -74,13 +74,16 @@ class AuthController extends Controller
             $userToken = $users->generateTemporaryLink($user->id);
         }
 
-        $book_link = 'https://maejesticares.com/public/download/mcc_ebook?token=' .  $userToken;
+        $book_link = 'https://maejesticaring.com/download-ebook/'.$userToken;
+
 
         $data = [
           'name' => $userdetails['first_name'].' '.$userdetails['last_name'],
           'email' => $userdetails['email'],
           'book_link' => $book_link,
-          'message' => 'message'
+          'message' => 'message',
+            'token' => $userToken
+
         ];
 
         $email = $userdetails['email'];

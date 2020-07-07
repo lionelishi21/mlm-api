@@ -27,6 +27,8 @@ Route::group(['prefix' => 'v1'], function(){
 		  Route::get('/link', 'UserController@getLink');
 		  Route::get('/profile', 'UserController@profile');
 
+		  Route::post('/changePassword', 'UserController@changePassword');
+
 		  Route::group(['prefix' => 'affiliates'], function() {
 		   	 Route::get('/', 'AffiliateController@index');
 		   	 Route::get('/details/{id}', 'AffiliateController@details');

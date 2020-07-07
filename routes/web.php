@@ -33,7 +33,7 @@ Route::get('/cash-bonus-email', function() {
     return new \App\Mail\CashBonus($data);
 });
 
-Route::get('/download-ebook', 'DownloadController@downloadEbook');
+Route::get('/download-ebook/{id}', 'DownloadController@downloadEbook');
 Route::get('/welcome-email', function() {
 
     $data = [

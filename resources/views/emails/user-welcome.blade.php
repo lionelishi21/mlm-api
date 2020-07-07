@@ -2,9 +2,9 @@
 # Welcome
 
 Hello {{$details['name']}}, and thank you for your purchase! Please download your
-MCC eBook <a href="majesticares.com">(download link here)</a>, and file it in a safe, accessible place.
+MCC eBook <a href="{{$details['book_link']}}">(download link here)</a>, and file it in a safe, accessible place.
 
-To access your Affiliate Back Office, go to <a href="https://majesticaring.com/download-ebook">majesticares.com</a>, and "Login" using
+To access your Affiliate Back Office, go to <a href="https://majesticaring.com">majesticares.com</a>, and "Login" using
 your email and the temporary password: "enter4now",
 and be sure to change your password once you are logged in.
 
