@@ -22,6 +22,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::middleware('auth:api')->group(function () {
 
+	      Route::get('/download-ebook', 'DownloadController@download');
 		  Route::get('/logout', 'AuthController@logout');
 		  Route::get('/user', 'AuthController@user');
 		  Route::get('/link', 'UserController@getLink');

@@ -17,7 +17,8 @@ use App\Repositories\CashBonuses;
 use App\Mail\WelcomeMail;
 use Auth;
 use App\Repositories\StripeRepository;
-
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 class AuthController extends Controller
 {
 
