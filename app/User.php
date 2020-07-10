@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Emadadly\LaravelUuid\Uuids;
 use App\Notifications\VerifyApiEmail;
+use App\Notifications\PasswordResetNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -40,7 +41,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'created_at' => 'datetime:Y-m-d H:00',
     ];
 
-
+    public function sendPasswordResetNotification( $token ) {
+        $this->notify(new PasswordResetNotification($token));
+    }
 
     public function sendApiEmailVerificationNotification(){
        $this->notify(new VerifyApiEmail); // my notification

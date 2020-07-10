@@ -47,9 +47,6 @@ class Users {
 	        $shortenLink = $url = Bitly::getUrl($link);
 
 	       return array('link' => $shortenLink);
-//	        return [
-//	            'link' => $shortenLink
-//            ];
         }
     }
 

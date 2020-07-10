@@ -37,7 +37,6 @@ class Purchases {
 		$affil = Affiliate::where('affiliate_id', '=', $affil_id)->first();
 		$userId = $affil->user_id;
 
-
 		$purchase = new Purchase;
 		$purchase->user_id = $userId;
 		$purchase->purchase_by = $user_id;

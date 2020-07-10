@@ -38,7 +38,11 @@ class AuthController extends Controller
         $userdetails = $request->user;
 
         $stripe = new StripeRepository;
-        $payment = $stripe->store($request->charge['tokenId'], $request->charge['amount']);
+
+        if ($userdetails['payment_type'] == 'stripe') {
+            $payment = $stripe->store($request->charge['tokenId'], $request->charge['amount']);
+        }
+
 
         $user = New User;
         $user->first_name = $userdetails['first_name'];
@@ -105,6 +109,7 @@ class AuthController extends Controller
 
 
 
+
     /**
      * ****************************************
      * this function login use in via api
@@ -119,6 +124,7 @@ class AuthController extends Controller
         if ($user) {
 
             if (Hash::check($request->password, $user->password)) {
+
 
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 $response = ['token' => $token, 'user' => $user, 'message' => 'Login successfull'];

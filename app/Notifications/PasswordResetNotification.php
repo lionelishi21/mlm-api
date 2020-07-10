@@ -6,19 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
 
-class MailResetPasswordNotification extends Notification
+class PasswordResetNotification extends Notification
 {
     use Queueable;
+
+    public $token;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
-        //
+        $this->token = $token;
     }
 
     /**
@@ -40,10 +43,13 @@ class MailResetPasswordNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $urlToResetForm = "http://majesticares.com/reset-password?token=". $this->token;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Hey! Reset Password Notification')
+            ->line('You requested here you go!')
+            ->action('Reset Password', $urlToResetForm)
+            ->line('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.users.expire')])
+            ->line('If you did not request a password reset, no further action is required. Token: ==>'. $this->token);
     }
 
     /**

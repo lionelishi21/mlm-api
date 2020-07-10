@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function(){
 
+
+
 	Route::middleware('auth:api')->group(function () {
 
 	      Route::get('/download-ebook', 'DownloadController@download');
@@ -50,6 +52,9 @@ Route::group(['prefix' => 'v1'], function(){
           });
 	});
 
+    Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+
     Route::get('stripe', 'StripeController@index');
     Route::post('store', 'StripeController@store');
 
@@ -69,6 +74,8 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
+
+
 });
 
 

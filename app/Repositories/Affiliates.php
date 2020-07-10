@@ -152,6 +152,7 @@ class Affiliates {
     	foreach($affiliates as $affiliate) {
 
     	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
+
     		$response[] = array(
     			'user_id' => $affiliate->user->id,
     			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
@@ -234,10 +235,14 @@ class Affiliates {
 
 		$sales = $this->getEbookSales($id);
 
+		$users = new Users;
+		$bitly = $users->getUserLink($id);
+
 		$response = array(
 			'user' => $user,
 			'affiliate' => $affiliates,
 		    'sales' => $sales,
+            'bitly_link' => $bitly,
 		    'personal_sales' =>$this->getEbookSales($id, 'personal'),
             'group_sales_counts' => $this->getGroupSales($id)
 		);
@@ -448,9 +453,7 @@ class Affiliates {
     }
 
 
-    public function parentAndChild($parentId) {
-
-    }
+    public function parentAndChild($parentId) {}
 
     /**
      * ***********************************************************************
