@@ -13,8 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-Auth::routes();
 Route::get('/download-ebook/{id}', 'DownloadController@downloadEbook');
 
