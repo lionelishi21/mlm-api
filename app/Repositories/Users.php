@@ -1,6 +1,7 @@
 <?php
 namespace  App\Repositories;
 use App\Repositories\CashBonuses;
+use App\Repositories\Affiliates;
 use App\User;
 use App\UserDetail;
 use Faker\Factory as Faker;
@@ -123,6 +124,34 @@ class Users {
 	    return $response;
     }
 
+
+
+    public function userDashboard($userId) {
+        $response = array();
+
+
+        $response = array(
+            'all_members' => Affiliate::count(),
+            'countries' => $this->getAffliateCountries(),
+            'cashbouns' => $this->getUserCashbonus($userId)
+        );
+
+        return $response;
+    }
+
+
+
+    public function getAffliateCountries() {
+         return UserDetail::groupBy('country')->count();
+    }
+
+
+
+    public function getUserCashbonus($userId) {
+
+            $cashbonus = new CashBonuses;
+            return $cashbonus->getUserCashBonusesByUserId($userId);
+    }
     /**
      * check username availablity
      * @param $username

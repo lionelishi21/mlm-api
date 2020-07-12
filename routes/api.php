@@ -36,6 +36,7 @@ Route::group(['prefix' => 'v1'], function(){
 		   	 Route::get('/', 'AffiliateController@index');
 		   	 Route::get('/details/{id}', 'AffiliateController@details');
 		   	 Route::get('/group-sales', 'AffiliateController@getUserGroupSales');
+		   	 Route::get('/user-dashboard', 'UserController@userDashboard');
 		  });
 
 		  Route::get('/cashbonuses/{id}', 'UserController@cashbonuses');

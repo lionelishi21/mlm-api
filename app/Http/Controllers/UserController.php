@@ -41,6 +41,14 @@ class UserController extends Controller
         return $this->model->adminDashboard($userId);
     }
 
+
+
+    public function userDashboard( Request $request) {
+        $userId = $request->user()->id;
+        return $this->model->userDashboard($userId);
+    }
+
+    
     /**
      * **********************************************************************
      * this function get user cashbonus by user id

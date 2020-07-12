@@ -41,7 +41,7 @@ class CashBonuses {
     public function index($userId) {
 
         $cash = new CashBonus;
-        $cashbonus = $cash->with('user')->where('user_id', '=', 1)->get();
+        $cashbonus = $cash->with('user')->where('user_id', '=', $userId)->get();
         if ( isset ( $cashbonus )){
             return $cashbonus;
         }
