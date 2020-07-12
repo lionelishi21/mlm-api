@@ -140,17 +140,46 @@ class Users {
     }
 
 
-
+    /**
+     * [getAffliateCountries description]
+     * @return [type] [description]
+     */
     public function getAffliateCountries() {
          return UserDetail::groupBy('country')->count();
     }
 
 
-
+    /**
+     * [getUserCashbonus description]
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
     public function getUserCashbonus($userId) {
 
-            $cashbonus = new CashBonuses;
-            return $cashbonus->getUserCashBonusesByUserId($userId);
+            $affil = new Affiliates;
+            $sales = $affil->getGroupSales($userId);
+
+            if ($sales >= 12 && $sales < 36) {
+                return '$100.00';
+            }
+ 
+            if ($sales >= 36 && $sales < 108) {
+                 return '$600.00';
+            }
+
+            if ($sales >= 108 && $sales  < 324 ) {
+                return '$3,800.00';
+            }
+
+            if ($sales >= 324 && $sales < 972) {
+                return '$22,000.00';
+            }
+
+            if ($sales >= 972 ) {
+                  return '$412,0000.00';
+            }
+
+            return '$0.00';
     }
     /**
      * check username availablity
