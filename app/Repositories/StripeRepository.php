@@ -14,7 +14,7 @@ class StripeRepository
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($token, $amount, $customerName = 'customer', $email = 'emai')
+    public function store($token, $amount)
     {
 
 
