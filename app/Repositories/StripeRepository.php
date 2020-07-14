@@ -14,13 +14,21 @@ class StripeRepository
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($token, $amount)
+    public function store($token, $amount, $customerName = 'customer', $email = 'emai')
     {
 
+
+        // $customer = array(
+        //     'name' => $customerName,
+        //     'email' => $email
+        // );
+
+        
         $stripe = Stripe::charges()->create([
             'source' => $token,
             'currency' => 'USD',
-            'amount' => $amount
+            'amount' => $amount,
+            'customer' => $customer
         ]);
 
         $response = array(
@@ -33,8 +41,12 @@ class StripeRepository
 
     }
 
+    /**
+     * [payout description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function payout(Request $request) {
-
         $account = Stripe::account()->create([
             'country' => 'US',
             'type' => 'custom',

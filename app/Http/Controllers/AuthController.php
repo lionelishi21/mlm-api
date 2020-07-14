@@ -66,8 +66,8 @@ class AuthController extends Controller
 
 
         /** @var Check for pending cash bonuses $cash */
-        $cash = new CashBonuses;
-        $cash->checkForCashBonuses();
+        // $cash = new CashBonuses;
+        // $cash->checkForCashBonuses();
 
         if ( $user->save()) {
             $purchase = new Purchases;

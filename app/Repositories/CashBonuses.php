@@ -45,6 +45,7 @@ class CashBonuses {
         if ( isset ( $cashbonus )){
             return $cashbonus;
         }
+        
     }
 
     /**
@@ -105,6 +106,8 @@ class CashBonuses {
         }
     }
 
+
+
     public function triggerPaymentApi($amount, $userId) {
         return true;
     }
@@ -116,6 +119,7 @@ class CashBonuses {
      * ****************************************************************
      */
     public function checkForCashBonuses() {
+      
         $affiliates = Affiliate::orderBy('created_at', 'asc')->get();
         foreach ($affiliates as $affiliate) {
             $this->store($affiliate->user_id);
