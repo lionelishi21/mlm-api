@@ -19,6 +19,16 @@ class UserController extends Controller
         $this->cashbonuses = new CashBonuses;
 	}
 
+
+    /**
+     * this function get all user
+     * @return [type] [description]
+     */
+    public function index() {
+        return $this->model->getUsers();
+    }
+
+
 	/**
 	 * this function pull all user details and profile
 	 * @param  Request $request [description]

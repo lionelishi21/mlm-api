@@ -28,7 +28,7 @@ class StripeRepository
             'source' => $token,
             'currency' => 'USD',
             'amount' => $amount,
-            'customer' => $customer
+            // 'customer' => $customer
         ]);
 
         $response = array(

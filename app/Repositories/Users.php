@@ -22,6 +22,20 @@ class Users {
 		// $this->details = new UserDetail;
 	}
 
+
+    /**
+     * [getUser description]
+     * @return [type] [description]
+     */
+    public function getUsers() {
+
+        $users = User::with('affiliate')->get();
+        return [
+            'users' => $users
+        ];
+    }
+
+
 	/**
 	 * Get user details
 	 * @param  [type] $user_id [description]

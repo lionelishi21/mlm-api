@@ -39,8 +39,9 @@ class AuthController extends Controller
 
         $stripe = new StripeRepository;
 
+        $fullname =  $userdetails['first_name'].' '$userdetails['last_name'];
         if ($userdetails['payment_type'] == 'stripe') {
-            $payment = $stripe->store($request->charge['tokenId'], $request->charge['amount']);
+            $payment = $stripe->store($request->charge['tokenId'], $request->charge['amount'], $fullname, $userdetails['email'] );
         }
 
 

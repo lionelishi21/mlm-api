@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
 //    }
 
     public function affiliate() {
-        return $this->hasMany('App\Affiliate', 'user_id', 'id');
+        return $this->hasOne('App\Affiliate', 'user_id', 'id');
     }
 
     public function affiliateId() {

@@ -51,8 +51,11 @@ Route::group(['prefix' => 'v1'], function(){
             Route::get('/summary', 'CashBonusController@walletSummary');
             Route::post('/add-account', 'CashBonusController@storeAccountInformation');
           });
+
+          // Route::get('/users', 'UserController@index');
 	});
 
+	 Route::get('/users', 'UserController@index');
     Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
