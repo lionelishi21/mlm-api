@@ -41,9 +41,7 @@ class Affiliates {
 			}
 
 		} else {
-
 			$this->create($user_id, $child_group, $affiliate_id);
-
 		}
 
 

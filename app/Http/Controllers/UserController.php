@@ -6,7 +6,10 @@ use App\CashBonus;
 use Illuminate\Http\Request;
 use App\Repositories\Users;
 use App\Repositories\CashBonuses;
+use App\Affiliate;
 use Hash;
+use App\Repositories\Purchases;
+use App\User;
 
 class UserController extends Controller
 {
@@ -24,8 +27,20 @@ class UserController extends Controller
      * this function get all user
      * @return [type] [description]
      */
-    public function index() {
-        return $this->model->getUsers();
+    public function index(Request $request) {
+
+
+       $attributes = $request->all();
+        $users = User::with('affiliate');
+
+         if ($attributes['filter']) {
+            $users = $users->where('first_name', 'like', '%' . $attributes['filter'] . '%');
+         }
+       
+
+        if ( $users ) {
+            return $users->paginate($request->offset);
+        }
     }
 
 
@@ -146,4 +161,30 @@ class UserController extends Controller
             'message' => 'Something wen wrong'
         ];
     }
+
+
+    public function addAffiliate(Request $request) {
+
+      $attributes = $request->all();
+
+            // return User::find($attributes['parent_id']);
+        $affiliate = Affiliate::where('affiliate_id', '=', $attributes['parent_id'])->first();
+        if ($affiliate) {
+
+            $purchase = new Purchases;
+            $create  =  $purchase->store($affiliate['affiliate_id'], $attributes['affiliate_id']);
+
+            if ($create) {
+               return [
+                'message' => "Affiliate add successfully"
+               ];
+            }
+        }
+
+        return [
+            'message' => 'Affiliate fail to add'
+        ];
+
+    }
+
 }

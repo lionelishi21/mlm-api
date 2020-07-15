@@ -27,13 +27,15 @@ class Users {
      * [getUser description]
      * @return [type] [description]
      */
-    public function getUsers() {
+    // public function getUsers($attributes, $page = 1) {
 
-        $users = User::with('affiliate')->get();
-        return [
-            'users' => $users
-        ];
-    }
+    //     // $attributes = $attributes['filter'];
+    //     $users = User::with('affiliate')->paginate(100);
+      
+    //     if ( $users ) {
+    //         return $users 
+    //     }
+    // }
 
 
 	/**
