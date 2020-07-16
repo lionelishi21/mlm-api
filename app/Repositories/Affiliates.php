@@ -71,9 +71,9 @@ class Affiliates {
 
 
 		if ( $affiliate->save() ) {
-            $parent = Affiliate::find($affiliate_id);
-            $child = Affiliate::find($purchaser_id);
-            $parent->appendNode($child);
+	            // $parent =  Affiliate::find($affiliate_id);
+	            // $child  =  Affiliate::find($purchaser_id);
+	            // $parent->appendNode($child);
 			return true;
 		}
 		return false;

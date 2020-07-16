@@ -64,4 +64,8 @@ class AffiliateController extends Controller
         return $this->model->getGroupSales(1);
     }
 
+
+    public function removeAffiliate($affiliate_id) {
+
+    }
 }
