@@ -224,7 +224,7 @@ class Users {
             'affiliates' =>  $affiliate,
             'purchase' => $purchase,
             'parent' => $parent
-        )
+        );
 
         return $response;
     }
