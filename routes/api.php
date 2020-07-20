@@ -38,6 +38,7 @@ Route::group(['prefix' => 'v1'], function(){
 		   	 Route::get('/group-sales', 'AffiliateController@getUserGroupSales');
 		   	 Route::get('/user-dashboard', 'UserController@userDashboard');
 		   	 Route::post('/add-affiliate', 'UserController@addAffiliate');
+		   	 Route::get('/delete-affailiate/{id}', 'AffiliateController@removeAffiliate');
 		  });
 
 		  Route::get('/cashbonuses/{id}', 'UserController@cashbonuses');
@@ -54,6 +55,7 @@ Route::group(['prefix' => 'v1'], function(){
           });
 
           // Route::get('/users', 'UserController@index');
+          Route::post('change-password', 'UserCOntroller@changePassword');
 	});
 
 	 Route::get('/users', 'UserController@index');
@@ -79,6 +81,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
+
 
 
 });

@@ -8,6 +8,8 @@ To access your Affiliate Back Office, go to <a href="https://majesticares.com/lo
 your email and the temporary password: "enter4now",
 and be sure to change your password once you are logged in.
 
+We like to keep all of our affiliates updated with MCC news, so if you wish to be on MCC's email list, please contact us at admin@majesticares.com
+
 On behalf of MCC, we wholeheartedly, Welcome You!
 
 Thanks,

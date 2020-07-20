@@ -71,9 +71,9 @@ class Affiliates {
 
 
 		if ( $affiliate->save() ) {
-	            // $parent =  Affiliate::find($affiliate_id);
-	            // $child  =  Affiliate::find($purchaser_id);
-	            // $parent->appendNode($child);
+            // $parent = Affiliate::find($affiliate_id);
+            // $child = Affiliate::find($purchaser_id);
+            // $parent->appendNode($child);
 			return true;
 		}
 		return false;
@@ -144,8 +144,9 @@ class Affiliates {
 	 * @return [type] [description]
 	 */
 	public function getAllAffliates() {
+
 		$response = array();
-    	$affiliates = Affiliate::orderBy('created_at', 'desc')->get();
+    	$affiliates = Affiliate::orderBy('created_at', 'desc')->with('children')->get();
 
     	foreach($affiliates as $affiliate) {
 
@@ -154,7 +155,9 @@ class Affiliates {
     		$response[] = array(
     			'user_id' => $affiliate->user->id,
     			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
+    			'children' => $affiliate['children'],
     			'email' => $affiliate->user->email,
+    			'parent' => $affiliate->parent_id,
     			'affiliate_id' => $affiliate->affiliate_id,
     			'details' => $details,
     			'sales' => $this->getEbookSalesCount($affiliate->user->id),
@@ -198,7 +201,7 @@ class Affiliates {
 				'seller_id' => $sale->user_id,
 				'assigned_sale_id' => $sale->sales_id,
 				'assigned_sale_name' => $sale->seller->first_name.' '.$sale->seller->last_name,
-				'date' => Carbon::parse($sale->created_at)->toFormattedDateString()
+				'date' => Carbon::parse($sale->created_at)->toDayDateTimeString()
 			);
 		}
 
@@ -448,6 +451,15 @@ class Affiliates {
 
     public function getParentAffiliates($parentId) {
         return Affiliate::where('parent_id', '=', $parentId)->get()->toArray();
+    }	
+
+
+    /**
+     * [removeAffiliate description]
+     * @param  [type] $affiliateId [description]
+     * @return [type]              [description]
+     */
+    public function removeAffiliate($affiliateId) {
     }
 
 

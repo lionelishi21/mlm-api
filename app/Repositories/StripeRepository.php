@@ -14,22 +14,26 @@ class StripeRepository
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($token, $amount)
+    public function store($token, $amount, $customerName, $email)
     {
 
 
-        // $customer = array(
-        //     'name' => $customerName,
-        //     'email' => $email
-        // );
+        $stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
+      
+        // Create a Customer:
+        $customer = $stripe->customers->create([
+            'name' => $customerName,
+            'source' =>  $token,
+            'email' => $email,
+        ]);
 
         
-        $stripe = Stripe::charges()->create([
-            'source' => $token,
+        $stripe =  $stripe->charges->create([
             'currency' => 'USD',
-            'amount' => $amount,
-            // 'customer' => $customer
+            'amount' => 3495,
+            'customer' => $customer->id
         ]);
+
 
         $response = array(
             'msg' => 'Payment was succesfull',

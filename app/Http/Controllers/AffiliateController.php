@@ -53,6 +53,10 @@ class AffiliateController extends Controller
         return response()->json(['response' => $response ]);
     }
 
+    /**
+     * [setCashBonuses description]
+     * @param Request $request [description]
+     */
     public function setCashBonuses(Request $request) {
 //        $userId = $request->user()->id;
         $cash = new CashBonuses();
@@ -64,8 +68,21 @@ class AffiliateController extends Controller
         return $this->model->getGroupSales(1);
     }
 
-
+    /**
+     * [removeAffiliate description]
+     * @param  [type] $affiliate_id [description]
+     * @return [type]               [description]
+     */
     public function removeAffiliate($affiliate_id) {
 
+        $affiliate = Affiliate::where('affiliate_id', '=',$affiliate_id);
+        if ($affiliate->delete()) {
+
+            Affiliate::fixTree();
+
+            return [
+                'mesagge' => 'delete successfully'
+            ];
+        }
     }
 }
