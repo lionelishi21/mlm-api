@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Affiliate;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/download-ebook/{id}', 'DownloadController@downloadEbook');
 
+Route::get('/test', function() {
+	return $affiliates = Affiliate::orderBy('id', 'desc')->get();
+});
