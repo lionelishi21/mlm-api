@@ -46,15 +46,15 @@ class AuthController extends Controller
         
 
      
-        if ($validator->fails()){
-          return response()->json([
-                "error" => 'validation_error',
-                "message" => $validator->errors(),
-            ], 422);
-        }
+        // if ($validator->fails()){
+        //   return response()->json([
+        //         "error" => 'validation_error',
+        //         "message" => $validator->errors(),
+        //     ], 422);
+        // }
 
 
-         $fullname =  $userdetails['first_name'].' '.$userdetails['last_name'];
+        $fullname =  $userdetails['first_name'].' '.$userdetails['last_name'];
         if ($userdetails['payment_type'] == 'stripe') {
             
              $payment = $stripe->store($request->charge['tokenId'], 
@@ -62,67 +62,67 @@ class AuthController extends Controller
              );
         }
 
-        // $user = New User;
-        // $user->first_name = $userdetails['first_name'];
-        // $user->last_name = $userdetails['last_name'];
-        // $user->username = $userdetails['username'];
-        // $user->phone_number = $userdetails['phone_number'];
-        // $user->email = $userdetails['email'];
-        // $user->password = bcrypt('enter4now');
-        // $user->save();
+        $user = New User;
+        $user->first_name = $userdetails['first_name'];
+        $user->last_name = $userdetails['last_name'];
+        $user->username = $userdetails['username'];
+        $user->phone_number = $userdetails['phone_number'];
+        $user->email = $userdetails['email'];
+        $user->password = bcrypt('enter4now');
+        $user->save();
 
 
-        // $details = new UserDetail;
-        // $details->user_id = $user->id;
-        // $details->address1 = $userdetails['address'];
-        // $details->address2 = $userdetails['address1'];
-        // $details->country = $userdetails['country'];
-        // $details->postal_code  = $userdetails['zip'];
-        // $details->state = $userdetails['region'];
-        // $details->city = $userdetails['city'];
-        // $details->save();
+        $details = new UserDetail;
+        $details->user_id = $user->id;
+        $details->address1 = $userdetails['address'];
+        $details->address2 = $userdetails['address1'];
+        $details->country = $userdetails['country'];
+        $details->postal_code  = $userdetails['zip'];
+        $details->state = $userdetails['region'];
+        $details->city = $userdetails['city'];
+        $details->save();
 
 
         /** @var Check for pending cash bonuses $cash */
         // $cash = new CashBonuses;
         // $cash->checkForCashBonuses();
 
-        // if ( $user->save()) {
-        //     $purchase = new Purchases;
-        //     $purchase->store($userdetails['referral_id'], $user->id);
-        // }
+        if ( $user->save()) {
+            $purchase = new Purchases;
+            $purchase->store($userdetails['referral_id'], $user->id);
+        }
 
-        // if ($user->save()) {
-        //     $users = new Users;
-        //     $userToken = $users->generateTemporaryLink($user->id);
-        // }
+        if ($user->save()) {
+            $users = new Users;
+            $userToken = $users->generateTemporaryLink($user->id);
+        }
 
-        // $book_link = 'https://maejesticaring.com/download-ebook/'.$userToken;
+        $book_link = 'https://maejesticaring.com/download-ebook/'.$userToken;
 
 
-        // $data = [
-        //   'name' => $userdetails['first_name'].' '.$userdetails['last_name'],
-        //   'email' => $userdetails['email'],
-        //   'book_link' => $book_link,
-        //   'message' => 'message',
-        //     'token' => $userToken
+        $data = [
+          'name' => $userdetails['first_name'].' '.$userdetails['last_name'],
+          'email' => $userdetails['email'],
+          'book_link' => $book_link,
+          'message' => 'message',
+            'token' => $userToken
 
-        // ];
+        ];
 
-        // $email = $userdetails['email'];
+        $email = $userdetails['email'];
 
-        // Mail::to($email)->send(new WelcomeMail($data));
+        Mail::to($email)->send(new WelcomeMail($data));
 
         /**
          * Send confirmation email user went signing up
          * @var array
          */
 
-        // return response()->json([
-        //     'success' => true,
-        //     'charges' => $payment,
-        //     'message' => 'Please confirm yourself by click on verify user button sent to you on your email.',
-        // ]);
+        return response()->json([
+            'success' => true,
+            'charges' => $payment,
+            'message' => 'Please confirm yourself by click on verify user button sent to you on your email.',
+        ]);
     }
 
 
