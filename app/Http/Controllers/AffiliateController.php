@@ -86,11 +86,5 @@ class AffiliateController extends Controller
         }
     }
 
-    public function addAffiliate(Request $equest) {
-
-        $affiliate_id = $request->affiliate_id;
-        $sales = $request['sales_id'],
-        $user = $request->child;
-        
-    }
+    public function addAffiliate(Request $equest) {}
 }
