@@ -18,7 +18,7 @@ class StripeRepository
     {
 
 
-        $stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
+        $stripe = new \Stripe\StripeClient('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');
       
         // Create a Customer:
         $customer = $stripe->customers->create([
