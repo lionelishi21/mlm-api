@@ -70,11 +70,12 @@ class Purchases {
 	public function placeSalesPurchase($userId) {
 
         // look for the closets affiliates id and assign the sales the him/she
-        $affiliates = Affiliate::orderBy('id', 'asc')->get();
+        $affiliates = Affiliate::orderBy('user_id', 'asc')->get();
         foreach( $affiliates as $affiliate) {
 
             $purchaseCount = $this->checkSalesPurcahse($affiliate->user_id);
             if ($purchaseCount < 3) {
+
                 return $affiliate->user_id;
                 break;
             }

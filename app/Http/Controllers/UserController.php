@@ -187,4 +187,21 @@ class UserController extends Controller
 
     }
 
+    /**
+     * [details description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function details($id) {
+
+        $details = $this->model->userDetails($id);
+
+        if ( $details ) {
+            return $details;
+        }
+    }
+
+
+    
+
 }

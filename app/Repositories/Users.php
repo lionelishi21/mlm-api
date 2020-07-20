@@ -211,6 +211,24 @@ class Users {
         return false;
     }
 
+
+    public function userDetails($userId) {
+
+        $response = array();
+
+        $affiliate = Affiliate::where('user_id', '=', $userId)->first();
+        $purchase  = Purchase::where('user_id', '=', $userId)->first();
+        $parent    = Affiliate::where('parent_id', '=', $userId)->get()
+
+        $response = array(
+            'affiliates' =>  $affiliate,
+            'purchase' => $purchase,
+            'parent' => $parent
+        )
+
+        return $response;
+    }
+
 }
 
 

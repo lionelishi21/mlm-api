@@ -54,6 +54,11 @@ Route::group(['prefix' => 'v1'], function(){
             Route::post('/add-account', 'CashBonusController@storeAccountInformation');
           });
 
+          Route::group(['prefix' => 'users'], function() {
+
+          	 Route::get('/details/{id}', 'UserController@details');
+          });
+
           // Route::get('/users', 'UserController@index');
           Route::post('change-password', 'UserCOntroller@changePassword');
 	});

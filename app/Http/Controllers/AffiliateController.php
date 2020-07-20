@@ -78,6 +78,8 @@ class AffiliateController extends Controller
         $affiliate = Affiliate::where('affiliate_id', '=',$affiliate_id);
         if ($affiliate->delete()) {
 
+            $purchaser = Purchases::where('user_id', '=', $affiliate->user_id)->first()->delete();
+         
             Affiliate::fixTree();
 
             return [
