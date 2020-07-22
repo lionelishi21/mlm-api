@@ -3,12 +3,17 @@
 use Illuminate\Database\Seeder;
 use App\UserDetail;
 
+
 class UserDetailsSeeder extends Seeder
 {
     /**
+     * ************************************************
      * Run the database seeds.
-     *
+     * ************************************************
+     * 
      * @return void
+     *
+     * ************************************************
      */
     public function run() {
 

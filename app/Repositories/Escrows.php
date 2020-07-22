@@ -39,6 +39,13 @@ class Escrows {
 	}
 
 
+
+	public function checkAffiliatesEscrow() {
+
+		$affiliates = Affiliate::get();
+	}
+
+
 	/**
 	 * *************************************************************
 	 * This function check if the escrow exiest
