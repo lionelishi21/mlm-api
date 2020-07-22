@@ -60,7 +60,7 @@ Route::group(['prefix' => 'v1'], function(){
           });
 
           // Route::get('/users', 'UserController@index');
-          Route::post('change-password', 'UserCOntroller@changePassword');
+          Route::post('change-password', 'UserController@changePassword');
 	});
 
 	 Route::get('/users', 'UserController@index');
