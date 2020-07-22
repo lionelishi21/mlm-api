@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Affiliate;
 
+
 class AffiliateSeeder extends Seeder
 {
     /**
