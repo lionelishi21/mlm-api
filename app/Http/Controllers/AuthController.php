@@ -53,14 +53,20 @@ class AuthController extends Controller
         //     ], 422);
         // }
 
+         if ($userdetails['code'] == 'Majestic365!') {
 
-        $fullname =  $userdetails['first_name'].' '.$userdetails['last_name'];
-        if ($userdetails['payment_type'] == 'stripe') {
-            
-             $payment = $stripe->store($request->charge['tokenId'], 
-                $request->charge['amount'], $fullname, $userdetails['email'] 
-             );
-        }
+         } else {
+
+             $fullname =  $userdetails['first_name'].' '.$userdetails['last_name'];
+            if ($userdetails['payment_type'] == 'stripe') {
+                
+                 $payment = $stripe->store($request->charge['tokenId'], 
+                    $request->charge['amount'], $fullname, $userdetails['email'] 
+                 );
+            }
+         }
+
+       
 
         $user = New User;
         $user->first_name = $userdetails['first_name'];
@@ -120,7 +126,6 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'charges' => $payment,
             'message' => 'Please confirm yourself by click on verify user button sent to you on your email.',
         ]);
     }
