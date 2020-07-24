@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Escrow;
 use App\Repositories\Affiliates;
+use App\Affiliate;
 
 class Escrows {
 
@@ -20,8 +21,8 @@ class Escrows {
 	 * [__construct description]
 	 * @param Escrow $escrow [description]
 	 */
-	public function __construct(Escrow $escrow) {
-		$this->escrow = $escrow;
+	public function __construct() {
+		$this->escrow = new Escrow;
 		$this->affiliate = New Affiliates;
 
 	}
@@ -29,31 +30,18 @@ class Escrows {
 
 	public function getEscrowByUserId( $userID) {
 
-		$affiliateId = $this->affiliate->where('user_id', '=', $userID)->first()->id;
-		$escs = $this->escrow->where('userId', '=', $affiliateId)
+		$this->checkAffiliatesEscrow();
+
+		$affiliate = new Affiliate;
+		$affiliateId = $affiliate->where('user_id', '=', $userID)->first()->id;
+		$escs = $this->escrow->where('user_id', '=', $affiliateId)->get();
 
 		if ( $escs) {
 			return [
 				'escrow' => $escs
-			]
+			];
 		}
 	}
-
-
-	public function patch() {
-
-		//first thing get all affiliates
-		
-
-		//secound check for escrow
-		
-
-		//check for escrow
-		
-
-		// create escrow
-	}
-
 
 
 	public function checkAffiliatesEscrow() {
@@ -61,7 +49,7 @@ class Escrows {
 		$affiliates = Affiliate::get();
 
 		foreach( $affiliates as $affiliate) {
-			$groupSales = $this->affiliates->getGroupSales($affiliate->user_id);
+			$groupSales = $this->affiliate->getGroupSales($affiliate->user_id);
 			$this->createEscrow($groupSales, $affiliate->user_id);
 		}
 	}
@@ -75,7 +63,7 @@ class Escrows {
 	 */
 	public function checkIfEscrowExist($affliateId, $status) {
 
-		$escrow = $this->escrow->where('tier', '=', $status)->where('user_id', '=', $affiliatesId)->count();
+		$escrow = $this->escrow->where('tier', '=', $status)->where('user_id', '=', $affliateId)->count();
 		if ( $escrow > 0 ) {
 			return true;
 		}
@@ -101,7 +89,7 @@ class Escrows {
 			 	 	'escrow' => 214.55,
 			 	 	'sales' => 12,
 			 	 	'user_id' => $affiliateId,
-			 	 	'cashbonus' => 100.00
+			 	 	'cash_bonus' => 100.00
 			 	 );
 
 			 	 $this->escrow->create($attributes);
@@ -115,11 +103,11 @@ class Escrows {
 
 		 	  	 $attributes = array ('tier' => 'Silver', 
 			 	 	'pf' => 214.55, 
-			 	 	'amount_recieved' => 1,930.95, 
-			 	 	'escrow' => 1,330.95,
+			 	 	'amount_recieved' => 1930.95, 
+			 	 	'escrow' => 1330.95,
 			 	 	'sales' => 36,
 			 	 	'user_id' => $affiliateId,
-			 	 	'cashbonus' => 600.00
+			 	 	'cash_bonus' => 600.00
 			 	 );
 
 			 	 $this->escrow->create($attributes);
@@ -131,12 +119,12 @@ class Escrows {
 		 	 if (!$this->checkIfEscrowExist($affiliateId, 'Gold')) {
 
 		 	 	 $attributes = array ('tier' => 'Gold', 
-			 	 	'pf' => 1,330.95 , 
-			 	 	'amount_recieved' => 11,978.55, 
-			 	 	'escrow' => 8,178.55 ,
+			 	 	'pf' => 1330.95 , 
+			 	 	'amount_recieved' => 11978.55, 
+			 	 	'escrow' => 8178.55 ,
 			 	 	'sales' => 108,
 			 	 	'user_id' => $affiliateId,
-			 	 	'cashbonus' => 3,800
+			 	 	'cash_bonus' => 3800
 			 	 );
 
 			 	 $this->escrow->create($attributes);
@@ -149,13 +137,14 @@ class Escrows {
 		 if ( $groupSales >= $this->ruby) {
 
 		  	if (!$this->checkIfEscrowExist($affiliateId, 'Ruby')) {
-		  		 $attributes = array ('tier' => 'Ruby', 
-			 	 	'pf' =>  8,178.55 , 
-			 	 	'amount_recieved' => 73,606.95, 
-			 	 	'escrow' => 51,606.95 ,
+		  		 $attributes = array (
+		  		 	'tier' => 'Ruby', 
+			 	 	'pf' =>  8178.55 , 
+			 	 	'amount_recieved' => 73606.95, 
+			 	 	'escrow' => 51606.95,
 			 	 	'sales' => 324,
 			 	 	'user_id' => $affiliateId,
-			 	 	'cashbonus' => 22,000.00
+			 	 	'cash_bonus' => 22000.00
 			 	 );
 		  		  $this->escrow->create($attributes);
 		  	}
@@ -168,22 +157,22 @@ class Escrows {
 		  		if (!$this->checkIfEscrowExist($affiliateId, 'Diamond')) {
 
 		  			 $attributes = array ('tier' => 'Diamond', 
-				 	 	'pf' =>  51,606.95, 
-				 	 	'amount_recieved' => 464,462.55, 
-				 	 	'escrow' => 51,606.95 ,
+				 	 	'pf' =>  51606.95, 
+				 	 	'amount_recieved' => 464462.55, 
+				 	 	'escrow' => 51606.95,
 				 	 	'sales' => 972,
 				 	 	'user_id' => $affiliateId,
-				 	 	'cashbonus' => 412,855.60 
+				 	 	'cash_bonus' => 412855.60 
 				 	 );
 				 	  $this->escrow->create($attributes);
 		  		}
 			 	
 		 }
 
-		 if ($groupSales > $this->diamond ) {
-		 	 $sales = $escrow->where('user_id', '=', $affiliateID)->where('teir', '=', 'Diamond')->orderBy('id', 'desc')->first();
+		 // if ($groupSales > $this->diamond ) {
+		 // 	 $sales = $escrow->where('user_id', '=', $affiliateID)->where('teir', '=', 'Diamond')->orderBy('id', 'desc')->first();
 
-		 }
+		 // }
 
 	}
 }

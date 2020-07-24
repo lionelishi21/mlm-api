@@ -11,7 +11,9 @@ class EscrowController extends Controller
 
 	protected $escrows;
 
-	public function __construct(Escrows $escrows) {
+	public function __construct() {
+
+        $escrows = new Escrows;
 		$this->escrows = $escrows;
 	}
     

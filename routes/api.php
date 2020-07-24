@@ -59,11 +59,15 @@ Route::group(['prefix' => 'v1'], function(){
           	 Route::get('/details/{id}', 'UserController@details');
           });
 
+          Route::group(['prefix' => 'escrow'], function() {
+          	  Route::get('/', 'EscrowController@getEscrows');
+          });
+
           // Route::get('/users', 'UserController@index');
           Route::post('change-password', 'UserController@changePassword');
 	});
 
-	 Route::get('/users', 'UserController@index');
+	Route::get('/users', 'UserController@index');
     Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
