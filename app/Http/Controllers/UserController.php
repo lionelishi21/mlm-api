@@ -204,5 +204,14 @@ class UserController extends Controller
     }
 
 
+    /**
+     * [resetPassword description]
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
+    public function resetUserPassword($userId ) {
+        return $this->model->resetUserPasswordByUserId($userId);
+    }
+
 
 }

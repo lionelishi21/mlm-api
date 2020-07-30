@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f65a15b520e2f1c53f14befa428822b",
+    "content-hash": "a1d690556f2799d441bad26582bc6c6e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -820,6 +820,88 @@
                 }
             ],
             "time": "2020-04-28T08:47:37+00:00"
+        },
+        {
+            "name": "getresponse/sdk-php",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GetResponse/sdk-php.git",
+                "reference": "752529f6e310513c711d1c9a92d3c5c4c059dcad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GetResponse/sdk-php/zipball/752529f6e310513c711d1c9a92d3c5c4c059dcad",
+                "reference": "752529f6e310513c711d1c9a92d3c5c4c059dcad",
+                "shasum": ""
+            },
+            "require": {
+                "getresponse/sdk-php-client": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Getresponse\\Sdk\\": "src/",
+                    "Getresponse\\Sdk\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "GetResponse DevTeam"
+                }
+            ],
+            "description": "SDK for all public GetResponse products",
+            "time": "2020-03-05T14:12:03+00:00"
+        },
+        {
+            "name": "getresponse/sdk-php-client",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GetResponse/sdk-php-client.git",
+                "reference": "3d9a7b5b27c01f3ca46c4fdf0b39e25cb1347724"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GetResponse/sdk-php-client/zipball/3d9a7b5b27c01f3ca46c4fdf0b39e25cb1347724",
+                "reference": "3d9a7b5b27c01f3ca46c4fdf0b39e25cb1347724",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^1.4",
+                "php": ">=5.5",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "humbug/humbug": "~1.0@dev",
+                "php-mock/php-mock": "^1.0 || ^2.0",
+                "phpunit/phpunit": "^4.8 || ^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Getresponse\\Sdk\\Client\\": "src/",
+                    "Getresponse\\Sdk\\Client\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "GetResponse DevTeam"
+                }
+            ],
+            "description": "GetResponse SDK client for all public GetResponse product",
+            "time": "2019-11-14T13:04:06+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3095,63 +3177,6 @@
                 "url"
             ],
             "time": "2020-03-05T21:29:15+00:00"
-        },
-        {
-            "name": "stripe/stripe-php",
-            "version": "v7.39.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "350e4f4db026bd0627925885b30c09d054777b68"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/350e4f4db026bd0627925885b30c09d054777b68",
-                "reference": "350e4f4db026bd0627925885b30c09d054777b68",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "2.16.1",
-                "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "^5.7",
-                "squizlabs/php_codesniffer": "^3.3",
-                "symfony/process": "~3.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Stripe\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stripe and contributors",
-                    "homepage": "https://github.com/stripe/stripe-php/contributors"
-                }
-            ],
-            "description": "Stripe PHP Library",
-            "homepage": "https://stripe.com/",
-            "keywords": [
-                "api",
-                "payment processing",
-                "stripe"
-            ],
-            "time": "2020-06-25T23:56:19+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7095,6 +7120,63 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2016-10-03T07:35:21+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v7.39.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "350e4f4db026bd0627925885b30c09d054777b68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/350e4f4db026bd0627925885b30c09d054777b68",
+                "reference": "350e4f4db026bd0627925885b30c09d054777b68",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.16.1",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "^3.3",
+                "symfony/process": "~3.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "time": "2020-06-25T23:56:19+00:00"
         },
         {
             "name": "theseer/tokenizer",

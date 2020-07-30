@@ -56,6 +56,7 @@ Route::group(['prefix' => 'v1'], function(){
 
           Route::group(['prefix' => 'users'], function() {
 
+          	 Route::get('/reset-password/{id}', 'UserController@resetUserPassword');
           	 Route::get('/details/{id}', 'UserController@details');
           });
 
@@ -65,6 +66,12 @@ Route::group(['prefix' => 'v1'], function(){
 
           // Route::get('/users', 'UserController@index');
           Route::post('change-password', 'UserController@changePassword');
+
+          Route::group(['prefix' => 'customers'], function() {
+          		Route::get('/account', 'CustomerController@store');
+          		Route::post('/transfer', 'CustomerController@transfer');
+              Route::get('/', 'CustomerController@index');
+          });
 	});
 
 	Route::get('/users', 'UserController@index');

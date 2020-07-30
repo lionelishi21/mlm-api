@@ -306,7 +306,7 @@ class Affiliates {
                 $count += count($affiliate );
         }
 
-	    return $count + $firstCounts;
+	    return $count; 
     }
 
     /**
@@ -449,6 +449,11 @@ class Affiliates {
     }
 
 
+    /**
+     * [getParentAffiliates description]
+     * @param  [type] $parentId [description]
+     * @return [type]           [description]
+     */
     public function getParentAffiliates($parentId) {
         return Affiliate::where('parent_id', '=', $parentId)->get()->toArray();
     }	
@@ -462,7 +467,11 @@ class Affiliates {
     public function removeAffiliate($affiliateId) {
     }
 
-
+    /**
+     * [parentAndChild description]
+     * @param  [type] $parentId [description]
+     * @return [type]           [description]
+     */
     public function parentAndChild($parentId) {}
 
     /**

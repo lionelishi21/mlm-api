@@ -108,6 +108,11 @@ class Users {
         return $affiliates->affiliate_id;
     }
 
+    /**
+     * [generateTemporaryLink description]
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
     public function generateTemporaryLink($userId)  {
 
         $download = new DownloadToken;
@@ -120,6 +125,11 @@ class Users {
         }
     }
 
+    /**
+     * [adminDashboard description]
+     * @param  [type] $roleId [description]
+     * @return [type]         [description]
+     */
     public function adminDashboard($roleId) {
 
 	    $response = array();
@@ -141,7 +151,11 @@ class Users {
     }
 
 
-
+    /**
+     * [userDashboard description]
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
     public function userDashboard($userId) {
         $response = array();
 
@@ -211,7 +225,11 @@ class Users {
         return false;
     }
 
-
+    /**
+     * [userDetails description]
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
     public function userDetails($userId) {
 
         $response = array();
@@ -227,6 +245,24 @@ class Users {
         );
 
         return $response;
+    }
+
+    /**
+     * [resetUserPasswordByUserId description]
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
+    public function resetUserPasswordByUserId($userId) {
+
+        $user = User::find($userId);
+        $user->password = bcrypt('enter4now');
+        $user->save();
+
+        if ($user->save()) {
+            return [
+                'message' => 'User Password succesfully update'
+            ];
+        }   
     }
 
 }

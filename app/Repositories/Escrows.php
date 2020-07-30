@@ -11,11 +11,11 @@ class Escrows {
 	protected $escrow; 
 	protected $affiliate;
 
-	protected $bronze = 12;
-    protected $silver = 36;
-    protected $gold = 108;
-    protected $ruby = 324;
-    protected $diamond = 972;
+	protected $bronze = 36;
+    protected $silver = 108;
+    protected $gold = 324;
+    protected $ruby = 972;
+    protected $diamond = 11664;
 
 	/**
 	 * [__construct description]
@@ -34,7 +34,7 @@ class Escrows {
 
 		$affiliate = new Affiliate;
 		$affiliateId = $affiliate->where('user_id', '=', $userID)->first()->id;
-		$escs = $this->escrow->where('user_id', '=', $affiliateId)->get();
+		$escs = $this->escrow->where('user_id', '=', $affiliateId)->where('status', '=', 'Ready')->get();
 
 		if ( $escs) {
 			return [
