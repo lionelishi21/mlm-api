@@ -11,11 +11,11 @@ class Escrows {
 	protected $escrow; 
 	protected $affiliate;
 
-	protected $bronze = 36;
-    protected $silver = 108;
-    protected $gold = 324;
-    protected $ruby = 972;
-    protected $diamond = 11664;
+	protected $bronze = 12;
+    protected $silver = 36;
+    protected $gold = 108;
+    protected $ruby = 324;
+    protected $diamond = 972;
 
 	/**
 	 * [__construct description]
