@@ -3,6 +3,7 @@ namespace  App\Repositories;
 
 use App\Customer;
 use App\User;
+use App\UserDetail;
 
 class Accounts {
 
@@ -69,6 +70,9 @@ class Accounts {
 	public function createCustomerAccount($userId) {
 
 		 $user = User::find($userId);
+
+		 $country = UserDetail::where('user_id', '=', $user->id)->first()->country;
+
          $customer = Customer::where('user_id', '=', $userId)->first();
         
          if ($customer->account_id) {
@@ -79,8 +83,8 @@ class Accounts {
 
 	          $stripe = new \Stripe\StripeClient('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');
 			  $account = $stripe->accounts->create([
-				  'type' => 'custom',
-				  'country' => 'US',
+				  'type' => 'express',
+				  'country' => $country,
 				  'email' => $user->email,
 				  'type' => 'custom',
 				  'requested_capabilities' => [
