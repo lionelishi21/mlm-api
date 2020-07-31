@@ -41,7 +41,7 @@ class Accounts {
 	public function storeCustomer($userId) {
 
 		 $user = User::find($userId);
-		 $stripe = new \Stripe\StripeClient('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');
+		 $stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
 
 
 		 $customers = $stripe->customers->create([
@@ -81,7 +81,7 @@ class Accounts {
         
          } else {
 
-	          $stripe = new \Stripe\StripeClient('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');
+	          $stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
 			  $account = $stripe->accounts->create([
 				  'type' => 'express',
 				  'country' => $country,
@@ -109,7 +109,7 @@ class Accounts {
 	public function createAccountLink($accountId) {
 
 		$stripe = new \Stripe\StripeClient(
-		   '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'
+		   'sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ'
 		);
 
 		$account = $stripe->accountLinks->create([
@@ -145,7 +145,7 @@ class Accounts {
 		$customer = Customer::where('user_id' , '=', $userId)->first();
 		
 		$stripe = new \Stripe\StripeClient(
-		    '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'
+		    'sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ'
 		);
 
 

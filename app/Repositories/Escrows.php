@@ -34,13 +34,8 @@ class Escrows {
 
 		$affiliate = new Affiliate;
 		$affiliateId = $affiliate->where('user_id', '=', $userID)->first()->id;
-		$escs = $this->escrow->where('user_id', '=', $affiliateId)->where('status', '=', 'Ready')->get();
-
-		if ( $escs) {
-			return [
-				'escrow' => $escs
-			];
-		}
+		return $this->escrow->where('user_id', '=', $affiliateId)->where('status', '=', 'Ready')->get();
+		
 	}
 
 

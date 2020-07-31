@@ -160,11 +160,47 @@ class Affiliates {
     			'parent' => $affiliate->parent_id,
     			'affiliate_id' => $affiliate->affiliate_id,
     			'details' => $details,
+    			'parent' => $this->getParentById($affiliate->affiliate_id),
     			'sales' => $this->getEbookSalesCount($affiliate->user->id),
-    			'status' => $this->getAffiliateStatusName($affiliate->user->id)
+    			'status' => $this->getAffiliateStatusName($affiliate->user->id),
+    			'sponsor' => $this->getSponsor($affiliate->user->id)
     		);
     	}
     	return $response;
+	}
+
+
+	/**
+	 * GEt user that sponsor sale
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function getSponsor($userId) {
+
+		$purchase = Purchase::where('purchase_by', '=', $userId)->first();
+
+		if ( $purchase ) {
+			return User::find($purchase->user_id);
+		}
+
+		return User::find(1);
+	}
+
+	/**
+	 * [getParentById description]
+	 * @param  [type] $affiliateId [description]
+	 * @return [type]              [description]
+	 */
+	public function getParentById($affiliateId) {
+
+		$response = array();
+
+		$affiliate = Affiliate::where('affiliate_id', '=', $affiliateId)->first();
+		if ( $affiliate ) {
+			$response = array('user' => User::find($affiliate->parent_id), 'affilaite' => $affiliate);
+		}
+
+		return $response = array('user' => User::find(1), 'affilaite' => Affiliate::find(1));;
 	}
 
 	/**
@@ -201,7 +237,8 @@ class Affiliates {
 				'seller_id' => $sale->user_id,
 				'assigned_sale_id' => $sale->sales_id,
 				'assigned_sale_name' => $sale->seller->first_name.' '.$sale->seller->last_name,
-				'date' => Carbon::parse($sale->created_at)->toDayDateTimeString()
+				'date' => Carbon::parse($sale->created_at)->toDayDateTimeString(),
+
 			);
 		}
 
@@ -231,21 +268,25 @@ class Affiliates {
 	public function getAffiliatesDetails($id) {
 
 		$response = array();
-		$user = User::with('detail')->find($id);
-		$affiliates = $this->getUserAffiliates($id);
 
-		$sales = $this->getEbookSales($id);
+		$userId = Affiliate::where('affiliate_id', '=', $id)->first()->user_id;
+		$user = User::with('detail')->find($userId);
+
+		$affiliates = $this->getUserAffiliates($userId);
+
+		$sales = $this->getEbookSales($userId);
 
 		$users = new Users;
-		$bitly = $users->getUserLink($id);
+		$bitly = $users->getUserLink($userId);
 
 		$response = array(
 			'user' => $user,
 			'affiliate' => $affiliates,
 		    'sales' => $sales,
             'bitly_link' => $bitly,
-		    'personal_sales' =>$this->getEbookSales($id, 'personal'),
-            'group_sales_counts' => $this->getGroupSales($id)
+		    'personal_sales' =>$this->getEbookSales($userId, 'personal'),
+            'group_sales_counts' => $this->getGroupSales($userId),
+            'parent' => $this->getParentById($id)
 		);
 
 		return $response;
