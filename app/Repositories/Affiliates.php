@@ -347,7 +347,7 @@ class Affiliates {
                 $count += count($affiliate );
         }
 
-	    return $count; 
+	    return $count +  $firstCounts; 
     }
 
     /**
