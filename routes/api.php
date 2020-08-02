@@ -24,7 +24,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::middleware('auth:api')->group(function () {
 
-	      Route::get('/download-ebook', 'DownloadController@download');
+	    Route::get('/download-ebook', 'DownloadController@download');
 		  Route::get('/logout', 'AuthController@logout');
 		  Route::get('/user', 'AuthController@user');
 		  Route::get('/link', 'UserController@getLink');
@@ -64,7 +64,6 @@ Route::group(['prefix' => 'v1'], function(){
           	  Route::get('/', 'EscrowController@getEscrows');
           });
 
-          // Route::get('/users', 'UserController@index');
           Route::post('change-password', 'UserController@changePassword');
 
           Route::group(['prefix' => 'customers'], function() {
@@ -74,7 +73,8 @@ Route::group(['prefix' => 'v1'], function(){
           });
 	});
 
-	Route::get('/users', 'UserController@index');
+	  Route::get('/users', 'UserController@index');
+
     Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
@@ -82,20 +82,15 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('store', 'StripeController@store');
 
     Route::get('/username-availability', 'UserController@checkUsername');
-//    Route::get('/cash', 'AffiliateController@setCashBonuses');
-	Route::post('/login', 'AuthController@login');
-	Route::post('/purchase', 'AuthController@register');
+  	Route::post('/login', 'AuthController@login');
+  	Route::post('/purchase', 'AuthController@register');
 
-	// Route::get('profile', function () {
- //    // Only verified users may enter...
- //    //
-	// })->middleware('verified');
 
     Route::get('/countries', 'CountryStatesCityController@countries');
     Route::get('/states/{id}', 'CountryStatesCityController@states');
     Route::get('/cities/{id}', 'CountryStatesCityController@cities');
 
-	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
+  	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
 
 

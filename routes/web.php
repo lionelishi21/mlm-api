@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Affiliate;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +20,16 @@ use App\Affiliate;
 Route::get('/download-ebook/{id}', 'DownloadController@downloadEbook');
 
 Route::get('/test', function() {
-	return $affiliates = Affiliate::orderBy('id', 'desc')->get();
+	   $data = [
+          'name' => 'email',
+          'email' => 'lionelishmael@gmail.com',
+          'book_link' => 'link',
+          'message' => 'message',
+            'token' => '$userToken'
+
+        ];
+        $email = 'lionelishmael@gmail.com';
+        $send = Mail::to($email)->send(new WelcomeMail($data));
+
+       return $data;
 });
