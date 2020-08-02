@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1'], function(){
 
 
 
+   Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+
 	Route::middleware('auth:api')->group(function () {
 
 	    Route::get('/download-ebook', 'DownloadController@download');
