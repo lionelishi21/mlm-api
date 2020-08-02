@@ -22,11 +22,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 
 
-  Route::post('/password/email-link', function() {
-    return [
-      'message' => 'working'
-    ];
-  });
+  Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 
 	Route::middleware('auth:api')->group(function () {
 
