@@ -189,7 +189,7 @@ class Paypal {
        $senderItem->setRecipientType('Email')
 	    ->setNote($note)
 	    ->setReceiver($email)
-	    // ->setSenderItemId("2014031400023")
+	    ->setSenderItemId("2014031400023")
         ->setAmount(new \PayPal\Api\Currency(
         	$amount 
          ));
