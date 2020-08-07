@@ -33,3 +33,6 @@ Route::get('/test', function() {
 
        return $data;
 });
+
+Route::get('/customer/{email}', 'CustomerController@stripecustomer');
+Route::get('/payout', 'CustomerController@testPayout');

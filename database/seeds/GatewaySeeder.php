@@ -18,11 +18,12 @@ class GatewaySeeder extends Seeder
         DB::table('gateways')->insert([
             'name' => 'Payoneer'
         ]);
-        DB::table('gateways')->insert([
-            'name' => 'Bank'
+          DB::table('gateways')->insert([
+            'name' => 'Stripe'
         ]);
         DB::table('gateways')->insert([
-            'name' => 'Upload'
+            'name' => 'Uphold'
         ]);
+       
     }
 }

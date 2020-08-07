@@ -11,6 +11,7 @@
         "php": "^7.2.5",
         "cartalyst/stripe-laravel": "^12.0",
         "dirape/token": "^2.3",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "getresponse/sdk-php": "^2.0",
@@ -19,6 +20,7 @@
         "laravel/framework": "^7.0",
         "laravel/passport": "^9.2",
         "laravel/tinker": "^2.0",
+        "paypal/rest-api-sdk-php": "^1.14",
         "shivella/laravel-bitly": "^1.1"
     },
     "require-dev": {

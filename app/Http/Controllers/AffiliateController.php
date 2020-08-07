@@ -39,6 +39,7 @@ class AffiliateController extends Controller
     	if ($id == 'user') {
     		$id = $request->user()->id;
     	}
+        
     	$details = $this->model->getAffiliatesDetails($id);
     	return $details;
     }
@@ -86,6 +87,16 @@ class AffiliateController extends Controller
                 'mesagge' => 'delete successfully'
             ];
         }
+    }
+
+    /**
+     * Get personal sales
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
+    public function getPersonalSales(Request $request) {
+        $userId = $request->user()->id;
+        return $this->model->getEbookSalesCount($userId);
     }
 
     public function addAffiliate(Request $equest) {}

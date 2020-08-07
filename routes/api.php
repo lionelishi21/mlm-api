@@ -26,53 +26,69 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::middleware('auth:api')->group(function () {
 
-	    Route::get('/download-ebook', 'DownloadController@download');
-		  Route::get('/logout', 'AuthController@logout');
-		  Route::get('/user', 'AuthController@user');
-		  Route::get('/link', 'UserController@getLink');
-		  Route::get('/profile', 'UserController@profile');
+  	    Route::get('/download-ebook', 'DownloadController@download');
+  		  Route::get('/logout', 'AuthController@logout');
+  		  Route::get('/user', 'AuthController@user');
+  		  Route::get('/link', 'UserController@getLink');
+  		  Route::get('/profile', 'UserController@profile');
 
-		  Route::post('/changePassword', 'UserController@changePassword');
+  		  Route::post('/changePassword', 'UserController@changePassword');
 
-		  Route::group(['prefix' => 'affiliates'], function() {
-		   	 Route::get('/', 'AffiliateController@index');
-		   	 Route::get('/details/{id}', 'AffiliateController@details');
-		   	 Route::get('/group-sales', 'AffiliateController@getUserGroupSales');
-		   	 Route::get('/user-dashboard', 'UserController@userDashboard');
-		   	 Route::post('/add-affiliate', 'UserController@addAffiliate');
-		   	 Route::get('/delete-affailiate/{id}', 'AffiliateController@removeAffiliate');
-		  });
+  		  Route::group(['prefix' => 'affiliates'], function() {
+  		   	 Route::get('/', 'AffiliateController@index');
+  		   	 Route::get('/details/{id}', 'AffiliateController@details');
+  		   	 Route::get('/group-sales', 'AffiliateController@getUserGroupSales');
+  		   	 Route::get('/user-dashboard', 'UserController@userDashboard');
+  		   	 Route::post('/add-affiliate', 'UserController@addAffiliate');
+  		   	 Route::get('/delete-affailiate/{id}', 'AffiliateController@removeAffiliate');
+           Route::get('/personal-sales', 'AffiliateController@getPersonalSales');
+  		  });
 
-		  Route::get('/cashbonuses/{id}', 'UserController@cashbonuses');
+  		  Route::get('/cashbonuses/{id}', 'UserController@cashbonuses');
 
-		  Route::group(['prefix' => 'admin'], function() {
-              Route::get('/dashboard', 'UserController@dashboard');
-          });
+  		  Route::group(['prefix' => 'admin'], function() {
+                Route::get('/dashboard', 'UserController@dashboard');
+        });
 
-		  Route::group(['prefix' => 'wallet'], function() {
+  		  Route::group(['prefix' => 'wallet'], function() {
             Route::get('/', 'CashBonusController@index');
             Route::get('/user-accounts', 'CashBonusController@userAccount');
             Route::get('/summary', 'CashBonusController@walletSummary');
             Route::post('/add-account', 'CashBonusController@storeAccountInformation');
-          });
+        });
 
-          Route::group(['prefix' => 'users'], function() {
-          	 Route::get('/reset-password/{id}', 'UserController@resetUserPassword');
-          	 Route::get('/details/{id}', 'UserController@details');
-          });
+        Route::group(['prefix' => 'users'], function() {
+        	 Route::get('/reset-password/{id}', 'UserController@resetUserPassword');
+        	 Route::get('/details/{id}', 'UserController@details');
+        });
 
-          Route::group(['prefix' => 'escrow'], function() {
-          	  Route::get('/', 'EscrowController@getEscrows');
-          });
+        Route::group(['prefix' => 'escrow'], function() {
+        	  Route::get('/', 'EscrowController@getEscrows');
+        });
 
-          Route::post('change-password', 'UserController@changePassword');
+        Route::post('change-password', 'UserController@changePassword');
 
-          Route::group(['prefix' => 'customers'], function() {
-          		Route::get('/account', 'CustomerController@store');
-          		Route::post('/transfer', 'CustomerController@transfer');
-              Route::get('/', 'CustomerController@index');
-          });
-	});
+        Route::group(['prefix' => 'customers'], function() {
+
+            Route::post('/bank', 'CustomerController@addBank');
+            Route::post('/add-paypal', 'CustomerController@paypal');
+            Route::get('/get-paypal', 'CustomerController@getPaypalAccount');
+
+        		Route::get('/account', 'CustomerController@store');
+        		Route::post('/transfer', 'CustomerController@transfer');
+            Route::get('/', 'CustomerController@index');
+            Route::get('/account', 'CustomerController@account');
+
+            Route::post('/paypal-withdrawal', 'CustomerController@paypalWithdrawal');
+            Route::get('/transactions', 'CustomerController@getTransactions');
+            Route::get('/payout-accounts', 'CustomerController@getUserAccounts');
+
+        });
+
+        Route::group(['prefix' => 'bank'], function() {
+          Route::post('store', 'CustomerController@addBank');
+        });
+	 });
 
 	  Route::get('/users', 'UserController@index');
 

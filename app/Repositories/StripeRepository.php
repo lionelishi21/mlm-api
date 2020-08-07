@@ -4,13 +4,15 @@
 namespace App\Repositories;
 
 use Illuminate\Http\Request;
+use App\Repositories\Accounts;
+
 use Redirect,Response,Stripe;
 
 class StripeRepository
 {
     /**
      * Store a newly created resource in storage.
-     *
+     *≈≈™
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -34,12 +36,16 @@ class StripeRepository
             'customer' => $customer->id
         ]);
 
+        $account = new Accounts;
+        $storeCustomer = $account->saveCustomer($email, $customer->id);
 
         $response = array(
             'msg' => 'Payment was succesfull',
             'status' => true,
             'stripe' => $stripe
         );
+
+
 
         return $response;
 

@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Shivella\Bitly\BitlyServiceProvider::class,
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -191,7 +192,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -231,6 +231,8 @@ return [
         'Token'=>\Dirape\Token\Facades\Facade::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
         'Bitly' => Shivella\Bitly\Facade\Bitly::class,
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class
+
     ],
 
 ];
