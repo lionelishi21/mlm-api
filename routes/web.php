@@ -36,3 +36,5 @@ Route::get('/test', function() {
 
 Route::get('/customer/{email}', 'CustomerController@stripecustomer');
 Route::get('/payout', 'CustomerController@testPayout');
+
+Route::get('/stripe', 'CustomerController@teststripe');

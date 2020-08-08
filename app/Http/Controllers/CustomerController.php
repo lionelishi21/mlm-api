@@ -8,6 +8,8 @@ use App\Repositories\Customers;
 use App\Repositories\Bank;
 use App\Repositories\Paypal;
 
+use App\Repositories\StripeRepository;
+
 
 class CustomerController extends Controller
 {
@@ -69,7 +71,7 @@ class CustomerController extends Controller
     }
 
 
-    
+
 
     /**
      * ******************************************************
@@ -167,5 +169,11 @@ class CustomerController extends Controller
 
     public function testPayout() {
         return $this->paypal->payWithpaypal();
+    }
+
+    public function teststripe() {
+        $stripe = new StripeRepository;
+
+       return $stripe->test();
     }
 }
