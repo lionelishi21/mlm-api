@@ -314,7 +314,7 @@ class Accounts extends Stripe {
 			$update->status = 'Pending';
 			$update->save();
 
-			$this->saveTransfer($transfer->id, $userId, 'Bank');
+			$this->saveTransfer($transfer->id, $userId, 'Bank', $amount);
 		}
 
 		return true;
