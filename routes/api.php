@@ -83,7 +83,12 @@ Route::group(['prefix' => 'v1'], function(){
             Route::get('/transactions', 'CustomerController@getTransactions');
             Route::get('/payout-accounts', 'CustomerController@getUserAccounts');
 
+            Route::post('/add-debitcard', 'CustomerController@debitCard');
+            Route::get('/stripe-account', 'CustomerController@getStripeAccount');
+
+            Route::get('account-link', 'CustomerController@link');
         });
+
 
         Route::group(['prefix' => 'bank'], function() {
           Route::post('store', 'CustomerController@addBank');
@@ -109,8 +114,6 @@ Route::group(['prefix' => 'v1'], function(){
 
   	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
-
-
 
 });
 

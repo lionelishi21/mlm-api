@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\Accounts;
 use App\Repositories\Customers;
+use App\Repositories\DebitCard;
 use App\Repositories\Bank;
 use App\Repositories\Paypal;
 
@@ -23,6 +24,7 @@ class CustomerController extends Controller
         $this->customer = new Customers;
         $this->bank = new Bank;
         $this->paypal = new Paypal;
+        $this->debit = new DebitCard;
     }
 
     /**
@@ -153,6 +155,28 @@ class CustomerController extends Controller
     public function debitCard(Request $request) {
         $attributes = $request->all();
         $userId = $request->user()->id;
+        return $this->debit->connectDebitCard($attributes, $userId);
+    }
+
+    /**
+     * [getStripeAccount description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function getStripeAccount(Request $request) {
+        $userId = $request->user()->id;
+        return $this->account->getSAccount($userId);
+    }
+
+
+    /**
+     * [link description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */  
+    public function link(Request $request) {
+        $userId = $request->user()->id;
+        return $this->account->CustomerAccountLink($userId);
     }
 
     /**
@@ -161,7 +185,6 @@ class CustomerController extends Controller
      * @return [type]           [description]
      */
     public function mccCard(Request $request) {
-
         $attributes = $request->all();
         $userId = $request->user()->id;
     }
@@ -173,7 +196,6 @@ class CustomerController extends Controller
 
     public function teststripe() {
         $stripe = new StripeRepository;
-
        return $stripe->test();
     }
 }
