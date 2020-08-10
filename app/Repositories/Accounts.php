@@ -227,7 +227,11 @@ class Accounts extends Stripe {
 		 }
 		 return false;
 	}
+    
 
+    3495
+
+    450000
 	/**
 	 * [createCustomerAccount description]
 	 * @param  [type] $userId [description]
@@ -279,27 +283,27 @@ class Accounts extends Stripe {
 
 			$amount = 0.00;
 			if ($bonus->tier == 'Bronze') {
-				$amount = 100;
+				$amount = 10000;
 			}
 
 			if ($bonus->tier == 'Silver') {
-				$amount = 600;
+				$amount = 60000;
 			}
 
 			if ($bonus->tier == 'Silver') {
-				$amount = 600;
+				$amount = 60000;
 			}
 
 			if ($bonus->tier == 'Gold') {
-				$amount = 3800;
+				$amount = 380000;
 			}
 
 			if ($bonus->tier == 'Ruby') {
-				$amount = 22000;
+				$amount = 2200000;
 			}
 
 			if ($bonus->tier == 'Diamond') {
-				$amount = 412855;
+				$amount = 41285500;
 			}
 
 			$transfer = $stripe->transfers->create([
