@@ -282,10 +282,7 @@ class Accounts extends Stripe {
 				$amount = 10000;
 			}
 
-			if ($bonus->tier == 'Silver') {
-				$amount = 60000;
-			}
-
+			
 			if ($bonus->tier == 'Silver') {
 				$amount = 60000;
 			}
@@ -329,11 +326,29 @@ class Accounts extends Stripe {
 	 */
 	public function saveTransfer($transferId, $userId, $type, $amount) {
 
+		$total = 0;
+		
+		if ($amount == 10000) {
+			$total = 100
+		}
+
+		if ($amount == 60000) {
+			$total = 600
+		}
+
+		if ($amount == 380000) {
+			$total = 3800
+		}
+
+		if ($amount == 2200000) {
+			$total = 22000
+		}
+
 		$transfer = new Transfer;
 		$transfer->user_id = $userId;
 		$transfer->transfer_id = $transferId;
 		$transfer->type = $type;
-		$transfer->amount = $amount;
+		$transfer->amount = $total;
 		$transfer->save();
 
 		if ($transfer->save()) {
