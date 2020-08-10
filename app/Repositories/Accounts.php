@@ -228,10 +228,6 @@ class Accounts extends Stripe {
 		 return false;
 	}
     
-
-    3495
-
-    450000
 	/**
 	 * [createCustomerAccount description]
 	 * @param  [type] $userId [description]
