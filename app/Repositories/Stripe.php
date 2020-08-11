@@ -239,7 +239,7 @@ class Stripe {
 			$this->updateEscrowStatus($bonus->id);
 
 			// Save stransfer
-			$account 
+			$account;
 		}
 
 	}
