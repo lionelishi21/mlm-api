@@ -14,7 +14,7 @@ class Accounts extends Stripe {
 	private $customer;
 
 	public function __construct() {
-		// $this->stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
+		// $this->stripe = new \Stripe\StripeClient('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');
 		$this->customer = new Customer;
 		$this->escrow = new Escrow;
 	}
@@ -275,7 +275,7 @@ class Accounts extends Stripe {
 		$bonuses =  $this->escrow->where('user_id', '=', $userId)->where('status', '=', 'Ready')->get();
 
 		foreach($bonuses as $bonus) {
-			$stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
+			$stripe = new \Stripe\StripeClient('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');
 
 			$amount = 0.00;
 			if ($bonus->tier == 'Bronze') {
@@ -461,8 +461,8 @@ class Accounts extends Stripe {
 	 * @return [type]            [description]
 	 */
 	public function getUserAccountByAccountId($accountId) {
-
-		$stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
+		
+		$stripe = new \Stripe\StripeClient('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');
 		$userAccount = $stripe->accounts->retrieve(
 			  $accountId,
 			  []
