@@ -14,7 +14,7 @@ class Accounts extends Stripe {
 	private $customer;
 
 	public function __construct() {
-		// $this->stripe = new \Stripe\StripeClient('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');
+		// $this->stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
 		$this->customer = new Customer;
 		$this->escrow = new Escrow;
 	}
@@ -275,14 +275,13 @@ class Accounts extends Stripe {
 		$bonuses =  $this->escrow->where('user_id', '=', $userId)->where('status', '=', 'Ready')->get();
 
 		foreach($bonuses as $bonus) {
-			$stripe = new \Stripe\StripeClient('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');
+			$stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
 
 			$amount = 0.00;
 			if ($bonus->tier == 'Bronze') {
 				$amount = 10000;
 			}
 
-			
 			if ($bonus->tier == 'Silver') {
 				$amount = 60000;
 			}
@@ -300,10 +299,9 @@ class Accounts extends Stripe {
 			}
 
 			$transfer = $stripe->transfers->create([
-
 				'amount' => $amount,
 				'currency' => 'usd',
-			    'destination' => $customer->account_id
+			    'destination' => $customer->account_id,
 		        // 'transfer_group' => 'payout_'.$userId,
 			]);	
 
@@ -464,7 +462,7 @@ class Accounts extends Stripe {
 	 */
 	public function getUserAccountByAccountId($accountId) {
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient('sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ');
 		$userAccount = $stripe->accounts->retrieve(
 			  $accountId,
 			  []

@@ -305,11 +305,11 @@ class Affiliates {
 			return 'Active';
 		}
 
-		if ($sales >= 12 AND $sales < 26  ) {
+		if ($sales >= 12 AND $sales < 36  ) {
 			return 'Bronze';
 		}
 
-		if ($sales >= 26  AND $sales < 108) {
+		if ($sales >= 36  AND $sales < 108) {
 			return 'Silver';
 		}
 

@@ -86,7 +86,12 @@ class CustomerController extends Controller
     	$userId = $request->user()->id;
     	$amount = $request->transfer;
 
-    	return $this->account->transfer($amount, $userId);
+    	$transfer = $this->account->transfer($amount, $userId);
+
+        return [
+            'transfer' => true,
+            'message' => 'Transfer'
+        ]
     }
 
     /**

@@ -124,7 +124,11 @@ class Stripe {
 	    return $external;
 	}
 
-
+	/**
+	 * [getExternalAccount description]
+	 * @param  [type] $accountId [description]
+	 * @return [type]            [description]
+	 */
 	public function getExternalAccount($accountId) {
 
 		$stripe = new \Stripe\StripeClient('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');
@@ -138,7 +142,11 @@ class Stripe {
 		}
 	} 
 
-
+	/**
+	 * [generateAccountLink description]
+	 * @param  [type] $accountId [description]
+	 * @return [type]            [description]
+	 */
 	public function generateAccountLink($accountId) {
 
 		$stripe = new \Stripe\StripeClient(
@@ -202,6 +210,66 @@ class Stripe {
 		);
 		return $account;
 	}
+
+	/**
+	 * [instantPayout description]
+	 * @return [type] [description]
+	 */
+	public function instantPayout($amount, $accountId) {
+
+		\Stripe\Stripe::setApiKey('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');
+		$payout = \Stripe\Payout::create([
+		  'amount' => $amount,
+		  'currency' => 'usd',
+		  'method' => 'instant',
+		], [
+		  'stripe_account' => $accountId,
+		]);
+	}
+
+
+	public function payout($amount, $userId) {
+
+		$customer = Customer::where('user_id' , '=', $userId)->first();
+		$bonuses =  $this->escrow->where('user_id', '=', $userId)->where('status', '=', 'Ready')->get();
+
+		foreach($bonuses as $bonus) {
+
+			$amount = $this->bonusAmount($bonus->tier);
+			$this->updateEscrowStatus($bonus->id);
+
+			// Save stransfer
+			$account 
+		}
+
+	}
+
+
+	 public function bonusAmount($tier) {
+
+	 	$amount = 0.00;
+	 	if ($tier == 'Bronze') {
+			$amount = 10000;
+		}
+
+		if ($tier == 'Silver') {
+			$amount = 60000;
+		}
+
+		if ($tier == 'Gold') {
+			$amount = 380000;
+		}
+
+		if ($tier == 'Ruby') {
+			$amount = 2200000;
+		}
+
+		if ($tier == 'Diamond') {
+			$amount = 41285500;
+		}
+
+		return $amount;
+	 }
 
 }
 
