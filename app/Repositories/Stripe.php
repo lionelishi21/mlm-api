@@ -91,17 +91,33 @@ class Stripe {
 	 */
 	public function generateBankToken(array $attributes) {
 
-		$stripe = new \Stripe\StripeClient('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');
-		$bank = $stripe->tokens->create([
-		  'bank_account' => [
-			  'country' => $attributes['country'],
-			  'currency' => $attributes['currency'],
-			  'account_holder_name' => $attributes['account_holder_name'],
-			  'account_holder_type' => $attributes['account_holder_type'],
-			  'routing_number' => $attributes['routing_number'],
-			  'account_number' => $attributes['account_number']
-		    ],
-		]);
+		if ($attributes['currency'] == 'gbp') {
+			$stripe = new \Stripe\StripeClient('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');
+			$bank = $stripe->tokens->create([
+			  
+			  'bank_account' => [
+				  'country' => $attributes['country'],
+				  'currency' => $attributes['currency'],
+				  'account_holder_name' => $attributes['account_holder_name'],
+				  'account_holder_type' => $attributes['account_holder_type'],
+				  'account_number' => $attributes['account_number'],
+				  'sort_code' => $attributes['sort_code'],
+			    ],
+			]);
+		} else {
+			$stripe = new \Stripe\StripeClient('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');
+			$bank = $stripe->tokens->create([
+			  'bank_account' => [
+				  'country' => $attributes['country'],
+				  'currency' => $attributes['currency'],
+				  'account_holder_name' => $attributes['account_holder_name'],
+				  'account_holder_type' => $attributes['account_holder_type'],
+				  'routing_number' => $attributes['routing_number'],
+				  'account_number' => $attributes['account_number']
+			    ],
+			]);
+		}
+		
 
 		return $bank;
 	}
@@ -184,14 +200,12 @@ class Stripe {
 		$stripe = new \Stripe\StripeClient('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');
 
 		$token = $stripe->tokens->create([
-			  
 			    'card' => [
 			    'number' => $attributes['number'],
 			    'exp_month' =>  $attributes['exp_month'],
 			    'exp_year' => $attributes['exp_year'],
 			    'cvc' => $attributes['cvc'],
 			    'currency' => $attributes['currency']
-
 			  ],	
 		]);
 
@@ -226,6 +240,19 @@ class Stripe {
 		  'stripe_account' => $accountId,
 		]);
 	}
+
+
+	/**
+	 * Get all customer accounts
+	 * @return [type] [description]
+	 */
+	public function getAllAccounts() {
+
+		$stripe = new \Stripe\StripeClient('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');
+		$accounts = $stripe->accounts->all();
+		return $accounts;
+	}
+
 
 
 	public function payout($amount, $userId) {

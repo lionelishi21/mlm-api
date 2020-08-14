@@ -19,6 +19,7 @@ class Accounts extends Stripe {
 		$this->escrow = new Escrow;
 	}
 
+
 	/**
 	 * **************************************************************************
 	 * This function creates customer
@@ -28,7 +29,11 @@ class Accounts extends Stripe {
 	public function createAccount($userId) {
 
 		$user = User::find($userId);
-		$account = $this->createStripeAccount($user->email);
+
+		$details = UserDetail::where('user_id', '=', $userId)->first();
+
+		$country = $details->country;
+		$account = $this->createStripeAccount($user->email, $country);
 
 		$customer = $this->customer->where('user_id', '=', $userId)->first();
 		$customer->account_id = $account->id;
@@ -43,6 +48,8 @@ class Accounts extends Stripe {
 		} 
 	}
 
+
+	
 	/**
 	 * *************************************************************************
 	 * This function creates bank token

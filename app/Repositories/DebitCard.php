@@ -141,6 +141,8 @@ class DebitCard extends Stripe {
 		return $this->generateCardToken($attributes);
 	}
 
+
+
 }
 
  ?>
