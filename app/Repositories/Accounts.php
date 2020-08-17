@@ -282,9 +282,12 @@ class Accounts extends Stripe {
 		$bonuses =  $this->escrow->where('user_id', '=', $userId)->where('status', '=', 'Ready')->get();
 
 
+
 		$details = UserDetail::where('user_id', '=', $userId)->first();
 
 		if ($details->country == 'GB') {
+
+			$ext_account = $this->getExternalAccount($customer->account_id)[0];
 
 			foreach($bonuses as $bonus) {
 				$stripe = new \Stripe\StripeClient('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');
@@ -311,9 +314,10 @@ class Accounts extends Stripe {
 				}
 
 				$transfer = $stripe->payouts->create([
+
 					'amount' => $amount,
 					'currency' => 'gbp',
-				    'destination' => $customer->account_id,
+				    'destination' => $ext_account->id,
 			        // 'transfer_group' => 'payout_'.$userId,
 				]);	
 
