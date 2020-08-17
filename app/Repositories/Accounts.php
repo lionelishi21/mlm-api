@@ -310,7 +310,7 @@ class Accounts extends Stripe {
 					$amount = 412855;
 				}
 
-				$transfer = $stripe->transfers->create([
+				$transfer = $stripe->payouts->create([
 					'amount' => $amount,
 					'currency' => 'gbp',
 				    'destination' => $customer->account_id,
