@@ -281,6 +281,52 @@ class Accounts extends Stripe {
 		$customer = Customer::where('user_id' , '=', $userId)->first();
 		$bonuses =  $this->escrow->where('user_id', '=', $userId)->where('status', '=', 'Ready')->get();
 
+
+		$details = UserDetail::where('user_id', '=', $userId)->first();
+
+		if ($details->country == 'GB') {
+
+			foreach($bonuses as $bonus) {
+				$stripe = new \Stripe\StripeClient('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');
+
+				$amount = 0.00;
+				if ($bonus->tier == 'Bronze') {
+					$amount = 100;
+				}
+
+				if ($bonus->tier == 'Silver') {
+					$amount = 600;
+				}
+
+				if ($bonus->tier == 'Gold') {
+					$amount = 3800;
+				}
+
+				if ($bonus->tier == 'Ruby') {
+					$amount = 22000;
+				}
+
+				if ($bonus->tier == 'Diamond') {
+					$amount = 412855;
+				}
+
+				$transfer = $stripe->transfers->create([
+					'amount' => $amount,
+					'currency' => 'usd',
+				    'destination' => $customer->account_id,
+			        // 'transfer_group' => 'payout_'.$userId,
+				]);	
+
+				$update = Escrow::find($bonus->id);
+				$update->status = 'Pending';
+				$update->save();
+
+				$this->saveTransfer($transfer->id, $userId, 'Bank', $amount);
+			}
+
+			return true;
+		}
+
 		foreach($bonuses as $bonus) {
 			$stripe = new \Stripe\StripeClient('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');
 
