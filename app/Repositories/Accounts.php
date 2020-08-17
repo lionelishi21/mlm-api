@@ -291,19 +291,19 @@ class Accounts extends Stripe {
 
 				$amount = 0.00;
 				if ($bonus->tier == 'Bronze') {
-					$amount = 100;
+					$amount = 76.30;
 				}
 
 				if ($bonus->tier == 'Silver') {
-					$amount = 600;
+					$amount = 457.79;
 				}
 
 				if ($bonus->tier == 'Gold') {
-					$amount = 3800;
+					$amount = 2899.32;
 				}
 
 				if ($bonus->tier == 'Ruby') {
-					$amount = 22000;
+					$amount = 16785.56;
 				}
 
 				if ($bonus->tier == 'Diamond') {
@@ -312,7 +312,7 @@ class Accounts extends Stripe {
 
 				$transfer = $stripe->transfers->create([
 					'amount' => $amount,
-					'currency' => 'usd',
+					'currency' => 'gbp',
 				    'destination' => $customer->account_id,
 			        // 'transfer_group' => 'payout_'.$userId,
 				]);	
