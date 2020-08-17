@@ -291,19 +291,19 @@ class Accounts extends Stripe {
 
 				$amount = 0.00;
 				if ($bonus->tier == 'Bronze') {
-					$amount = 76.30;
+					$amount = 76;
 				}
 
 				if ($bonus->tier == 'Silver') {
-					$amount = 457.79;
+					$amount = 458;
 				}
 
 				if ($bonus->tier == 'Gold') {
-					$amount = 2899.32;
+					$amount = 2899;
 				}
 
 				if ($bonus->tier == 'Ruby') {
-					$amount = 16785.56;
+					$amount = 16786;
 				}
 
 				if ($bonus->tier == 'Diamond') {
