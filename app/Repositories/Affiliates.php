@@ -153,6 +153,7 @@ class Affiliates {
     	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
 
     		$response[] = array(
+    			'order' => $affiliate->id,
     			'user_id' => $affiliate->user->id,
     			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
     			'children' => $affiliate['children'],
@@ -166,6 +167,7 @@ class Affiliates {
     			'sponsor' => $this->getSponsor($affiliate->user->id)
     		);
     	}
+    	
     	return $response;
 	}
 
@@ -249,13 +251,29 @@ class Affiliates {
 
 		$response = array();
 		$affiliates = Affiliate::where('parent_id', '=', $userId)->get();
-		foreach($affiliates as $affiliate) {
+		$children = array();
+
+		foreach ($affiliates as $affiliate) {
+
+			$childs = Affiliate::where('parent_id', '=', $affiliate->user_id)->get();
+			$response1 = array();
+
+			foreach($childs as $child) {
+				$response1[] = array(
+					 'id' => $child->id, 
+					 'name' => $child->user->first_name.' '.$child->user->last_name,
+					 'affiliateId' => $child->affiliate_id,
+				);
+			}
 
 			$response[] = array(
 				'username' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
 				'user_id' => $affiliate->user_id,
-				'affiliateId' => $affiliate->affiliate_id
+				'affiliateId' => $affiliate->affiliate_id,
+				'children' => $response1 
 			);
+
+
 		}
 		return $response;
 	}
