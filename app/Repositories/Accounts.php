@@ -290,6 +290,7 @@ class Accounts extends Stripe {
 				$stripe = new \Stripe\StripeClient('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');
 
 				$amount = 0.00;
+				
 				if ($bonus->tier == 'Bronze') {
 					$amount = 76;
 				}

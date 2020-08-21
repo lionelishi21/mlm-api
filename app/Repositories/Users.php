@@ -9,6 +9,7 @@ use App\Affiliate;
 use Token;
 use App\DownloadToken;
 use Bitly;
+use Carbon\Carbon;
 
 use App\Repositories\Purchases;
 
@@ -19,6 +20,7 @@ class Users {
 
 	public function __construct() {
 		$this->model = new User;
+
 		// $this->details = new UserDetail;
 	}
 
@@ -161,12 +163,22 @@ class Users {
 
 
         $response = array(
-            'all_members' => Affiliate::count(),
+            'all_members' => $this->getAffiliateByDate(),
             'countries' => $this->getAffliateCountries(),
             'cashbouns' => $this->getUserCashbonus($userId)
         );
 
         return $response;
+    }
+
+    /**
+     * [getAffiliateByDate description]
+     * @param  string $option [description]
+     * @return [type]         [description]
+     */
+    public function getAffiliateByDate($option = 'weekly') {
+        $date = Carbon::now()->subdays(7);
+        return $affiliates = Affiliate::where('created_at','>=',$date)->count();
     }
 
 
