@@ -153,6 +153,7 @@ class Affiliates {
     	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
 
     		$response[] = array(
+
     			'order' => $affiliate->id,
     			'user_id' => $affiliate->user->id,
     			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
@@ -165,9 +166,10 @@ class Affiliates {
     			'sales' => $this->getEbookSalesCount($affiliate->user->id),
     			'status' => $this->getAffiliateStatusName($affiliate->user->id),
     			'sponsor' => $this->getSponsor($affiliate->user->id)
+    			
     		);
     	}
-    	
+
     	return $response;
 	}
 
