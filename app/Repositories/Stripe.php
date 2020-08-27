@@ -113,6 +113,10 @@ class Stripe {
 	 */
 	public function generateBankToken(array $attributes) {
 
+
+		if ($attributes['country'] == 'JM') {
+			$attributes['country'] = 'US'
+		}
 	
 		$stripe = new \Stripe\StripeClient('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');
 		$bank = $stripe->tokens->create([
