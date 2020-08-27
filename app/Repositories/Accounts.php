@@ -338,19 +338,19 @@ class Accounts extends Stripe {
 			}
 
 			if ($bonus->tier == 'Silver') {
-				$amount = 60000;
+				// $amount = 60000;
 			}
 
 			if ($bonus->tier == 'Gold') {
-				$amount = 380000;
+				// $amount = 380000;
 			}
 
 			if ($bonus->tier == 'Ruby') {
-				$amount = 2200000;
+				// $amount = 2200000;
 			}
 
 			if ($bonus->tier == 'Diamond') {
-				$amount = 41285500;
+				// $amount = 41285500;
 			}
 
 			$transfer = $stripe->transfers->create([
