@@ -30,7 +30,12 @@ class DebitCard extends Stripe {
 	        	return $token;
 	        }
 
-			return $this->createExternalCard($account, $token->id);
+			$card = $this->createExternalCard($account, $token->id);
+			
+			return [
+				'msg' => 'Debit card was successfully added',
+				'status' => $card
+			];
 
 		} else {
 			

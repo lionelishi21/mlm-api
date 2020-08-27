@@ -1,10 +1,12 @@
 <?php 
 namespace App\Repositories;
 
+use App\SupportedCountry;
 
 class Stripe {
 
 	public $stripe;
+
 
 
 	public function __construct() {
@@ -52,7 +54,10 @@ class Stripe {
 	 * @return [type]          [description]
 	 */
 	public function createStripeAccount($email, $country = 'us') {
+
 		
+		$country = $this->isSupportedCountry($country);
+
 		 $stripe = new \Stripe\StripeClient('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');
 		 $account = $stripe->accounts->create([
 			  'type' => 'custom',
@@ -65,6 +70,23 @@ class Stripe {
 	      ]);
 
 		 return $account;
+	}
+
+
+	public function isSupportedCountry($data) {
+
+		 $supportedCountries = SupportedCountry::get();
+			
+		 $response = array();
+		 foreach($supportedCountries as $country ) {
+		 	array_push($response, $country->code);
+		 }
+
+		 if (in_array($data, $response)) {
+		 	return $data;
+		 } else {
+		 	return 'CA';
+		 }
 	}
 
 	/**
@@ -91,33 +113,18 @@ class Stripe {
 	 */
 	public function generateBankToken(array $attributes) {
 
-		if ($attributes['currency'] == 'gbp') {
-			$stripe = new \Stripe\StripeClient('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');
-			$bank = $stripe->tokens->create([
-			  
-			  'bank_account' => [
-				  'country' => $attributes['country'],
-				  'currency' => $attributes['currency'],
-				  'account_holder_name' => $attributes['account_holder_name'],
-				  'account_holder_type' => $attributes['account_holder_type'],
-				  'account_number' => $attributes['account_number'],
-				  'sort_code' => $attributes['sort_code'],
-			    ],
-			]);
-		} else {
-			$stripe = new \Stripe\StripeClient('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');
-			$bank = $stripe->tokens->create([
-			  'bank_account' => [
-				  'country' => $attributes['country'],
-				  'currency' => $attributes['currency'],
-				  'account_holder_name' => $attributes['account_holder_name'],
-				  'account_holder_type' => $attributes['account_holder_type'],
-				  'routing_number' => $attributes['routing_number'],
-				  'account_number' => $attributes['account_number']
-			    ],
-			]);
-		}
-		
+	
+		$stripe = new \Stripe\StripeClient('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');
+		$bank = $stripe->tokens->create([
+		  'bank_account' => [
+			  'country' => $attributes['country'],
+			  'currency' => $attributes['currency'],
+			  'account_holder_name' => $attributes['account_holder_name'],
+			  'account_holder_type' => $attributes['account_holder_type'],
+			  'routing_number' => $attributes['routing_number'],
+			  'account_number' => $attributes['account_number']
+		    ],
+		]);
 
 		return $bank;
 	}
@@ -178,6 +185,23 @@ class Stripe {
 
 		return $accountLink->url;
 	}
+
+	public function generateUpdateAccountLink($accountId) {
+
+		$stripe = new \Stripe\StripeClient(
+		  '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'
+		);
+
+		$accountLink =  $stripe->accountLinks->create([
+		  'account' => $accountId,
+		  'refresh_url' => 'https://majesticares.com/dashboard/settings',
+		  'return_url' => 'https://majesticares.com/dashboard/settings',
+		  'type' => 'account_update',
+		]);
+
+		return $accountLink->url;
+	}
+
 
 	/**
 	 * [createExternalCard description]
@@ -253,6 +277,19 @@ class Stripe {
 		return $accounts;
 	}
 
+	public function deleteExternalAccountCard($accountId, $id, $object) {
+
+		$stripe = new \Stripe\StripeClient('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');
+
+		if ($object == 'card') {
+			$stripe->accounts->deleteExternalAccount(
+		      $accountId,
+		      $id,
+			  []
+			);
+		}
+		
+	}
 
 
 	public function payout($amount, $userId) {
@@ -298,6 +335,13 @@ class Stripe {
 		return $amount;
 	 }
 
+	 /**
+	  * [getSupportedCountry description]
+	  * @return [type] [description]
+	  */
+	 public function getSupportedCountry() {
+	 	return SupportedCountry::get();
+	 }
 }
 
  ?>

@@ -10,6 +10,7 @@ use App\Affiliate;
 use Hash;
 use App\Repositories\Purchases;
 use App\User;
+use App\UserDetail;
 
 class UserController extends Controller
 {
@@ -186,6 +187,17 @@ class UserController extends Controller
         ];
 
     }
+
+    /**
+     * get user details by user id
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function detail(Request $request) {
+         $userId = $request->user()->id;
+        return UserDetail::where('user_id', '=', $userId)->first();
+    }
+
 
     /**
      * ************************************************************

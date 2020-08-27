@@ -33,6 +33,7 @@ class CustomerController extends Controller
      * @return [type]           [description]
      */
     public function index(Request $request) {
+       
         $userId = $request->user()->id;
         return $this->customer->getCustomerByUserId($userId); 
     }
@@ -43,6 +44,7 @@ class CustomerController extends Controller
      * @return [type]           [description]
      */
     public function store(Request $request) {
+    	
     	$userId = $request->user()->id;
     	return $this->account->createUserAccountByUserId($userId);
     } 
@@ -83,6 +85,7 @@ class CustomerController extends Controller
      * ******************************************************
      */
     public function transfer(Request $request) {
+    	
     	$userId = $request->user()->id;
     	$amount = $request->transfer;
 
@@ -182,6 +185,22 @@ class CustomerController extends Controller
     public function link(Request $request) {
         $userId = $request->user()->id;
         return $this->account->CustomerAccountLink($userId);
+    }
+
+    /**
+     * update user stripe account
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function updateLink(Request $request) {
+    	$userId = $request->user()->id;
+    	return $this->account->CustomerUpdateLink($userId);
+    }	
+
+
+    public function removeExternalAccount(Request $request) {
+    	$attributes = $request->all();
+    	return $this->account->removeExternalAccount($attributes);
     }
 
     /**

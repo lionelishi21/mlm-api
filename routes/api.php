@@ -21,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function(){
 
 
-
-  Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-
+    Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 	Route::middleware('auth:api')->group(function () {
 
   	    Route::get('/download-ebook', 'DownloadController@download');
@@ -35,13 +33,15 @@ Route::group(['prefix' => 'v1'], function(){
   		  Route::post('/changePassword', 'UserController@changePassword');
 
   		  Route::group(['prefix' => 'affiliates'], function() {
+  		   	 
   		   	 Route::get('/', 'AffiliateController@index');
   		   	 Route::get('/details/{id}', 'AffiliateController@details');
   		   	 Route::get('/group-sales', 'AffiliateController@getUserGroupSales');
   		   	 Route::get('/user-dashboard', 'UserController@userDashboard');
   		   	 Route::post('/add-affiliate', 'UserController@addAffiliate');
   		   	 Route::get('/delete-affailiate/{id}', 'AffiliateController@removeAffiliate');
-           Route::get('/personal-sales', 'AffiliateController@getPersonalSales');
+             Route::get('/personal-sales', 'AffiliateController@getPersonalSales');
+
   		  });
 
   		  Route::get('/cashbonuses/{id}', 'UserController@cashbonuses');
@@ -58,8 +58,10 @@ Route::group(['prefix' => 'v1'], function(){
         });
 
         Route::group(['prefix' => 'users'], function() {
+        	 Route::get('/detail', 'UserController@detail');
         	 Route::get('/reset-password/{id}', 'UserController@resetUserPassword');
         	 Route::get('/details/{id}', 'UserController@details');
+
         });
 
         Route::group(['prefix' => 'escrow'], function() {
@@ -74,8 +76,8 @@ Route::group(['prefix' => 'v1'], function(){
             Route::post('/add-paypal', 'CustomerController@paypal');
             Route::get('/get-paypal', 'CustomerController@getPaypalAccount');
 
-        		Route::get('/account', 'CustomerController@store');
-        		Route::post('/transfer', 'CustomerController@transfer');
+    		Route::get('/account', 'CustomerController@store');
+    		Route::post('/transfer', 'CustomerController@transfer');
             Route::get('/', 'CustomerController@index');
             Route::get('/account', 'CustomerController@account');
 
@@ -87,6 +89,8 @@ Route::group(['prefix' => 'v1'], function(){
             Route::get('/stripe-account', 'CustomerController@getStripeAccount');
 
             Route::get('account-link', 'CustomerController@link');
+            Route::get('update-account-link', 'CustomerController@updateLink');
+            Route::post('/remove-account', 'CustomerController@removeExternalAccount');
         });
 
 
@@ -95,8 +99,7 @@ Route::group(['prefix' => 'v1'], function(){
         });
 	 });
 
-	  Route::get('/users', 'UserController@index');
-
+	Route::get('/users', 'UserController@index');
     Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
@@ -106,7 +109,6 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('/username-availability', 'UserController@checkUsername');
   	Route::post('/login', 'AuthController@login');
   	Route::post('/purchase', 'AuthController@register');
-
 
     Route::get('/countries', 'CountryStatesCityController@countries');
     Route::get('/states/{id}', 'CountryStatesCityController@states');

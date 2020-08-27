@@ -319,7 +319,6 @@ class Accounts extends Stripe {
 				]);	
 
 
-
 				$update = Escrow::find($bonus->id);
 				$update->status = 'Pending';
 				$update->save();
@@ -552,21 +551,79 @@ class Accounts extends Stripe {
 		$account = Customer::where('user_id', '=', $userId)->first();
 		if ($account) {
 			$accountId = $account->account_id;
-			return $this->getUserStripeAccount($accountId);
+
+
+			$accountDetails = $this->getUserStripeAccount($accountId);
+
+			$name = '';
+			if ($accountDetails['individual']) {
+				$name = $accountDetails['individual']['first_name'].' '.$accountDetails['individual']['last_name'];
+			}
+			
+
+			$response = array(
+				'country' => $accountDetails['country'],
+				'name' => $name,
+				'transfer' => $accountDetails['capabilities']['transfers']
+
+			);
+
+			return $response;
 		}
 	}
+
+	/**
+	 * [CustomerAccountLink description]
+	 * @param [type] $userId [description]
+	 */
+	public function CustomerAccountLink($userId) {
+
+		 $customer = Customer::where('user_id', '=', $userId)->first();
+		 if (!isset( $customer )){
+
+		 	$user = User::find($userId);
+		 	$details = UserDetail::where('user_id', '=', $userId)->first();
+
+		 	$createdCustomer = $this-> saveStripeCustomer($user->name, $user->email);
+		 	if ($createdCustomer) {
+		 		$this->saveCustomer($user->email, $createdCustomer->id);
+		 	}
+
+		 	$createdAccount  = $this->createStripeAccount($user->email, $details->country);
+		 	if ($createdAccount) {
+		 		$this->storeAccount($user->email, $createdAccount->id);
+		 	}
+
+		 	return $this->generateAccountLink($createdAccount);
+		 }
+	}
+
+	/**
+	 * [removeExternalAccount description]
+	 * @param  array  $attributes [description]
+	 * @return [type]             [description]
+	 */
+	public function removeExternalAccount(array $attributes) {
+
+		$id = $attributes['id'];
+		$object = $attributes['object'];
+		$accountId = $attributes['account_id'];
+
+		return $this->deleteExternalAccountCard($accountId,$id,$object);
+	}
+
 
 	/**
 	 * [accountLink description]
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
 	 */
-	public function CustomerAccountLink($userId) {
+	public function CustomerUpdateLink($userId) {
 		
 		$customer = Customer::where('user_id', '=', $userId)->first();
 		if ($customer->account_id) {
 			$accountId = $customer->account_id;
-			return $this->generateAccountLink($accountId);
+			return $this->generateUpdateAccountLink($accountId);
 		}
 
 	}
