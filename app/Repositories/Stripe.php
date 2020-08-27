@@ -85,7 +85,7 @@ class Stripe {
 		 if (in_array($data, $response)) {
 		 	return $data;
 		 } else {
-		 	return 'CA';
+		 	return 'US';
 		 }
 	}
 
