@@ -6,11 +6,12 @@ use App\SupportedCountry;
 class Stripe {
 
 	public $stripe;
-
+	public $stripeLive = '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';
+	public $stripeTest = 'sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ';
 
 
 	public function __construct() {
-	   $this->stripe = new \Stripe\StripeClient('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');
+	   $this->stripe = new \Stripe\StripeClient($this->stripeLive);
 	}
 
 	
@@ -21,7 +22,7 @@ class Stripe {
 	 */
 	public function getStripeCustomerById($cusId) {
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		$customer = $stripe->customers->retrieve(
 		  $cusId,
 		  []
@@ -38,7 +39,7 @@ class Stripe {
 	public function saveStripeCustomer($name, $email) {
 
 	   // Create a Customer:
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
         $customer = $stripe->customers->create([
             'name' => $name,
             'email' => $email,
@@ -58,7 +59,7 @@ class Stripe {
 		
 		$country = $this->isSupportedCountry($country);
 
-		 $stripe = new \Stripe\StripeClient('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');
+		 $stripe = new \Stripe\StripeClient($this->stripeLive);
 		 $account = $stripe->accounts->create([
 			  'type' => 'custom',
 			  'country' => $country,
@@ -85,7 +86,7 @@ class Stripe {
 		 if (in_array($data, $response)) {
 		 	return $data;
 		 } else {
-		 	return 'US';
+		 	return 'CA';
 		 }
 	}
 
@@ -118,7 +119,7 @@ class Stripe {
 			$attributes['country'] = 'US';
 		}
 	
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		$bank = $stripe->tokens->create([
 		  'bank_account' => [
 			  'country' => $attributes['country'],
@@ -140,7 +141,7 @@ class Stripe {
 	 */
 	public function AddExternalAccount($accountId, $bankId){
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		$external = $stripe->accounts->createExternalAccount(
 		    $accountId,
 		  [
@@ -158,7 +159,7 @@ class Stripe {
 	 */
 	public function getExternalAccount($accountId) {
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		$userAccount = $stripe->accounts->retrieve(
 			  $accountId,
 			  []
@@ -177,7 +178,7 @@ class Stripe {
 	public function generateAccountLink($accountId) {
 
 		$stripe = new \Stripe\StripeClient(
-		  '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'
+		  $this->stripeLive
 		);
 
 		$accountLink =  $stripe->accountLinks->create([
@@ -193,7 +194,7 @@ class Stripe {
 	public function generateUpdateAccountLink($accountId) {
 
 		$stripe = new \Stripe\StripeClient(
-		  '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'
+		  $this->stripeLive
 		);
 
 		$accountLink =  $stripe->accountLinks->create([
@@ -214,7 +215,7 @@ class Stripe {
 	 * @return [type]        [description]
 	 */
 	public function createExternalCard($acct, $token) {
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		
 		$stripe->accounts->createExternalAccount(
 		   $acct,
@@ -225,7 +226,7 @@ class Stripe {
 
 	public function generateCardToken($attributes) {
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 
 		$token = $stripe->tokens->create([
 			    'card' => [
@@ -244,7 +245,7 @@ class Stripe {
 
 	public function getUserStripeAccount($accountId) {
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		
 		$account = $stripe->accounts->retrieve(
 		  $accountId,
@@ -259,7 +260,7 @@ class Stripe {
 	 */
 	public function instantPayout($amount, $accountId) {
 
-		\Stripe\Stripe::setApiKey('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');
+		\Stripe\Stripe::setApiKey($this->stripeLive);
 		$payout = \Stripe\Payout::create([
 		  'amount' => $amount,
 		  'currency' => 'usd',
@@ -276,14 +277,14 @@ class Stripe {
 	 */
 	public function getAllAccounts() {
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		$accounts = $stripe->accounts->all();
 		return $accounts;
 	}
 
 	public function deleteExternalAccountCard($accountId, $id, $object) {
 
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeTest);
 
 		if ($object == 'card') {
 			$stripe->accounts->deleteExternalAccount(

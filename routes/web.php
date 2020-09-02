@@ -5,6 +5,7 @@ use App\Affiliate;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use App\Repositories\Stripe;
+use App\UserDetail;
 
 
 /*
@@ -42,6 +43,5 @@ Route::get('/stripe', 'CustomerController@teststripe');
 
 Route::get('/countries', function() {
 
-    $stripe = new Stripe;
-    return $stripe->isSupportedCountry('AU');
+       
 });

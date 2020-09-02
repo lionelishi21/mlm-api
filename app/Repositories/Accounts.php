@@ -14,7 +14,7 @@ class Accounts extends Stripe {
 	private $customer;
 
 	public function __construct() {
-		// $this->stripe = new \Stripe\StripeClient('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');
+		// $this->stripe = new \Stripe\StripeClient($this->stripeLive);
 		$this->customer = new Customer;
 		$this->escrow = new Escrow;
 	}
@@ -69,7 +69,6 @@ class Accounts extends Stripe {
 	public function connectExternalAccount($userId, $bankId) {
 		$customer = $this->customer->where('user_id', '=', $userId)->first();
 
-		
 		if ($customer->account_Id) {
 			$external_account = $this->getExternalAccount($customer->account_id);
 			if ( isset( $external_account ) ){
@@ -81,6 +80,7 @@ class Accounts extends Stripe {
 		}
 		$this->AddExternalAccount($customer->account_id, $bankId);
 	}
+
 
 
 
@@ -287,7 +287,7 @@ class Accounts extends Stripe {
 		if ($details->country == 'GB') {
 
 			foreach($bonuses as $bonus) {
-				$stripe = new \Stripe\StripeClient('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');
+				$stripe = new \Stripe\StripeClient($this->stripeLive);
 
 				$amount = 0.00;
 				
@@ -330,7 +330,7 @@ class Accounts extends Stripe {
 		}
 
 		foreach($bonuses as $bonus) {
-			$stripe = new \Stripe\StripeClient('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');
+			$stripe = new \Stripe\StripeClient($this->stripeLive);
 
 			$amount = 0.00;
 			if ($bonus->tier == 'Bronze') {
@@ -409,6 +409,12 @@ class Accounts extends Stripe {
 		}
 
 		return false;
+	}
+
+
+	public function AddExternalBankAccount() {
+
+		$customer = Customer::where('user_id', '=', $user_id)->first();
 	}
 
 
@@ -517,7 +523,7 @@ class Accounts extends Stripe {
 	 */
 	public function getUserAccountByAccountId($accountId) {
 		
-		$stripe = new \Stripe\StripeClient('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');
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		$userAccount = $stripe->accounts->retrieve(
 			  $accountId,
 			  []

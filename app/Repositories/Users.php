@@ -69,6 +69,10 @@ class Users {
         }
     }
 
+    /**
+     * [demo description]
+     * @return [type] [description]
+     */
 	public function demo() {
 
         $faker = Faker::create();
@@ -177,8 +181,13 @@ class Users {
      * @return [type]         [description]
      */
     public function getAffiliateByDate($option = 'weekly') {
-        $date = Carbon::now()->subdays(7);
-        return $affiliates = Affiliate::where('created_at','>=',$date)->count();
+
+
+        $now = Carbon::now()->subdays(7);
+
+        $weekStartDate = $now->startOfWeek();
+        $weekEndDate = $now->endOfWeek();
+        return $affiliates = Affiliate:: whereBetween('created_at',[$weekStartDate, $weekEndDate ])->count();
     }
 
 
@@ -187,7 +196,20 @@ class Users {
      * @return [type] [description]
      */
     public function getAffliateCountries() {
-         return UserDetail::groupBy('country')->count();
+
+         $details = UserDetail::get();
+         $countries = array();
+         
+         foreach( $details as $detail) {
+
+            if ( in_array($detail->country, $countries) ) {
+               
+            } else {
+                array_push($countries, $detail->country);
+            }
+         }
+
+         return count($countries);
     }
 
 
