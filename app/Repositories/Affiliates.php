@@ -48,10 +48,65 @@ class Affiliates {
 	}
 
 	/**
+	 * [compression description]
+	 * @return [type] [description]
+	 */
+	public function compression() {
+	
+	    $affiliates = Affiliate::orderBy('id', 'asc')->get();
+	    $compression = array();
+
+        foreach( $affiliates as $affiliate) {
+        	
+        	$sales = $this->getEbookSalesCount($affiliate->user_id);
+        	if ($sales < 3 ) {
+        		// compress id is the user id 
+        		$compressId = $affiliate->user_id;
+        		array_push($compression, $compressId);
+
+        	} else {
+
+        		if ($compression) {
+        			$this->moveAffliateUp($compression, $affiliate->user_id);
+        		}
+        		
+        	}
+       
+        }
+	}
+
+	/**
+	 * [moveAffliateUp description]
+	 * @param  array  $array [description]
+	 * @param  [type] $user  [description]
+	 * @return [type]        [description]
+	 */
+	public function moveAffliateUp(array $array, $user) {
+
+		$users = $array;
+		foreach( $users as $userId) {
+			
+			$inactive = Affiliate::where('user_id'. '=', $userId)->first();
+			$active = Affliate::where('user_id', $user)->first();
+
+			$inactive->user_id = $user;
+			$inactive->update();
+
+			if ($inactive->update()) {
+
+				$active->user_id = $userId;
+				$active->update();
+			}
+		}
+	}
+
+
+	/**
 	 * [createNewGroup description]
 	 * @return [type] [description]
 	 */
 	public function createNewGroupAffiliate() {
+
 
 	}
 

@@ -185,9 +185,9 @@ class Users {
 
         $now = Carbon::now()->subdays(7);
 
-        $weekStartDate = $now->startOfWeek();
-        $weekEndDate = $now->endOfWeek();
-        return $affiliates = Affiliate:: whereBetween('created_at',[$weekStartDate, $weekEndDate ])->count();
+        $weekStartDate = $now->startOfWeek()->format("Y-m-d H:i:s");
+        // $weekEndDate = $now->endOfWeek()->toDateString();
+        return $affiliates = Affiliate::whereBetween('created_at', [$weekStartDate, Carbon::now()])->count();
     }
 
 

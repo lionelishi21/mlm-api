@@ -43,6 +43,8 @@ class Purchases {
 		$purchase->sales_id = $this->placeSalesPurchase($userId);
 		$purchase->save();
 
+
+
 		if ($purchase->save()) {
 			$this->affiliate->place($user_id, $purchase->sales_id);
 		}
@@ -52,15 +54,19 @@ class Purchases {
         ];
 	}
 
+
 	/**
 	 * [checkSalesPurcahse description]
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
 	 */
 	public function checkSalesPurcahse($userId) {
-		$sales2 = Purchase::where('sales_id', '=', $userId)->count();
-		return $sales2;
+		// $sales2 = Purchase::where('sales_id', '=', $userId)->count();
+		// return $sales2;
+        $affiliates = Affiliate::where('parent_id', '=', $userId)->count();
+        return $affiliates;
 	}
+
 
 	/**
 	 * [placeSalesPurchase description]
@@ -75,7 +81,6 @@ class Purchases {
 
             $purchaseCount = $this->checkSalesPurcahse($affiliate->user_id);
             if ($purchaseCount < 3) {
-
                 return $affiliate->user_id;
                 break;
             }

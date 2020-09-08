@@ -19,6 +19,14 @@ class Accounts extends Stripe {
 		$this->escrow = new Escrow;
 	}
 
+	/**
+	 * [getAllUsersStripeAccount description]
+	 * @return [type] [description]
+	 */
+	public function getAllUsersStripeAccount() {
+		return $this->getAllStripeAccounts();
+	}
+
 
 	/**
 	 * **************************************************************************

@@ -282,9 +282,16 @@ class Stripe {
 		return $accounts;
 	}
 
+	/**
+	 * [deleteExternalAccountCard description]
+	 * @param  [type] $accountId [description]
+	 * @param  [type] $id        [description]
+	 * @param  [type] $object    [description]
+	 * @return [type]            [description]
+	 */
 	public function deleteExternalAccountCard($accountId, $id, $object) {
 
-		$stripe = new \Stripe\StripeClient($this->stripeTest);
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
 
 		if ($object == 'card') {
 			$stripe->accounts->deleteExternalAccount(
@@ -327,7 +334,7 @@ class Stripe {
 
 		if ($tier == 'Gold') {
 			$amount = 380000;
-		}
+		} 	
 
 		if ($tier == 'Ruby') {
 			$amount = 2200000;
@@ -346,6 +353,16 @@ class Stripe {
 	  */
 	 public function getSupportedCountry() {
 	 	return SupportedCountry::get();
+	 }
+
+	 /**
+	  * [getAllStripeAccounts description]
+	  * @return [type] [description]
+	  */
+	 public function getAllStripeAccounts() {
+	 	
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
+		return $stripe->accounts->all()['data'];
 	 }
 }
 

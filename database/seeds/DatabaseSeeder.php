@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
         // $this->call(PurchaseSeeder::class);
         // $this->call(UserDetailsSeeder::class);
 
-        // $this->call(SingleUserSeeder::class);
-        // $this->call(SingleAffiliateSeeder::class);
-        // $this->call(SingleDetailSeeder::class);
+        $this->call(SingleUserSeeder::class);
+        $this->call(SingleAffiliateSeeder::class);
+        $this->call(SingleDetailSeeder::class);
         
-//        $this->call(RolesSeeder::class);
+        $this->call(RolesSeeder::class);
     }
 }

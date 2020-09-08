@@ -37,7 +37,6 @@ class UserController extends Controller
          if ($attributes['filter']) {
             $users = $users->where('first_name', 'like', '%' . $attributes['filter'] . '%');
          }
-       
 
         if ( $users ) {
             return $users->paginate($request->offset);

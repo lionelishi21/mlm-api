@@ -27,7 +27,26 @@ class Escrows {
 
 	}
 
+	/**
+	 * [all description]
+	 * @return [type] [description]
+	 */
+	public function getAll() {
+		
+		$response = array();		
+		$escrows = Escrow::with('user')->orderBy('id', 'desc')->get();
 
+		if ( $escrows ) {
+			return $escrows;
+		}
+	}
+
+
+	/**
+	 * [getEscrowByUserId description]
+	 * @param  [type] $userID [description]
+	 * @return [type]         [description]
+	 */
 	public function getEscrowByUserId( $userID) {
 
 		$this->checkAffiliatesEscrow();
@@ -38,7 +57,10 @@ class Escrows {
 		
 	}
 
-
+	/**
+	 * [checkAffiliatesEscrow description]
+	 * @return [type] [description]
+	 */
 	public function checkAffiliatesEscrow() {
 
 		$affiliates = Affiliate::get();

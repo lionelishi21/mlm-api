@@ -14,9 +14,12 @@ class Escrow extends Model
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'created_at' => 'datetime:Y-m-d H:00',
     ];
+
+    public function user() {
+    	return $this->belongsTo('App\User', 'user_id', 'id');
+    }
 
 
 }

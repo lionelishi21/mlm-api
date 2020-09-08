@@ -24,7 +24,12 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 	Route::middleware('auth:api')->group(function () {
 
-  	    Route::get('/download-ebook', 'DownloadController@download');
+		  Route::group(['prefix' => 'accounts'], function() {
+        	Route::get('/all', 'UserAccountController@index');
+         });
+
+
+  	      Route::get('/download-ebook', 'DownloadController@download');
   		  Route::get('/logout', 'AuthController@logout');
   		  Route::get('/user', 'AuthController@user');
   		  Route::get('/link', 'UserController@getLink');
@@ -48,16 +53,18 @@ Route::group(['prefix' => 'v1'], function(){
 
   		  Route::group(['prefix' => 'admin'], function() {
                 Route::get('/dashboard', 'UserController@dashboard');
-        });
+          });
 
   		  Route::group(['prefix' => 'wallet'], function() {
+            
             Route::get('/', 'CashBonusController@index');
             Route::get('/user-accounts', 'CashBonusController@userAccount');
             Route::get('/summary', 'CashBonusController@walletSummary');
             Route::post('/add-account', 'CashBonusController@storeAccountInformation');
-        });
+         });
 
         Route::group(['prefix' => 'users'], function() {
+        	
         	 Route::get('/detail', 'UserController@detail');
         	 Route::get('/reset-password/{id}', 'UserController@resetUserPassword');
         	 Route::get('/details/{id}', 'UserController@details');
@@ -66,6 +73,7 @@ Route::group(['prefix' => 'v1'], function(){
 
         Route::group(['prefix' => 'escrow'], function() {
         	  Route::get('/', 'EscrowController@getEscrows');
+        	  Route::get('/all', 'EscrowController@index');
         });
 
         Route::post('change-password', 'UserController@changePassword');
@@ -97,6 +105,10 @@ Route::group(['prefix' => 'v1'], function(){
         Route::group(['prefix' => 'bank'], function() {
           Route::post('store', 'CustomerController@addBank');
         });
+
+
+       
+        
 	 });
 
 	Route::get('/users', 'UserController@index');

@@ -15,7 +15,6 @@ class CreateAffiliate extends Migration
     {
         Schema::create('affiliates', function (Blueprint $table) {
             $table->id();
-
             $table->nestedSet();
             $table->integer('user_id');
             $table->string('affiliate_id');
@@ -30,6 +29,7 @@ class CreateAffiliate extends Migration
      */
     public function down()
     {
+        $table->dropNestedSet();
         Schema::dropIfExists('affiliates');
     }
 }
