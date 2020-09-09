@@ -641,6 +641,14 @@ class Accounts extends Stripe {
 		}
 
 	}
+
+	/**
+	 * [getStripeBalance description]
+	 * @return [type] [description]
+	 */
+	public function getStripeBalance() {
+		return $this->balance();
+	}
 }
 
 

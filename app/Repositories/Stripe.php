@@ -14,6 +14,12 @@ class Stripe {
 	   $this->stripe = new \Stripe\StripeClient($this->stripeLive);
 	}
 
+	public function balance() {
+		$stripe = new \Stripe\StripeClient($this->$stripeLive);
+        $balance = $stripe->balance->retrieve();
+        return $balance;
+	}
+
 	
 	/**
 	 * This function get stripe customer by passing customer id from the database

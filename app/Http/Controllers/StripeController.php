@@ -58,4 +58,8 @@ class StripeController extends Controller
     public function checkout() {
 
     }
+
+    public function balance() {
+        return $this->getStripeBalance();
+    }
 }

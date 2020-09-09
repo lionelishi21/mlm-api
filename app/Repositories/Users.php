@@ -9,6 +9,7 @@ use App\Affiliate;
 use Token;
 use App\DownloadToken;
 use Bitly;
+use App\Repositories\Accounts;
 use Carbon\Carbon;
 
 use App\Repositories\Purchases;
@@ -16,11 +17,12 @@ use App\Repositories\Purchases;
 class Users {
 
 	protected $user;
+    protected $account;
 	protected $details;
 
 	public function __construct() {
 		$this->model = new User;
-
+        $this->account = new Accounts;
 		// $this->details = new UserDetail;
 	}
 
@@ -149,7 +151,8 @@ class Users {
                 'payouts' => $purchase->totalPayouts(),
                 'active_affiliate' => $purchase->totalAffiliateCount('active'),
                 'inactive_affiliate' => $purchase->totalAffiliateCount('inactive'),
-                'all_affiliates' => $purchase->totalAffiliateCount()
+                'all_affiliates' => $purchase->totalAffiliateCount(),
+                'balance' => $this->accounts->getStripeBalance()
             );
         }
 

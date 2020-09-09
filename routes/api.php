@@ -26,6 +26,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 		  Route::group(['prefix' => 'accounts'], function() {
         	Route::get('/all', 'UserAccountController@index');
+        	Route::get('/balance', 'StripeController@balance');
          });
 
 
@@ -104,10 +105,7 @@ Route::group(['prefix' => 'v1'], function(){
 
         Route::group(['prefix' => 'bank'], function() {
           Route::post('store', 'CustomerController@addBank');
-        });
-
-
-       
+        }); 
         
 	 });
 
