@@ -152,7 +152,7 @@ class Users {
                 'active_affiliate' => $purchase->totalAffiliateCount('active'),
                 'inactive_affiliate' => $purchase->totalAffiliateCount('inactive'),
                 'all_affiliates' => $purchase->totalAffiliateCount(),
-                'balance' => $this->accounts->getStripeBalance()
+                'balance' => $this->account->getStripeBalance()
             );
         }
 
