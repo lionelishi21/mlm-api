@@ -15,7 +15,7 @@ class Stripe {
 	}
 
 	public function balance() {
-		$stripe = new \Stripe\StripeClient($this->$stripeLive);
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
         $balance = $stripe->balance->retrieve();
         return $balance;
 	}
