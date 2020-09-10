@@ -309,7 +309,24 @@ class Stripe {
 		
 	}
 
+	/**
+	 * ************************************************************************
+	 * Get stripe transactions
+	 * @return [type] [description]
+	 * ************************************************************************
+	 */
+	public function balanceTransaction() {
+		$stripe = new \Stripe\StripeClient($this->stripeLive);
+        return $stripe->balanceTransactions->all();
+	}
 
+
+	/**
+	 * [payout description]
+	 * @param  [type] $amount [description]
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
 	public function payout($amount, $userId) {
 
 		$customer = Customer::where('user_id' , '=', $userId)->first();

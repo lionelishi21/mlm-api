@@ -27,6 +27,13 @@ class Accounts extends Stripe {
 		return $this->getAllStripeAccounts();
 	}
 
+	/**
+	 * get srtipe balancr transactions 
+	 * @return [type] [description]
+	 */
+	public function getStripeTransaction() {
+		return $this->balanceTransaction();
+	}
 
 	/**
 	 * **************************************************************************
