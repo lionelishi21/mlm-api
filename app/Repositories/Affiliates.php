@@ -289,6 +289,8 @@ class Affiliates {
 
 		foreach( $sales as $sale) {
 
+			$bitly = $users->getUserLink($sale->user_id);
+
 			$response[] = array(
 				'affiliate_id' => Affiliate::where('user_id', '=', $sale->user_id)->first()->affiliate_id,
 				'purchaser_id' => $sale->purchase_by,
@@ -297,6 +299,7 @@ class Affiliates {
 				'assigned_sale_id' => $sale->sales_id,
 				'assigned_sale_name' => $sale->seller->first_name.' '.$sale->seller->last_name,
 				'date' => Carbon::parse($sale->created_at)->toDayDateTimeString(),
+				'link' => $bitly
 
 			);
 		}
