@@ -7,6 +7,7 @@ use App\Purchase;
 use App\UserDetail;
 use Carbon\Carbon;
 use App\User;
+use App\Repositories\Users;
 use Illuminate\Support\Collection;
 
 class Affiliates {
@@ -289,6 +290,7 @@ class Affiliates {
 
 		foreach( $sales as $sale) {
 
+			$users = new Users;
 			$bitly = $users->getUserLink($sale->user_id);
 
 			$response[] = array(
