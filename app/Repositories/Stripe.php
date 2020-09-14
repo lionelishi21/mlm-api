@@ -317,7 +317,7 @@ class Stripe {
 	 */
 	public function balanceTransaction() {
 		$stripe = new \Stripe\StripeClient($this->stripeLive);
-        return $stripe->balanceTransactions->all();
+        return $stripe->payouts->all();;
 	}
 
 
