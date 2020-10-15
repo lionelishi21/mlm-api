@@ -23,11 +23,11 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
    
-    Route::group(['prefix' => 'rayofhopes'], function() {
-	   	Route::get('/', 'RayofhopeController@index');
-	   	Route::get('/{id}', 'RayofhopeController@details');
-	   	Route::get('/create', 'RayofhopeController@store');
-	  });
+   //  Route::group(['prefix' => 'rayofhopes'], function() {
+	  //  	Route::get('/', 'RayofhopeController@index');
+	  //  	Route::get('/{id}', 'RayofhopeController@details');
+	  //  	Route::get('/create', 'RayofhopeController@store');
+	  // });
 
 	Route::middleware('auth:api')->group(function () {
 
@@ -38,11 +38,11 @@ Route::group(['prefix' => 'v1'], function(){
         	Route::get('/balance', 'StripeController@balance');
          });
 
-		  // Route::group(['prefix' => 'rayofhopes'], function() {
-		  //  	Route::get('/', 'RayofhopeController@index');
-		  //  	Route::get('/{id}', 'RayofhopeController@details');
-		  //  	Route::get('/create', 'RayofhopeController@store');
-		  // });
+		  Route::group(['prefix' => 'rayofhopes'], function() {
+		   	Route::get('/', 'RayofhopeController@index');
+		   	Route::get('/{id}', 'RayofhopeController@details');
+		   	Route::get('/create', 'RayofhopeController@store');
+		  });
 
   	      Route::get('/download-ebook', 'DownloadController@download');
   		  Route::get('/logout', 'AuthController@logout');
