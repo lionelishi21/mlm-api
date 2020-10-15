@@ -299,12 +299,21 @@ class Rayhope {
 
 
     /**
-	 * get all affiliates members 
+	 * GET ALL AFFILIATES MEMBERS
 	 * @return [type] [description]
 	 */
 	public function getAllMembers(array $array) {
+		
 		$affiliates = $this->rayofhope->with('user')->get();
-		return $affiliates;
+		
+		if ( $affiliates ) {
+			return $affiliates;
+		}
+
+		return [
+			'msg' => 'No Affiliates'
+		];
+		
 	}
 
 
