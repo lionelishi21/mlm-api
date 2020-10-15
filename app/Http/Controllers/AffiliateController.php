@@ -49,9 +49,17 @@ class AffiliateController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function getUserGroupSales(Request $request) {
+
         $userId = $request->user()->id;
-        $response = $this->model->getGroupSales($userId);
-        return response()->json(['response' => $response ]);
+        return $this->model->getSalesPercentage($userId);
+    }
+
+     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserGroupSale($userId) {
+        return $this->model->getSalesPercentage($userId);
     }
 
     /**

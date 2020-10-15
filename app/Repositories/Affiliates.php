@@ -9,10 +9,18 @@ use Carbon\Carbon;
 use App\User;
 use App\Repositories\Users;
 use Illuminate\Support\Collection;
+use App\Rayofhope;
 
 class Affiliates {
 
 	protected $group;
+	protected $booster;
+
+
+	public function __construct() {
+		$this->booster = new Rayofhope;
+	}
+
 
 	public function createAffiliate($user_id, $affiliate_id) {
 
@@ -66,11 +74,9 @@ class Affiliates {
         		array_push($compression, $compressId);
 
         	} else {
-
         		if ($compression) {
         			$this->moveAffliateUp($compression, $affiliate->user_id);
         		}
-        		
         	}
        
         }
@@ -94,7 +100,6 @@ class Affiliates {
 			$inactive->update();
 
 			if ($inactive->update()) {
-
 				$active->user_id = $userId;
 				$active->update();
 			}
@@ -116,20 +121,20 @@ class Affiliates {
 	 * @param  [type] $group_id [description]
 	 * @return [type]           [description]
 	 */
-	public function place( $purchaser_id, $affiliate_id) {
+	public function place( $purchaser_id, $affiliate_id, $cost) {
 
 
 		$affiliate = new Affiliate;
 		$affiliate->user_id = $purchaser_id;
 		$affiliate->parent_id = $affiliate_id;
+		$affiliate->cost = $cost;
 		$affiliate->affiliate_id = $this->generateAffliateIDs();
 		$affiliate->save();
 
 
 		if ( $affiliate->save() ) {
-            // $parent = Affiliate::find($affiliate_id);
-            // $child = Affiliate::find($purchaser_id);
-            // $parent->appendNode($child);
+           // Cash bonus trigger should go here
+
 			return true;
 		}
 		return false;
@@ -365,7 +370,8 @@ class Affiliates {
 		    'sales' => $sales,
             'bitly_link' => $bitly,
 		    'personal_sales' =>$this->getEbookSales($userId, 'personal'),
-            'group_sales_counts' => $this->getGroupSales($userId),
+            'escrow' => $this->getGroupSales($userId),
+            'boosters' => $this->getBoosterPackages($userId),
             'parent' => $this->getParentById($id)
 		);
 
@@ -423,11 +429,134 @@ class Affiliates {
 	    $count = 0;
 
         foreach($affiliates as $affiliate) {
-                $affiliate = Affiliate::descendantsOf($affiliate->user_id);
-                $count += count($affiliate );
+                // $sales = Affiliate::descendantsOf($affiliate->user_id);
+                $sales = Affiliate::descendantsOf($affiliate->id);
+                foreach($sales as $sale) {
+                	$count += $sale->cost ;
+                }
         }
 
-	    return $count +  $firstCounts; 
+	    return number_format( $count, 2); 
+    }
+
+
+    public function totalSales() {
+
+    	$affiliates = Affiliate::get();
+    	$cals = 0;
+    	
+    	foreach( $affiliates as $affiliate) {
+    		$cals += $affiliate->cost;
+    	}
+
+    	return number_format($cals, 2);
+    }
+
+    /**
+     * 
+     */
+    public function getSalesPercentage($userId) {
+
+		$cals = 1;
+		$position = 0;
+		$trigger = 0;
+		$sale_status = 'bronze';
+		$color_indication = '#cd7f32';
+
+
+
+		$groupSales = $this->getGroupSales($userId);
+		$depth = Affiliate::withDepth()->where('user_id', '=', $userId)->first()->depth;
+
+
+		if ( $groupSales <= 314.55) {
+
+			for( $i = 1; $i < $depth; $i++ ){
+				$cals = $cals * 3;
+			}
+
+			$trigger = $cals * 314.55;
+			$total_sales = $this->totalSales();
+			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
+			$position = number_format((float)$position, 2, '.', ''); 
+			$color_indication = '#cd7f32';
+		}
+
+	
+		if ( $groupSales > 314.55  && $groupSales <= 1930.95) {
+
+			for( $i = 1; $i < $depth; $i++ ){
+				$cals = $cals * 3;
+			}
+
+			$trigger = $cals *  1930.95;
+			$total_sales = $this->totalSales();
+			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
+			$position = number_format((float)$position, 2, '.', ''); 
+			$sale_status = 'silver';
+			$color_indication = '#bfbfbf';
+
+		}
+			
+
+
+		if ( $groupSales > 1930.95  &&  $groupSales <=  8178.55 ) {
+
+			for( $i = 1; $i < $depth; $i++ ){
+				$cals = $cals * 3;
+			}
+
+			$trigger = $cals *  8178.55;
+			$total_sales = $this->totalSales();
+			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
+			$position = number_format((float)$position, 2, '.', ''); 
+			$sale_status = 'gold';
+			$color_indication = '#FFD700';
+		}
+
+
+
+		if ( $groupSales > 8178.55 &&$groupSales <=  951606.95 ) {
+
+			for( $i = 1; $i < $depth; $i++ ){
+				$cals = $cals * 3;
+			}
+
+			$trigger = $cals *  951606.95;
+			$total_sales = $this->totalSales();
+			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
+			$position = number_format((float)$position, 2, '.', ''); 
+			$sale_status = 'ruby';
+			$color_indication = '#e0115f';
+		}
+
+
+		if ( $groupSales > 951606.95 && $groupSales >=  1903212.9) {
+
+			for( $i = 1; $i < $depth; $i++ ){
+				$cals = $cals * 3;
+			}
+
+			$trigger = $cals * 1903212.9;
+			$total_sales = $this->totalSales();
+			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
+			$position = number_format((float)$position, 2, '.', ''); 
+			$sale_status = 'diamond';
+			$color_indication = '#b9f2ff';
+
+		}
+
+		 $response = array(
+        	'group_sales' => $this->getGroupSales($userId),
+        	'level' => Affiliate::withDepth()->where('user_id', '=', $userId)->first()->depth,
+        	'position' => $position,
+        	'total_sales' => $total_sales,
+        	'trigger' => $trigger,
+        	'status' => $sale_status,
+        	'color' => $color_indication
+         );
+
+		 return $response;
     }
 
     /**
@@ -517,25 +646,25 @@ class Affiliates {
             }
         }
 
-	    if ($descendantsAmount == 36) {
+	    // if ($descendantsAmount == 36) {
 
-	        $escrow = new Escrow;
-	        $escrow->user_id = $userId;
-	        $escrow->tier = 'Silver';
-	        $escrow->pf = $this->getEscrowByTier($userId, 'Silver');
-	        $escrow->sales = 36;
-	        $escrow->cash_bonus = 600.00;
-	        $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
-	        $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 600;
-        }
+	    //     $escrow = new Escrow;
+	    //     $escrow->user_id = $userId;
+	    //     $escrow->tier = 'Silver';
+	    //     $escrow->pf = $this->getEscrowByTier($userId, 'Silver');
+	    //     $escrow->sales = 36;
+	    //     $escrow->cash_bonus = 600.00;
+	    //     $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
+	    //     $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 600;
+     //    }
 
 	    if ( $descendantsAmount == 108) {
             $escrow = new Escrow;
             $escrow->user_id = $userId;
-            $escrow->tier = 'Gold';
-            $escrow->pf = $this->getEscrowByTier($userId, 'Gold');
+            $escrow->tier = 'Silver';
+            $escrow->pf = $this->getEscrowByTier($userId, 'Silver');
             $escrow->sales = 108;
-            $escrow->cash_bonus = 3800.00;
+            $escrow->cash_bonus = 600.00;
             $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
             $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 3800.00;
             $escrow->save();
@@ -545,10 +674,10 @@ class Affiliates {
 
             $escrow = new Escrow;
             $escrow->user_id = $userId;
-            $escrow->tier = 'Ruby';
-            $escrow->pf = $this->getEscrowByTier($userId, 'Ruby');
+            $escrow->tier = 'Gold';
+            $escrow->pf = $this->getEscrowByTier($userId, 'Gold');
             $escrow->sales = 324;
-            $escrow->cash_bonus = 22000.00;
+            $escrow->cash_bonus = 3800.00;
             $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
             $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 22000.00;
             $escrow->save();
@@ -556,6 +685,19 @@ class Affiliates {
         }
 
          if ( $descendantsAmount == 972) {
+
+             $escrow = new Escrow;
+             $escrow->user_id = $userId;
+             $escrow->tier = 'Ruby';
+             $escrow->pf = $this->getEscrowByTier($userId, 'Ruby');
+             $escrow->sales = 972;
+             $escrow->cash_bonus = 22000.00;
+             $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
+             $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 22000.00;
+             $escrow->save();
+         }
+
+         if ( $descendantsAmount == 11664) {
 
              $escrow = new Escrow;
              $escrow->user_id = $userId;
@@ -567,6 +709,62 @@ class Affiliates {
              $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 22000.00;
              $escrow->save();
          }
+    }
+
+
+    public function newEscrow($userId) {
+    	
+    }
+
+    /**
+     * This function create escrow for roh
+     * @param  [type] $amount [description]
+     * @return [type]         [description]
+     */
+    public function createRohPayout($amount) {
+
+    	if ( $amount == 20800 ) {
+
+    		$check = Escrow::where('user_id','=', $userid)->where('tier', '=', 'Ray Of Hope')->count();
+
+    		if ($check > 0) {
+    			return;
+    		}
+	      
+	        $escrow = new Escrow;
+	        $escrow->tier = 'Ray Of Hope';
+	        $escrow->user_id = $userId;
+	        $escrow->pf = 25.00;
+	        $escrow->sales = 12;
+	        $escrow->cash_bonus = 15000.00;
+	        $escrow->amount_recieved = 16275.00;
+	        $escrow->escrow = 16275.00;
+            $escrow->save();
+
+            if ( $escrow->save()) {
+            	 $refferId = Affiliate::where('user_id', '=', $userId)->first();
+
+            	 $purchase = new Purchases;
+            	 $purchase->store($userdetails['referral_id'], $userId, 4000);
+               
+                 return true;
+            }
+
+    	} 
+    }
+
+    /**
+     * ************************************************************************
+     * THIS FUNCTION GET AFFILIATE BOOSTER PACKAGES
+     * ************************************************************************
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     * ************************************************************************
+     */
+    public function getBoosterPackages($userId) {
+
+    	$boosters = $this->booster->where('user_id', '=', $userId)->get();
+    	return count( $boosters );
     }
 
 

@@ -32,7 +32,7 @@ class Purchases {
 	 * @param  [type] $user_id  [description]
 	 * @return [type]           [description]
 	 */
-	public function store($affil_id, $user_id) {
+	public function store($affil_id, $user_id, $cost = 34.95){
 
 		$affil = Affiliate::where('affiliate_id', '=', $affil_id)->first();
 		$userId = $affil->user_id;
@@ -46,7 +46,7 @@ class Purchases {
 
 
 		if ($purchase->save()) {
-			$this->affiliate->place($user_id, $purchase->sales_id);
+			$this->affiliate->place($user_id, $purchase->sales_id, $cost);
 		}
 
         return [

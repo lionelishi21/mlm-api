@@ -10,7 +10,7 @@ use App\Repositories\Bank;
 use App\Repositories\Paypal;
 
 use App\Repositories\StripeRepository;
-
+use App\Repositories\Rayhope;
 
 class CustomerController extends Controller
 {
@@ -25,7 +25,32 @@ class CustomerController extends Controller
         $this->bank = new Bank;
         $this->paypal = new Paypal;
         $this->debit = new DebitCard;
+        $this->hope = new Rayhope;
     }
+
+
+    /**
+     * this function buy booster packages
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function buyBooster(Request $request) {
+    	
+    	$attributes = $request->all();
+    	$userId = $request->user()->id;
+
+    	$repo = new StripeRepository;
+    	$stripe = $repo->purchaseBooster($attributes, $userId);
+
+    	if ( $stripe['status']) {
+    		$this->hope->createAffiliate($userId, $attributes['qty']);
+    	}
+
+    	return [
+    		'status' => true
+    	];
+    }
+
 
     /**
      * [index description]

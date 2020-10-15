@@ -8,14 +8,14 @@ use App\Affiliate;
 class Escrows {
 
 
+	protected $amount;
 	protected $escrow; 
 	protected $affiliate;
-
-	protected $bronze = 12;
-    protected $silver = 36;
-    protected $gold = 108;
-    protected $ruby = 324;
-    protected $diamond = 972;
+	protected $bronze = 314.55;
+    protected $silver = 1930.95;
+    protected $gold = 11978.95;
+    protected $ruby = 73606.95;
+    protected $diamond = 464462.55;
 
 	/**
 	 * [__construct description]
@@ -26,6 +26,16 @@ class Escrows {
 		$this->affiliate = New Affiliates;
 
 	}
+
+	/**
+	 * [escrow description]
+	 * @param  [type] $affiliateId [description]
+	 * @return [type]              [description]
+	 */
+	public function escrow($affiliateId) {
+			
+		// $escrow-> $this->		
+	} 
 
 	/**
 	 * [all description]
@@ -66,6 +76,7 @@ class Escrows {
 		$affiliates = Affiliate::get();
 
 		foreach( $affiliates as $affiliate) {
+			
 			$groupSales = $this->affiliate->getGroupSales($affiliate->user_id);
 			$this->createEscrow($groupSales, $affiliate->user_id);
 		}

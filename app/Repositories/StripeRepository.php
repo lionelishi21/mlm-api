@@ -5,7 +5,7 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Repositories\Accounts;
-
+use App\User;
 use Redirect,Response, Stripe;
 
 class StripeRepository
@@ -45,11 +45,51 @@ class StripeRepository
             'stripe' => $stripe
         );
 
-
-
         return $response;
 
     }
+
+    /**
+     * **********************************************************************
+     * this function update booster packages
+     * **********************************************************************
+     * @param  array  $array [description]
+     * @return [type]        [description]
+     * **********************************************************************
+     */
+    public function purchaseBooster(array $array, $userId) {
+
+        $test = 'sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ';
+        $live = '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';
+        $stripe =  new \Stripe\StripeClient($live);
+        
+        $user = User::find($userId);
+
+        // Create a Customer:
+        $customer = $stripe->customers->create([
+            'source' => $array['tokenId'],
+            'email' => $user->email,
+            'name' => $user->first_name.' '.$user->last_name
+        ]);
+
+        $stripe =  $stripe->charges->create([
+            'currency' => 'USD',
+            'amount' =>  $array['amount'],
+            'customer' => $customer->id
+        ]);
+
+        if ($stripe) {
+
+            $response = array(
+                'msg' => 'Payment was succesfull',
+                'status' => true,
+                'stripe' => $stripe
+            );
+        }
+
+        return $response;
+    }
+
 
     /**
      * [payout description]

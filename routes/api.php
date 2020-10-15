@@ -24,11 +24,18 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 	Route::middleware('auth:api')->group(function () {
 
+		  Route::post('/purchase/booster-packages', 'CustomerController@buyBooster');
+		  
 		  Route::group(['prefix' => 'accounts'], function() {
         	Route::get('/all', 'UserAccountController@index');
         	Route::get('/balance', 'StripeController@balance');
          });
 
+		  Route::group(['prefix' => 'rayofhopes'], function() {
+		   	Route::get('/', 'RayofhopeController@index');
+		   	Route::get('/{id}', 'RayofhopeController@details');
+		   	Route::get('/create', 'RayofhopeController@store');
+		  });
 
   	      Route::get('/download-ebook', 'DownloadController@download');
   		  Route::get('/logout', 'AuthController@logout');
@@ -42,7 +49,10 @@ Route::group(['prefix' => 'v1'], function(){
   		   	 
   		   	 Route::get('/', 'AffiliateController@index');
   		   	 Route::get('/details/{id}', 'AffiliateController@details');
+
   		   	 Route::get('/group-sales', 'AffiliateController@getUserGroupSales');
+  		   	 Route::get('/group-sales/{id}', 'AffiliateController@getUserGroupSale');
+
   		   	 Route::get('/user-dashboard', 'UserController@userDashboard');
   		   	 Route::post('/add-affiliate', 'UserController@addAffiliate');
   		   	 Route::get('/delete-affailiate/{id}', 'AffiliateController@removeAffiliate');
@@ -119,6 +129,7 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('/username-availability', 'UserController@checkUsername');
   	Route::post('/login', 'AuthController@login');
   	Route::post('/purchase', 'AuthController@register');
+
 
     Route::get('/countries', 'CountryStatesCityController@countries');
     Route::get('/states/{id}', 'CountryStatesCityController@states');

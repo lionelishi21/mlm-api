@@ -60,7 +60,7 @@ class AuthController extends Controller
              $fullname =  $userdetails['first_name'].' '.$userdetails['last_name'];
             if ($userdetails['payment_type'] == 'stripe') {
                 
-                 $payment = $stripe->store($request->charge['tokenId'], 
+                    $payment = $stripe->store($request->charge['tokenId'], 
                     $request->charge['amount'], $fullname, $userdetails['email'] 
                  );
             }
@@ -111,7 +111,7 @@ class AuthController extends Controller
           'email' => $userdetails['email'],
           'book_link' => $book_link,
           'message' => 'message',
-            'token' => $userToken
+          'token' => $userToken
 
         ];
 
