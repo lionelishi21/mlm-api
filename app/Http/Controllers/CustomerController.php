@@ -38,11 +38,14 @@ class CustomerController extends Controller
     	
     	$attributes = $request->all();
     	$userId = $request->user()->id;
+    	
+    	if ($$attributes['method'] == 'stripe') {
+    		$repo = new StripeRepository;
+    	    $stripe = $repo->purchaseBooster($attributes, $userId);
+    	}
+    	
 
-    	$repo = new StripeRepository;
-    	$stripe = $repo->purchaseBooster($attributes, $userId);
-
-    	if ( $stripe['status']) {
+    	if ( $stripe['status'] || $attributes['method'] == 'paypal') {
     		$this->hope->createAffiliate($userId, $attributes['qty']);
     	}
 
