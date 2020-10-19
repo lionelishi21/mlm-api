@@ -15,13 +15,17 @@ class Affiliates {
 
 	protected $group;
 	protected $booster;
-
-
+	
 	public function __construct() {
 		$this->booster = new Rayofhope;
 	}
 
-
+	/**
+	 * THIS FUNCTION CREATE AFFI
+	 * @param  [type] $user_id      [description]
+	 * @param  [type] $affiliate_id [description]
+	 * @return [type]               [description]
+	 */
 	public function createAffiliate($user_id, $affiliate_id) {
 
 		$group_id = Affiliate::where('affiliate_id', '=', $affiliate_id)->first()->group_id;
@@ -32,25 +36,31 @@ class Affiliates {
 		if ( $childGroups > 0) {
 
 			$position = 0;
+			
 			foreach($childGroups as $child) {
 
 	            $position = $child->group_id;
 				$group_count = Affiliate::where('group_id', '=',  $position )->count();
 
 				if ($group_count == $child_group){
-					$position =  $child->group_id * 3;
 
+					$position =  $child->group_id * 3;
 					$groupExist = Affiliate::where('group_id', '=', $position)->first();
+
 					if (!$groupExist) {
 						$this->create($user_id, $position, $groupExist->affiliate_id);
 					}
+
 				} else {
 	               $this->place($child->affiliate_id, $group_id, $user_id);
 				}
 			}
 
+
 		} else {
+
 			$this->create($user_id, $child_group, $affiliate_id);
+
 		}
 
 

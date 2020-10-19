@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Rayofhope;
 use App\User;
+use DB;
 
 class Rayhope {
 
@@ -294,6 +295,7 @@ class Rayhope {
                 $count += count($escrows);
         }
 
+       
 	    return $count; 
     }
 
@@ -303,17 +305,35 @@ class Rayhope {
 	 * @return [type] [description]
 	 */
 	public function getAllMembers(array $array) {
+	
+		$affiliates = DB::table('rayofhopes')->get();
 		
-		$affiliates = $this->rayofhope->with('user')->get();
+
+		$response = array();
+		$affiliate = array();
 		
-		if ( $affiliates ) {
-			return $affiliates;
+		foreach($affiliates as $affil) {
+
+			if (in_array($affil->user_id, $affiliate) )  {
+			
+			} else {
+               
+               	$user = User::find($affil->user_id);
+
+				$response[] = array(
+					'id'     => $affil->id,
+					'cost'   => $affil->cost,
+					'name'   => $user->first_name.' '.$user->first_name,
+					'email'  => $user->email,
+					'escrow' => $this->getGroupSales($affil->id), 
+				);
+
+				$affiliate[] = $affil->user_id;
+            }
+
 		}
 
-		return [
-			'msg' => 'No Affiliates'
-		];
-		
+		return $response ;
 	}
 
 
