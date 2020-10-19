@@ -11,6 +11,7 @@ use App\DownloadToken;
 use Bitly;
 use App\Repositories\Accounts;
 use Carbon\Carbon;
+use App\Rayofhope;
 
 use App\Repositories\Purchases;
 
@@ -167,16 +168,26 @@ class Users {
      * @return [type]         [description]
      */
     public function userDashboard($userId) {
+        
         $response = array();
-
 
         $response = array(
             'all_members' => $this->getAffiliateByDate(),
             'countries' => $this->getAffliateCountries(),
-            'cashbouns' => $this->getUserCashbonus($userId)
+            'cashbouns' => $this->getUserCashbonus($userId),
+            'boosters' => count($this->getBoosterPackages($userId))
         );
 
         return $response;
+    }
+
+
+    public function getBoosterPackages($userId) {
+
+        $booster = Rayofhope::where('user_id', '=', $userId)->get();
+        if ( $booster ) {
+            return $booster;
+        }
     }
 
     /**
