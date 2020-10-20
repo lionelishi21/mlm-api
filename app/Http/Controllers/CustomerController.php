@@ -49,6 +49,10 @@ class CustomerController extends Controller
     		$this->hope->createAffiliate($userId, $attributes['qty']);
     	}
 
+    	// if ($stripe['status'] || $attributes['method'] == 'coupon') {
+    	// 	$this->hope->createAffiliate($userId, $attributes['qty']);
+    	// }
+
     	return [
     		'status' => true
     	];

@@ -29,7 +29,7 @@ Route::group(['prefix' => 'v1'], function(){
 	  //  	Route::get('/create', 'RayofhopeController@store');
 	  // });
 
-	Route::middleware('auth:api')->group(function () {
+	Route::middleware('auth:api')->group(function () { 
 
 		  Route::post('/purchase/booster-packages', 'CustomerController@buyBooster');
 		  
@@ -39,7 +39,7 @@ Route::group(['prefix' => 'v1'], function(){
          });
 
 		  Route::group(['prefix' => 'rayofhopes'], function() {
-		   	Route::get('/', 'RayofhopeController@index');
+		   	Route::get('/', 'RayofhopeController@index'); 
 		   	Route::get('/{id}', 'RayofhopeController@details');
 		   	Route::get('/create', 'RayofhopeController@store');
 		  });
