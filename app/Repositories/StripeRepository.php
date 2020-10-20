@@ -19,8 +19,9 @@ class StripeRepository
     public function store($token, $amount, $customerName, $email)
     {
 
+        $live = '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';
 
-        $stripe = new \Stripe\StripeClient('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');
+        $stripe = new \Stripe\StripeClient($live );
       
         // Create a Customer:
         $customer = $stripe->customers->create([
@@ -60,7 +61,9 @@ class StripeRepository
     public function purchaseBooster(array $array, $userId) {
 
         $test = 'sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ';
+
         $live = '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';
+        
         $stripe =  new \Stripe\StripeClient($live);
         
         $user = User::find($userId);
