@@ -39,7 +39,7 @@ class CustomerController extends Controller
     	$attributes = $request->all();
     	$userId = $request->user()->id;
     	
-    	if ($$attributes['method'] == 'stripe') {
+    	if ($attributes['method'] == 'stripe') {
     		$repo = new StripeRepository;
     	    $stripe = $repo->purchaseBooster($attributes, $userId);
     	}
