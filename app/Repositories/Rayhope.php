@@ -328,7 +328,7 @@ class Rayhope {
 				$response[] = array(
 					'id'     => $affil->id,
 					'cost'   => $affil->cost,
-					'name'   => $user->first_name.' '.$user->first_name,
+					'name'   => $user->first_name.' '.$user->last_name,
 					'email'  => $user->email,
 					'escrow' => $this->getGroupSales($affil->id), 
 					'tiers' => $getTiersByAffiliateId($affil->id),
