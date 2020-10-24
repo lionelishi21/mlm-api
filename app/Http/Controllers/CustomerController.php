@@ -45,13 +45,14 @@ class CustomerController extends Controller
     	}
     	
 
-    	if ( $stripe['status'] || $attributes['method'] == 'paypal') {
+    	if ( $attributes['method'] == 'paypal') {
     		$this->hope->createAffiliate($userId, $attributes['qty']);
     	}
 
-    	// if ($stripe['status'] || $attributes['method'] == 'coupon') {
-    	// 	$this->hope->createAffiliate($userId, $attributes['qty']);
-    	// }
+
+    	if ($attributes['method'] == 'coupon') {
+    		$this->hope->createAffiliate($userId, $attributes['qty']);
+    	}
 
     	return [
     		'status' => true

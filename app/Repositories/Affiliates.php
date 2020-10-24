@@ -236,7 +236,8 @@ class Affiliates {
     			'parent' => $this->getParentById($affiliate->affiliate_id),
     			'sales' => $this->getEbookSalesCount($affiliate->user->id),
     			'status' => $this->getAffiliateStatusName($affiliate->user->id),
-    			'sponsor' => $this->getSponsor($affiliate->user->id)
+    			'sponsor' => $this->getSponsor($affiliate->user->id),
+    			
     			
     		);
     	}

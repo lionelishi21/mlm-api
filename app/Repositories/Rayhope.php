@@ -280,7 +280,12 @@ class Rayhope {
 	    return $count; 
     }
 
-
+    /**
+     * *********************************************************************
+     * THIIS FUNCTION GET ALL GROUP SALES COUNT/
+     * @param  [type] $affiliateId [description]
+     * @return [type]              [description]
+     */
     public function getGroupSalesCount($affiliateId) {
 
     	   // get the first three
@@ -326,6 +331,8 @@ class Rayhope {
 					'name'   => $user->first_name.' '.$user->first_name,
 					'email'  => $user->email,
 					'escrow' => $this->getGroupSales($affil->id), 
+					'tiers' => $getTiersByAffiliateId($affil->id),
+					'boosters' =>  count(Rayofhope::where('user_id', '=', $affil->user_id)->get())
 				);
 
 				$affiliate[] = $affil->user_id;
