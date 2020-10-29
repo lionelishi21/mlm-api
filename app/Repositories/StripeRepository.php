@@ -63,7 +63,7 @@ class StripeRepository
         $test = 'sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ';
         $live = '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';
         
-        $stripe =  new \Stripe\StripeClient($tive);
+        $stripe =  new \Stripe\StripeClient($live);
         
         $user = User::find($userId);
 
