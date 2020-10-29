@@ -32,11 +32,18 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::middleware('auth:api')->group(function () { 
 
 		  Route::post('/purchase/booster-packages', 'CustomerController@buyBooster');
+		  Route::get('/transfer/booster-packages/{id}', 'BoosterController@transfer');
 		  
 		  Route::group(['prefix' => 'accounts'], function() {
         	Route::get('/all', 'UserAccountController@index');
         	Route::get('/balance', 'StripeController@balance');
-         });
+          });
+
+		  Route::group(['prefix' => 'boosters'], function() {
+
+		  	Route::get('/', 'BoosterController@index');
+		  	Route::get('/details/{id}', 'BoosterController@details');
+		  });
 
 		  Route::group(['prefix' => 'rayofhopes'], function() {
 		   	Route::get('/', 'RayofhopeController@index'); 

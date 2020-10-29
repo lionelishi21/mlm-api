@@ -141,7 +141,6 @@ class Affiliates {
 		$affiliate->affiliate_id = $this->generateAffliateIDs();
 		$affiliate->save();
 
-
 		if ( $affiliate->save() ) {
            // Cash bonus trigger should go here
 
@@ -381,7 +380,7 @@ class Affiliates {
 		    'sales' => $sales,
             'bitly_link' => $bitly,
 		    'personal_sales' =>$this->getEbookSales($userId, 'personal'),
-            'escrow' => $this->getGroupSales($userId),
+            // 'escrow' => $this->getGroupSales($userId),
             'boosters' => $this->getBoosterPackages($userId),
             'parent' => $this->getParentById($id)
 		);
@@ -435,7 +434,7 @@ class Affiliates {
 	public function getGroupSales($userId) {
 
 	    // get the first three
-	    $affiliates = Affiliate::with('allChildren')->where('parent_id', '=', $userId)->get();
+	    $affiliates = Affiliate::where('parent_id', '=', $userId)->get();
 	    $firstCounts = count($affiliates);
 	    $count = 0;
 
@@ -635,6 +634,11 @@ class Affiliates {
         return false;
     }
 
+    /**
+     * this functioon get escrow
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
     public function escrow($userId) {
 
 	    $descendants = Affiliate::descendantsOf($userId);
@@ -656,18 +660,6 @@ class Affiliates {
                 return true;
             }
         }
-
-	    // if ($descendantsAmount == 36) {
-
-	    //     $escrow = new Escrow;
-	    //     $escrow->user_id = $userId;
-	    //     $escrow->tier = 'Silver';
-	    //     $escrow->pf = $this->getEscrowByTier($userId, 'Silver');
-	    //     $escrow->sales = 36;
-	    //     $escrow->cash_bonus = 600.00;
-	    //     $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
-	    //     $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 600;
-     //    }
 
 	    if ( $descendantsAmount == 108) {
             $escrow = new Escrow;
@@ -695,20 +687,20 @@ class Affiliates {
 
         }
 
-         if ( $descendantsAmount == 972) {
+	    if ( $descendantsAmount == 972) {
 
-             $escrow = new Escrow;
-             $escrow->user_id = $userId;
-             $escrow->tier = 'Ruby';
-             $escrow->pf = $this->getEscrowByTier($userId, 'Ruby');
-             $escrow->sales = 972;
-             $escrow->cash_bonus = 22000.00;
-             $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
-             $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 22000.00;
-             $escrow->save();
-         }
+	         $escrow = new Escrow;
+	         $escrow->user_id = $userId;
+	         $escrow->tier = 'Ruby';
+	         $escrow->pf = $this->getEscrowByTier($userId, 'Ruby');
+	         $escrow->sales = 972;
+	         $escrow->cash_bonus = 22000.00;
+	         $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
+	         $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 22000.00;
+	         $escrow->save();
+	    }
 
-         if ( $descendantsAmount == 11664) {
+        if ( $descendantsAmount == 11664) {
 
              $escrow = new Escrow;
              $escrow->user_id = $userId;
@@ -719,50 +711,84 @@ class Affiliates {
              $escrow->amount_recieved = $this->CalculateAmountRecieved($descendantsAmount);
              $escrow->escrow = $this->CalculateAmountRecieved($descendantsAmount) - 22000.00;
              $escrow->save();
-         }
+        }
     }
 
-
-    public function newEscrow($userId) {
-    	
-    }
+    /**
+     * new wscrow func
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
+    public function newEscrow($userId) {}
 
     /**
      * This function create escrow for roh
      * @param  [type] $amount [description]
      * @return [type]         [description]
      */
-    public function createRohPayout($amount) {
+    public function createBoosterPayout($amount, $userId, $tier) {
 
-    	if ( $amount == 20800 ) {
-
-    		$check = Escrow::where('user_id','=', $userid)->where('tier', '=', 'Ray Of Hope')->count();
+    	if ( $amount = 400.00 ) {
+    		
+    		$check = Escrow::where('user_id','=', $userId)
+    		->where('tier', '=', $tier )->count();
 
     		if ($check > 0) {
     			return;
     		}
-	      
+
 	        $escrow = new Escrow;
-	        $escrow->tier = 'Ray Of Hope';
+	        $escrow->tier = $tier;
 	        $escrow->user_id = $userId;
-	        $escrow->pf = 25.00;
-	        $escrow->sales = 12;
-	        $escrow->cash_bonus = 15000.00;
-	        $escrow->amount_recieved = 16275.00;
-	        $escrow->escrow = 16275.00;
+	        $escrow->pf =  00;
+	        $escrow->sales = 00;
+	        $escrow->cash_bonus = $amount;
+	        $escrow->amount_recieved = 00;
+	        $escrow->escrow = 00;
             $escrow->save();
+    	}
 
-            if ( $escrow->save()) {
-            	 $refferId = Affiliate::where('user_id', '=', $userId)->first();
+    	if ( $amount = 4000.00 ) {
+    		
+    		$check = Escrow::where('user_id','=', $userId)
+    		->where('tier', '=', $tier)->count();
 
-            	 $purchase = new Purchases;
-            	 $purchase->store($userdetails['referral_id'], $userId, 4000);
-               
-                 return true;
-            }
+    		if ($check > 0) {
+    			return;
+    		}
 
-    	} 
+	        $escrow = new Escrow;
+	        $escrow->tier = $tier;
+	        $escrow->user_id = $userId;
+	        $escrow->pf =  00;
+	        $escrow->sales = 00;
+	        $escrow->cash_bonus = $amount;
+	        $escrow->amount_recieved = 00;
+	        $escrow->escrow = 00;
+            $escrow->save();
+    	}
+
+    	if ( $amount = 10600.00 ) {
+
+    		$check = Escrow::where('user_id','=', $userId)
+    	     ->where('tier', '=', $tier)->count();
+
+    		if ($check > 0) {
+    			return;
+    		}
+
+	        $escrow = new Escrow;
+	        $escrow->tier = $tier;
+	        $escrow->user_id = $userId;
+	        $escrow->pf =  00;
+	        $escrow->sales = 00;
+	        $escrow->cash_bonus = $amount;
+	        $escrow->amount_recieved = 00;
+	        $escrow->escrow = 00;
+            $escrow->save();
+    	}
     }
+
 
     /**
      * ************************************************************************
@@ -772,8 +798,7 @@ class Affiliates {
      * @return [type]         [description]
      * ************************************************************************
      */
-    public function getBoosterPackages($userId) {
-
+     public function getBoosterPackages($userId) {
     	$boosters = $this->booster->where('user_id', '=', $userId)->get();
     	return count( $boosters );
     }
@@ -794,8 +819,7 @@ class Affiliates {
      * @param  [type] $affiliateId [description]
      * @return [type]              [description]
      */
-    public function removeAffiliate($affiliateId) {
-    }
+    public function removeAffiliate($affiliateId) {}
 
     /**
      * [parentAndChild description]

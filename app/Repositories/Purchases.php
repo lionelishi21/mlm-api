@@ -43,8 +43,6 @@ class Purchases {
 		$purchase->sales_id = $this->placeSalesPurchase($userId);
 		$purchase->save();
 
-
-
 		if ($purchase->save()) {
 			$this->affiliate->place($user_id, $purchase->sales_id, $cost);
 		}
@@ -53,6 +51,17 @@ class Purchases {
             'msg' => 'storing ebook purchases'
         ];
 	}
+
+
+    /**
+     * [createMccSystemPackages description]
+     * @return [type] [description]
+     */
+    public function createMccSystemPackages($userId, $cost) {
+      
+       $affiliateId = $this->placeSalesPurchase($userId);
+       return $this->affiliate->place($userId, $affiliateId, $cost);
+    }
 
 
 	/**
@@ -110,7 +119,7 @@ class Purchases {
 
     /**
      * this function return the total ebook purchase by each members
-     * @return float|int
+     * @return float|in34
      */
     public function totalEbookPurchase() {
 

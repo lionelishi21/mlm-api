@@ -163,7 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Shivella\Bitly\BitlyServiceProvider::class,
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        // Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
         /*
          * Package Service Providers...

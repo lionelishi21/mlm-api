@@ -12,6 +12,7 @@ use Bitly;
 use App\Repositories\Accounts;
 use Carbon\Carbon;
 use App\Rayofhope;
+use App\Booster;
 
 use App\Repositories\Purchases;
 
@@ -182,13 +183,13 @@ class Users {
     }
 
     /**
-     * THIS FUNCTION GET ALL BOOOSTER PACAGES
+     * THIS FUNCTION GET ALL BOOOSTER PACAGES 
      * @param  [type] $userId [description]
      * @return [type]         [description]
      */
     public function getBoosterPackages($userId) {
 
-        $booster = Rayofhope::where('user_id', '=', $userId)->get();
+        $booster = Booster::where('user_id', '=', $userId)->get();
         if ( $booster ) {
             return $booster;
         }

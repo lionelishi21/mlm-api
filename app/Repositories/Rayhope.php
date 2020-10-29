@@ -164,7 +164,7 @@ class Rayhope {
 			$sale_status = 'tier 4';
 		}
 
-			$response = array(
+		$response = array(
         	'group_sales' => $this->getGroupSales($affiliateId),
         	'level' => Rayofhope::withDepth()->where('id', '=', $affiliateId)->first()->depth,
         	'position' => $position,
@@ -312,38 +312,40 @@ class Rayhope {
 	public function getAllMembers(array $array) {
 	
 		$affiliates = DB::table('rayofhopes')->get();
-		
-
 		$response = array();
 		$affiliate = array();
 		
 		foreach($affiliates as $affil) {
 
-			if (in_array($affil->user_id, $affiliate) )  {
+			// if (in_array($affil->user_id, $affiliate) )  {
 			
-			} else {
+			// } else {
                
                	$user = User::find($affil->user_id);
 
 				$response[] = array(
 					'id'     => $affil->id,
+					'user_id' => $user->id,
 					'cost'   => $affil->cost,
 					'name'   => $user->first_name.' '.$user->last_name,
 					'email'  => $user->email,
 					'escrow' => $this->getGroupSales($affil->id), 
-					'tiers' => $getTiersByAffiliateId($affil->id),
+					'tiers' => $this->getTiersByAffiliateId($affil->id),
 					'boosters' =>  count(Rayofhope::where('user_id', '=', $affil->user_id)->get())
 				);
 
 				$affiliate[] = $affil->user_id;
-            }
+            // }
 
 		}
 
-		return $response ;
+		return $response;
 	}
 
 
+	public function getTiersByAffiliateId ( $affiliateId ) {
+		
+	}
 
 
 }

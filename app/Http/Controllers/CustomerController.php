@@ -8,7 +8,7 @@ use App\Repositories\Customers;
 use App\Repositories\DebitCard;
 use App\Repositories\Bank;
 use App\Repositories\Paypal;
-
+use App\Repositories\Boosters;
 use App\Repositories\StripeRepository;
 use App\Repositories\Rayhope;
 
@@ -26,6 +26,7 @@ class CustomerController extends Controller
         $this->paypal = new Paypal;
         $this->debit = new DebitCard;
         $this->hope = new Rayhope;
+        $this->booster = new Boosters;
     }
 
 
@@ -38,20 +39,35 @@ class CustomerController extends Controller
     	
     	$attributes = $request->all();
     	$userId = $request->user()->id;
-    	
+
+
+    	if ( array_key_exists('user_id', $attributes) ) {
+  				$userId = $attributes['user_id'];
+		 }
+
     	if ($attributes['method'] == 'stripe') {
     		$repo = new StripeRepository;
     	    $stripe = $repo->purchaseBooster($attributes, $userId);
+
+    	    if ( $stripe ) {
+    	        // $this->hope->createAffiliate($userId, $attributes['qty']);
+    	        $this->booster->createBooster($userId, $attributes['qty']);
+    	    }
     	}
-    	
 
     	if ( $attributes['method'] == 'paypal') {
-    		$this->hope->createAffiliate($userId, $attributes['qty']);
+    		$this->booster->createBooster($userId, $attributes['qty']);
+    		// $this->booster->createAffiliate($userId, $attributes['qty']);
     	}
 
 
     	if ($attributes['method'] == 'coupon') {
-    		$this->hope->createAffiliate($userId, $attributes['qty']);
+    		$this->booster->createBooster($userId, $attributes['qty']);
+    		// $this->booster->createAffiliate($userId, $attributes['qty']);
+    	}
+
+    	if ( $attributes['method'] == 'manual') {
+    		$this->booster->createBooster($userId, $attributes['qty']);
     	}
 
     	return [

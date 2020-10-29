@@ -39,7 +39,6 @@ class AffiliateController extends Controller
     	if ($id == 'user') {
     		$id = $request->user()->id;
     	}
-        
     	$details = $this->model->getAffiliatesDetails($id);
     	return $details;
     }
