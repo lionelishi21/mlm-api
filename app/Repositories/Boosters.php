@@ -298,9 +298,13 @@ class Boosters {
 
 			// update userescrow
 			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-			$cash->amount = 1395;
-			$cash->escrow = 735;
-			$cash->save();
+			if ( $cash ) {
+
+				$cash->amount = 1395;
+				$cash->escrow = 735;
+				$cash->save();
+			}
+		
 		}
 
 		if ( $escrow >= 6615.00 && $escrow < 16560.00 ) {
