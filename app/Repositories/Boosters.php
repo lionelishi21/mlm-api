@@ -299,7 +299,6 @@ class Boosters {
 			// update userescrow
 			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
 			if ( $cash ) {
-
 				$cash->amount = 1395;
 				$cash->escrow = 735;
 				$cash->save();
@@ -331,9 +330,12 @@ class Boosters {
 
 			// update userescrow
 			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-			$cash->amount = 6615;
-			$cash->escrow = 1840;
-			$cash->save();
+			if ($cash ) {
+				$cash->amount = 6615;
+				$cash->escrow = 1840;
+				$cash->save();
+			}
+		
 		}
 
 
@@ -361,9 +363,11 @@ class Boosters {
 
 			// update userescrow
 			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-			$cash->amount = 16560;
-			$cash->escrow = 400;
-			$cash->save();
+			if ($cash ) {
+				$cash->amount = 16560;
+				$cash->escrow = 400;
+				$cash->save();
+		   }
 		}
 	}
 
