@@ -41,7 +41,8 @@ class Boosters {
 			'email' => $user->first_email,
 			'escrow' => $escrow,
 			'sales_count' => $this->getGroupSalesCount($booster->id),
-			'percentage' => $this->getSalesPercentage($id)
+			'percentage' => $this->getSalesPercentage($id),
+			'payitfor' => $this->getPayitForwadAmount( $id)
 		);
 
 		// $allboosters = $this->booster->get();
