@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Shivella\Bitly\BitlyServiceProvider::class,
+        NZTim\Mailchimp\MailchimpServiceProvider::class,
         // Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
         /*
@@ -192,6 +193,7 @@ return [
     */
 
     'aliases' => [
+        'Mailchimp' => NZTim\Mailchimp\MailchimpFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

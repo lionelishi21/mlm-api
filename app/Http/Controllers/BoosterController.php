@@ -28,4 +28,13 @@ class BoosterController extends Controller
     	$booster = $this->booster->createBooster($userId, 1);
     	return $booster;
     }
+
+    public function userBoosters( $user_id ) {
+
+    	$details = $this->booster->getUserBoosterDetails($user_id);
+
+    	if ( $details  ) {
+    		return $details;
+    	}
+    }
 }

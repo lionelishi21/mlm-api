@@ -25,23 +25,24 @@ class Boosters {
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
-	public function getBoosterDetailById( $id ) {
+	public function getBoosterDetailById( $user_id ) {
 
 		$booster = $this->booster->find( $id );
+		// $members = $this->getChildren($id);
+		// $escrow = $this->getEscrow( $id );
+		$user = User::find($user_id);
 
-		$members = $this->getChildren($id);
-		$escrow = $this->getEscrow( $id );
 
-		$user = User::find($booster->user_id);
+
 
 		$response = array(
 			'total' => $this->getGroupSales( $id ),
-			'members' =>  $members,
+			// 'members' =>  $members,
 			'name' => $user->first_name.' '.$user->last_name,
 			'email' => $user->first_email,
-			'escrow' => $escrow,
+			// 'escrow' => $escrow,
 			'sales_count' => $this->getGroupSalesCount($booster->id),
-			'percentage' => $this->getSalesPercentage($id),
+			// 'percentage' => $this->getSalesPercentage($id),
 			'payitfor' => $this->getPayitForwadAmount( $id)
 		);
 
@@ -50,6 +51,43 @@ class Boosters {
 		// foreach( $allboosters as $boost) {
 		// 	$cash = $this->triggerCashbonus($boost->id, $boost->user_id);
 		// }
+
+		return $response;
+	}
+
+	/**
+	 * This function get user boosters details
+	 * @param  [type] $user_id [description]
+	 * @return [type]          [description]
+	 */
+	public function getUserBoosterDetails( $user_id ) {
+
+		$response = array(
+			'user' => User::find($user_id),
+			'boosters' => $this->getBoosterPackagesUserId($user_id)
+		);
+
+		return $response;
+	}
+
+
+	/**
+	 * this function GET ALL USER BOOSTER Packages
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function getBoosterPackagesUserId( $userId ) {
+
+		$response = array();
+		$boosters = Booster::where('user_id', '=', $userId)->orderBy('id', 'desc')->get();
+		foreach( $boosters as $booster) {
+
+			$response[] = array(
+				'name' => 'Booster Packages',
+				'id' => $booster->id,
+				'date' => $booster->created_at,
+			);
+		}
 
 		return $response;
 	}
@@ -79,7 +117,7 @@ class Boosters {
 			$user = $this->user->find( $booster->user_id );
 			$response[] = array(
 
-				'id' => $booster->id,
+				'id' => $booster->user_id,
 				'name' => $user->first_name.' '.$user->last_name,
 				'email' => $user->email,
 				'children' => $this->getGrandchild($booster->id),
@@ -478,33 +516,29 @@ class Boosters {
 	
 
 
-		$affiliates = $this->booster->with('bonus')->get();
+	    $affiliates = DB::table('boosters')
+		->select('user_id')
+		->groupBy('user_id')
+		->get();
+	
 		
 		$response = array();
 		$affiliate = array();
 		
 		foreach($affiliates as $affil) {
+           
+           	$user = User::find($affil->user_id);
+			$response[] = array(
+				'id'     => $affil->user_id,
+				'name'   => $user->first_name.' '.$user->last_name,
+				'email'  => $user->email,
+				// 'escrow' => $this->getRealEscrow($affil->id),
+				// 'is_system' => $affil->is_system,
+				'boosters' =>  count(Booster::where('user_id', '=', $affil->user_id)->where('is_system', '=', 0)->get()),
+				'systems' => count(Booster::where('user_id', '=', $affil->user_id)->where('is_system', '=', 1)->get())
+			);
 
-			// if (in_array($affil->user_id, $affiliate) )  {
-			
-			// } else {
-               
-               	$user = User::find($affil->user_id);
-
-				$response[] = array(
-					'id'     => $affil->id,
-					'cost'   => $affil->cost,
-					'name'   => $user->first_name.' '.$user->last_name,
-					'email'  => $user->email,
-					'escrow' => $this->getRealEscrow($affil->id),
-					'is_system' => $affil->is_system,
-					// 'escrow' => $this->getGroupSales($affil->id), 
-					// 'tiers' => $this->getTiersByAffiliateId($affil->id),
-					'boosters' =>  count(Booster::where('user_id', '=', $affil->user_id)->get())
-				);
-
-				$affiliate[] = $affil->user_id;
-            // }
+			$affiliate[] = $affil->user_id;
 
 		}
 

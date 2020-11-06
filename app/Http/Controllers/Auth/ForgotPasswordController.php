@@ -2,33 +2,32 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\Request;
+use App\ApiCode;
+use App\Http\Requests\ResetPasswordRequest;
+use Illuminate\Support\Facades\Password;
+
 
 class ForgotPasswordController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
-    |
-    */
+    public function forgot(Request $request) {
+        // $credentials = request()->validate(['email' => 'required|email']);
 
-    use SendsPasswordResetEmails;
+        // Password::sendResetLink($credentials);
 
-
-    protected function sendResetLinkResponse(Request $request, $response) {
-        return response(['message'=> $response]);
+        // return $this->respondWithMessage('Reset password link sent on your email id.');
     }
 
 
-    protected function sendResetLinkFailedResponse(Request $request, $response){
-        return response(['error'=> $response], 422);
-    }
+    public function reset(ResetPasswordRequest $request) {
+        $reset_password_status = Password::reset($request->validated(), function ($user, $password) {
+            $user->password = $password;
+            $user->save();
+        });
 
+        if ($reset_password_status == Password::INVALID_TOKEN) {
+            return $this->respondBadRequest(ApiCode::INVALID_RESET_PASSWORD_TOKEN);
+        }
+
+        return $this->respondWithMessage("Password has been successfully changed");
+    }
 }

@@ -21,11 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function(){
 
 
-    Route::post('/password/email-link', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+   
    
    //  Route::group(['prefix' => 'rayofhopes'], function() {
 	  //  	Route::get('/', 'RayofhopeController@index');
-	  //  	Route::get('/{id}', 'RayofhopeController@details');
+	  //  	Route::gept('/{id}', 'RayofhopeController@details');
 	  //  	Route::get('/create', 'RayofhopeController@store');
 	  // });
 
@@ -43,6 +43,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 		  	Route::get('/', 'BoosterController@index');
 		  	Route::get('/details/{id}', 'BoosterController@details');
+		  	Route::get('/user-boosters/{id}', 'BoosterController@userBoosters');
 		  });
 
 		  Route::group(['prefix' => 'rayofhopes'], function() {
@@ -151,6 +152,7 @@ Route::group(['prefix' => 'v1'], function(){
 
   	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
+    Route::get('password/email-link', 'Auth\ResetPasswordController@forgot');
 
 });
 
