@@ -6,6 +6,7 @@ use App\Repositories\Affiliates;
 use App\Booster;
 use App\Bonus;
 use App\User;
+use Carbon\Carbon;
 use DB;
 
 class Boosters {
@@ -82,10 +83,12 @@ class Boosters {
 		$boosters = Booster::where('user_id', '=', $userId)->orderBy('id', 'desc')->get();
 		foreach( $boosters as $booster) {
 
+			$date = Carbon::parse($booster->created_at);
+
 			$response[] = array(
 				'name' => 'Booster Packages',
 				'id' => $booster->id,
-				'date' => $booster->created_at,
+				'date' => $date->toDayDateTimeString()
 			);
 		}
 
