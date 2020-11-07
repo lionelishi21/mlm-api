@@ -82,7 +82,7 @@ class Boosters {
 
 		$response = array();
 		$boosters = Booster::where('user_id', '=', $userId)
-		->orderBy('id', 'desc')
+		->orderBy('id', 'asc')
 		->where('is_system', '=', $is_system)
 		->get();
 
