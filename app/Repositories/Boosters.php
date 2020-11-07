@@ -65,7 +65,8 @@ class Boosters {
 
 		$response = array(
 			'user' => User::find($user_id),
-			'boosters' => $this->getBoosterPackagesUserId($user_id)
+			'boosters' => $this->getBoosterPackagesUserId($user_id),
+			'sys_boosters' => $this->getBoosterPackagesUserId($user_id, 1)
 		);
 
 		return $response;
@@ -77,10 +78,15 @@ class Boosters {
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
 	 */
-	public function getBoosterPackagesUserId( $userId ) {
+	public function getBoosterPackagesUserId( $userId, $is_system = 0 ) {
 
 		$response = array();
-		$boosters = Booster::where('user_id', '=', $userId)->orderBy('id', 'desc')->get();
+		$boosters = Booster::where('user_id', '=', $userId)
+		->orderBy('id', 'desc')
+		->where('is_system', '=', $is_system)
+		->get();
+
+
 		foreach( $boosters as $booster) {
 
 			$date = Carbon::parse($booster->created_at);
@@ -88,7 +94,8 @@ class Boosters {
 			$response[] = array(
 				'name' => 'Booster Packages',
 				'id' => $booster->id,
-				'date' => $date->toDayDateTimeString()
+				'date' => $date->toDayDateTimeString(),
+				'is_system' => $booster->is_system
 			);
 		}
 
