@@ -26,11 +26,11 @@ class Boosters {
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
-	public function getBoosterDetailById( $user_id ) {
+	public function getBoosterDetailById( $id ) {
 
 		$booster = $this->booster->find( $id );
-		// $members = $this->getChildren($id);
-		// $escrow = $this->getEscrow( $id );
+		$members = $this->getChildren($id);
+		$escrow = $this->getEscrow( $id );
 		$user = User::find($user_id);
 
 
@@ -38,12 +38,12 @@ class Boosters {
 
 		$response = array(
 			'total' => $this->getGroupSales( $id ),
-			// 'members' =>  $members,
+			'members' =>  $members,
 			'name' => $user->first_name.' '.$user->last_name,
 			'email' => $user->first_email,
-			// 'escrow' => $escrow,
+			'escrow' => $escrow,
 			'sales_count' => $this->getGroupSalesCount($booster->id),
-			// 'percentage' => $this->getSalesPercentage($id),
+			'percentage' => $this->getSalesPercentage($id),
 			'payitfor' => $this->getPayitForwadAmount( $id)
 		);
 
