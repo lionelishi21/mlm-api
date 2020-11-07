@@ -26,13 +26,14 @@ class Boosters {
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
-	public function getBoosterDetailById( $id, $userId) {
+	public function getBoosterDetailById( $id ) {
 
 		$booster = $this->booster->find( $id );
 		$members = $this->getChildren($id);
 		$escrow = $this->getEscrow( $id );
 		
-		$user = User::find($user_id);
+
+		$user = User::find($booster->user_id);
 
 
 		$response = array(
