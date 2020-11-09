@@ -797,7 +797,7 @@ class Affiliates {
      * ************************************************************************
      */
      public function getBoosterPackages($userId) {
-    	$boosters = $this->booster->where('user_id', '=', $userId)->get();
+    	$boosters = $this->booster->where('user_id', '=', $userId)->where('is_system', '=', 0)->get();
     	return count( $boosters );
     }
 
