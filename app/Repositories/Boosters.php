@@ -532,10 +532,7 @@ class Boosters {
 	
 
 
-	    $affiliates = DB::table('boosters')
-		->select('user_id')
-		->groupBy('user_id')
-		->get();
+	    $affiliates = DB::table('boosters')->get();
 	
 		
 		$response = array();
