@@ -524,7 +524,7 @@ class Affiliates {
 
 
 
-		if ( $groupSales > 8178.55 &&$groupSales <=  951606.95 ) {
+		if ( $groupSales > 8178.55 && $groupSales <=  951606.95 ) {
 
 			for( $i = 1; $i < $depth; $i++ ){
 				$cals = $cals * 3;
