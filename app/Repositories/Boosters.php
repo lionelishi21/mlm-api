@@ -102,7 +102,7 @@ class Boosters {
 		return $response;
 	}
 
-
+	
 	public function getEscrow( $id ) {
 
 		$total = 0;
@@ -115,6 +115,13 @@ class Boosters {
 		return $total;
 	}
 
+	/**
+	 * ****************************************************************************************
+	 * [getChildren description]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 * ****************************************************************************************
+	 */
 	public function getChildren( $id ) {
 
 		$response = array();
@@ -126,7 +133,6 @@ class Boosters {
 
 			$user = $this->user->find( $booster->user_id );
 			$response[] = array(
-
 				'id' => $booster->user_id,
 				'name' => $user->first_name.' '.$user->last_name,
 				'email' => $user->email,

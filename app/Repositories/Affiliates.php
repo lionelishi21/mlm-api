@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use App\User;
 use App\Repositories\Users;
 use Illuminate\Support\Collection;
-use App\Rayofhope;
+use App\Booster;
 
 class Affiliates {
 
@@ -17,7 +17,7 @@ class Affiliates {
 	protected $booster;
 	
 	public function __construct() {
-		$this->booster = new Rayofhope;
+		$this->booster = new Booster;
 	}
 
 	/**
@@ -62,8 +62,6 @@ class Affiliates {
 			$this->create($user_id, $child_group, $affiliate_id);
 
 		}
-
-
 	}
 
 	/**
