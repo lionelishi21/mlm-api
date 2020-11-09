@@ -189,7 +189,7 @@ class Users {
      */
     public function getBoosterPackages($userId) {
 
-        $booster = Booster::where('user_id', '=', $userId)->get();
+        $booster = Booster::where('user_id', '=', $userId)->where('is_system', '=', 0)->get();
         if ( $booster ) {
             return $booster;
         }
