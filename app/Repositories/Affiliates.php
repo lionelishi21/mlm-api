@@ -473,7 +473,7 @@ class Affiliates {
 
 
 
-		$groupSales =  (float) $this->getGroupSales($userId);
+		$groupSales =  (int) $this->getGroupSales($userId);
 		$depth = Affiliate::withDepth()->where('user_id', '=', $userId)->first()->depth;
 
 
