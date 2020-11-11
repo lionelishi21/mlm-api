@@ -468,7 +468,7 @@ class Affiliates {
 		$cals = 1;
 		$position = 0;
 		$trigger = 0;
-		$sale_status = 'bronze';
+		$sale_status = '';
 		$color_indication = '#cd7f32';
 
 
@@ -555,7 +555,7 @@ class Affiliates {
 		}
 
 		 $response = array(
-        	'group_sales' => $this->getGroupSales($userId),
+        	'group_sales' => $groupSales,
         	'level' => Affiliate::withDepth()->where('user_id', '=', $userId)->first()->depth,
         	'position' => $position,
         	'total_sales' => $total_sales,
