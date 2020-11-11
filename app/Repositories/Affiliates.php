@@ -444,7 +444,7 @@ class Affiliates {
                 }
         }
 
-	    return number_format( $count, 2); 
+	    return $count; 
     }
 
 
@@ -473,7 +473,7 @@ class Affiliates {
 
 
 
-		$groupSales =  (int) $this->getGroupSales($userId);
+		$groupSales = $this->getGroupSales($userId);
 		$depth = Affiliate::withDepth()->where('user_id', '=', $userId)->first()->depth;
 
 
