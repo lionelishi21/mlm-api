@@ -65,7 +65,8 @@ class Affiliates {
 	}
 
 	/**
-	 * [compression description]
+	 * *******************************************************************
+	 * THIS FUNCTION COMPRESS ALL AFAILIATES MEMBERS WHO ARE NOT QUAILIFY
 	 * @return [type] [description]
 	 */
 	public function compression() {
@@ -76,7 +77,7 @@ class Affiliates {
         foreach( $affiliates as $affiliate) {
         	
         	$sales = $this->getEbookSalesCount($affiliate->user_id);
-        	if ($sales < 3 ) {
+        	if ($sales < 3  ||  $this->checkForBoosterByUserId == false ) {
         		// compress id is the user id 
         		$compressId = $affiliate->user_id;
         		array_push($compression, $compressId);
@@ -88,7 +89,28 @@ class Affiliates {
         	}
        
         }
+
+        return $compression;
 	}
+
+
+	/**
+	 * ****************************************************
+	 * THIS FUNCTION CHECK FOUR USER BOOSTER PACKAGES
+	 * @param  [type] $userId  AFFILIATE USER ID
+	 * @return [type]         [description]
+	 */
+	public function checkForBoosterByUserId( $userId ){
+
+		$booster =  $this->booster->where('user_id', '='. $userId)->count();
+
+		if ( $booster < 0) {
+			return false;
+		}
+		return true;
+	}
+
+
 
 	/**
 	 * [moveAffliateUp description]
@@ -170,6 +192,7 @@ class Affiliates {
 	public function generateAffliateIDs() {
 		// $latestAf = Affiliate::orderBy('created_at', 'desc')->first();
 		// $now = Carbon::now()->toDateString();
+		
 		$chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		$res = "";
 		for ($i = 0; $i < 12; $i++) {

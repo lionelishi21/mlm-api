@@ -20,11 +20,12 @@
         "laravel/framework": "^7.0",
         "laravel/passport": "^9.2",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.0",
         "nztim/mailchimp": "^3.11",
         "paypal/rest-api-sdk-php": "^1.14",
         "shivella/laravel-bitly": "^1.1",
-        "laravel/ui": "^2.0",
-        "stripe/stripe-php": "^7.61"
+        "stripe/stripe-php": "^7.61",
+        "transferwise-php/sdk": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
