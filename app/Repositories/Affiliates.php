@@ -8,7 +8,9 @@ use App\UserDetail;
 use Carbon\Carbon;
 use App\User;
 use App\Repositories\Users;
+use App\Repositories\AffiliateStats;
 use Illuminate\Support\Collection;
+
 use App\Booster;
 
 class Affiliates {
@@ -87,7 +89,6 @@ class Affiliates {
         			$this->moveAffliateUp($compression, $affiliate->user_id);
         		}
         	}
-       
         }
 
         return $compression;
@@ -148,7 +149,7 @@ class Affiliates {
 
 	/**
 	 * [place description]
-	 * @param  [type] $group_id [description]
+	 * @param  [type] $group_id [descriptiono
 	 * @return [type]           [description]
 	 */
 	public function place( $purchaser_id, $affiliate_id, $cost) {
@@ -395,15 +396,18 @@ class Affiliates {
 		$users = new Users;
 		$bitly = $users->getUserLink($userId);
 
+		$stats = new AffiliateStats;
+
 		$response = array(
 			'user' => $user,
 			'affiliate' => $affiliates,
 		    'sales' => $sales,
             'bitly_link' => $bitly,
 		    'personal_sales' =>$this->getEbookSales($userId, 'personal'),
-            // 'escrow' => $this->getGroupSales($userId),
+            'group_sales' => $this->getGroupSales($userId),
             'boosters' => $this->getBoosterPackages($userId),
-            'parent' => $this->getParentById($id)
+            'parent' => $this->getParentById($id),
+            'stats' => $stats->salesStatus($this->getGroupSales($userId))
 		);
 
 		return $response;
@@ -454,8 +458,9 @@ class Affiliates {
      */
 	public function getGroupSales($userId) {
 
+		$userAffiliateId = Affiliate::where('user_id', '=', $userId)->first();
 	    // get the first three
-	    $affiliates = Affiliate::where('parent_id', '=', $userId)->get();
+	    $affiliates = Affiliate::where('parent_id', '=', $userAffiliateId->id)->get();
 	    $firstCounts = count($affiliates);
 	    $count = 0;
 
@@ -463,12 +468,14 @@ class Affiliates {
                 // $sales = Affiliate::descendantsOf($affiliate->user_id);
                 $sales = Affiliate::descendantsOf($affiliate->id);
                 foreach($sales as $sale) {
-                	$count += $sale->cost ;
+                	$count += 1 ;
                 }
         }
-
-	    return $count; 
+	    return $count + $firstCounts; 
     }
+
+
+
 
 
     public function totalSales() {

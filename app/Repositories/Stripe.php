@@ -154,7 +154,6 @@ class Stripe {
 		    'external_account' => $bankId,
 		  ]
 		);
-
 	    return $external;
 	}
 
@@ -267,7 +266,7 @@ class Stripe {
 	public function instantPayout($amount, $accountId) {
 
 		\Stripe\Stripe::setApiKey($this->stripeLive);
-		$payout = \Stripe\Payout::create([
+		 $payout = \Stripe\Payout::create([
 		  'amount' => $amount,
 		  'currency' => 'usd',
 		  'method' => 'instant',

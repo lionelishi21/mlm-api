@@ -29,7 +29,7 @@ class Affiliate extends Model
     public function allChildren() {
         return $this->children()->with('allChildren');
     }
-
+    
 
 
 }

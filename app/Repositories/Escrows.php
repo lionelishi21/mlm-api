@@ -11,11 +11,11 @@ class Escrows {
 	protected $amount;
 	protected $escrow; 
 	protected $affiliate;
-	protected $bronze = 314.55;
-    protected $silver = 1930.95;
-    protected $gold = 11978.95;
-    protected $ruby = 73606.95;
-    protected $diamond = 464462.55;
+	protected $bronze = 12;
+    protected $silver = 108;
+    protected $gold = 324;
+    protected $ruby =  927;
+    protected $diamond = 11124;
 
 	/**
 	 * [__construct description]
@@ -190,7 +190,7 @@ class Escrows {
 				 	 	'escrow' => 51606.95,
 				 	 	'sales' => 972,
 				 	 	'user_id' => $affiliateId,
-				 	 	'cash_bonus' => 412855.60 
+				 	 	'cash_bonus' => 400000.00 
 				 	 );
 				 	  $this->escrow->create($attributes);
 		  		}
