@@ -498,7 +498,9 @@ class Affiliates {
     public function getSalesPercentage($userId) {
 
 		$groupSales = $this->getGroupSales($userId);
-		return $response = $this->salesStatus($groupSales);
+
+		$stats = new AffiliateStats;
+		return $response = $stats->salesStatus($groupSales);
     }
 
     /**
