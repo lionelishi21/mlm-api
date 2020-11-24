@@ -41,7 +41,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 		  Route::group(['prefix' => 'boosters'], function() {
 
-		  	Route::get('/summary', 'BoosterController@summary');
+		  	Route::get('summary', 'BoosterController@summary');
 		  	Route::get('/', 'BoosterController@index');
 		  	Route::get('/details/{id}', 'BoosterController@details');
 		  	Route::get('/user-boosters/{id}', 'BoosterController@userBoosters');
