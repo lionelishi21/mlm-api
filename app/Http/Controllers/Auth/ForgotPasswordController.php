@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Password;
 class ForgotPasswordController extends Controller
 {
     public function forgot(Request $request) {
-        // $credentials = request()->validate(['email' => 'required|email']);
+        $credentials = request()->validate(['email' => 'required|email']);
 
-        // Password::sendResetLink($credentials);
+        Password::sendResetLink($credentials);
 
-        // return $this->respondWithMessage('Reset password link sent on your email id.');
+        return $this->respondWithMessage('Reset password link sent on your email id.');
     }
 
 
