@@ -302,97 +302,97 @@ class Boosters {
 		$sales = $this->getGroupSales( $affiliateId );
 		$escrow = $this->getPayitForwadAmount( $affiliateId );
 
-		// if ( $sales  >= 225.00 && $sales < 1395.00) {
+		if ( $sales  == 12 && $sales < 108 ) {
 
-		// 	$c_bonus = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-		// 	if ( $c_bonus ) {
-		// 		return;
-		// 	}
+			$c_bonus = Bonus::where('affiliate_id', '=', $affiliateId)->first();
+			if ( $c_bonus ) {
+				return;
+			}
 
-		// 	$twospaces = 70.00;
-		// 	$scrow  =  $sales - $twospaces;
+			$twospaces = 70.00;
+			$scrow  = ( $sales * 25 )  - $twospaces;
 
-		// 	$bonus = new Bonus;
-		// 	$bonus->affiliate_id = $affiliateId;
-		// 	$bonus->amount = 225.00;
-		// 	$bonus->escrow = $scrow;
-		// 	$bonus->save();
+			$bonus = new Bonus;
+			$bonus->affiliate_id = $affiliateId;
+			$bonus->amount = 225.00;
+			$bonus->escrow = $scrow;
+			$bonus->save();
 
-		// 	if ( $bonus->save() ) {
+			if ( $bonus->save() ) {
 
-		// 		$spaces = $this->createMccSpaces($userId, $twospaces);
+				$spaces = $this->createMccSpaces($userId, $twospaces);
 
-		// 		return [
-		// 			'space' => $spaces,
-		// 			'status' => true
-		// 		];
-		// 	}
-		// }
+				return [
+					'space' => $spaces,
+					'status' => true
+				];
+			}
+		}
 
 		
-		// if ($escrow >= 1395.00 && $escrow < 6615.00) {
+		if ($escrow >= 108 && $escrow < 324 ) {
 			
-		// 	$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 735 )->count();
-		// 	if ( $bonus_check > 0) {
-		// 		return;
-		// 	}
+			$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 735 )->count();
+			if ( $bonus_check > 0) {
+				return;
+			}
 
-		// 	//Creste Cash bonues
-		// 	$cashbonus =  400.00;
-		// 	$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 2');
-
-
-		// 	//create mcc space
-		// 	$mcc_spaces = 210.00;
-		// 	$spaces = $this->createMccSpaces($userId, $mcc_spaces);
+			//Creste Cash bonues
+			$cashbonus =  400.00;
+			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 2');
 
 
-		// 	//create system packages 
-		// 	$system_qty = 2;
-		// 	$system_purchases = $this->createBooster($userId, $system_qty, $sys = 1);
+			//create mcc space
+			$mcc_spaces = 210.00;
+			$spaces = $this->createMccSpaces($userId, $mcc_spaces);
+
+
+			//create system packages 
+			$system_qty = 2;
+			$system_purchases = $this->createBooster($userId, $system_qty, $sys = 1);
 			
 
-		// 	// update userescrow
-		// 	$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-		// 	if ( $cash ) {
-		// 		$cash->amount = 1395;
-		// 		$cash->escrow = 735;
-		// 		$cash->save();
-		// 	}
+			// update userescrow
+			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
+			if ( $cash ) {
+				$cash->amount = 1395;
+				$cash->escrow = 735;
+				$cash->save();
+			}
 		
-		// }
+		}
 
-		// if ( $escrow >= 6615.00 && $escrow < 16560.00 ) {
+		if ( $escrow >= 324 && $escrow < 927 ) {
 
-		// 	$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 1840 )->count();
-		// 	if ( $bonus_check > 0) {
-		// 		return;
-		// 	}
+			$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 1840 )->count();
+			if ( $bonus_check > 0) {
+				return;
+			}
 
-		// 	//Creste Cash bonues
-		// 	$cashbonus =  4000.00;
-		// 	$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 3');
-
-
-		// 	//create mcc space
-		// 	$mcc_spaces = 700.00;
-		// 	$spaces = $this->createMccSpaces($userId, $mcc_spaces);
+			//Creste Cash bonues
+			$cashbonus =  4000.00;
+			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 3');
 
 
-		// 	//create system packages 
-		// 	$system_qty = 3;
-		// 	$system_purchases = $this->createBooster($userId, $system_qty, $sys = 1);
+			//create mcc space
+			$mcc_spaces = 700.00;
+			$spaces = $this->createMccSpaces($userId, $mcc_spaces);
+
+
+			//create system packages 
+			$system_qty = 3;
+			$system_purchases = $this->createBooster($userId, $system_qty, $sys = 1);
 			
 
-		// 	// update userescrow
-		// 	$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-		// 	if ($cash ) {
-		// 		$cash->amount = 6615;
-		// 		$cash->escrow = 1840;
-		// 		$cash->save();
-		// 	}
+			// update userescrow
+			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
+			if ($cash ) {
+				$cash->amount = 6615;
+				$cash->escrow = 1840;
+				$cash->save();
+			}
 		
-		// }
+		}
 
 
 		// if ( $escrow >= 16560.00 ) {
@@ -583,7 +583,7 @@ class Boosters {
      * this function get affiliates groups
      * @param userId $
      * @return int
-     * *************************************************************
+     * *************************************************************_
      */
 	public function getGroupSales($affiliateId) {
 
