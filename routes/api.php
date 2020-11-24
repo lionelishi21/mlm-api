@@ -153,7 +153,7 @@ Route::group(['prefix' => 'v1'], function(){
 
   	Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
-    Route::get('password/email-link', 'Auth\ResetPasswordController@forgot');
+    Route::post('password/email-link', 'Auth\ResetPasswordController@forgot');
 
 });
 
