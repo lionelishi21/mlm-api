@@ -472,7 +472,7 @@ class Affiliates {
                 	$count += 1 ;
                 }
         }
-        
+
 	    return $count + $firstCounts; 
     }
 
@@ -497,106 +497,8 @@ class Affiliates {
      */
     public function getSalesPercentage($userId) {
 
-		$cals = 1;
-		$position = 0;
-		$trigger = 0;
-		$sale_status = '';
-		$color_indication = '#cd7f32';
-
-
-
 		$groupSales = $this->getGroupSales($userId);
-		$depth = Affiliate::withDepth()->where('user_id', '=', $userId)->first()->depth;
-
-
-		if ( $groupSales <= 314.55) {
-
-			for( $i = 1; $i < $depth; $i++ ){
-				$cals = $cals * 3;
-			}
-
-			$trigger = $cals * 314.55;
-			$total_sales = $this->totalSales();
-			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
-			$position = number_format((float)$position, 2, '.', ''); 
-			$color_indication = '#cd7f32';
-		}
-
-	
-		if ( $groupSales > 314.55  && $groupSales <= 1930.95) {
-
-			for( $i = 1; $i < $depth; $i++ ){
-				$cals = $cals * 3;
-			}
-
-			$trigger = $cals *  1930.95;
-			$total_sales = $this->totalSales();
-			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
-			$position = number_format((float)$position, 2, '.', ''); 
-			$sale_status = 'silver';
-			$color_indication = '#bfbfbf';
-
-		}
-			
-
-
-		if ( $groupSales > 1930.95  &&  $groupSales <=  8178.55 ) {
-
-			for( $i = 1; $i < $depth; $i++ ){
-				$cals = $cals * 3;
-			}
-
-			$trigger = $cals *  8178.55;
-			$total_sales = $this->totalSales();
-			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
-			$position = number_format((float)$position, 2, '.', ''); 
-			$sale_status = 'gold';
-			$color_indication = '#FFD700';
-		}
-
-
-
-		if ( $groupSales > 8178.55 && $groupSales <=  951606.95 ) {
-
-			for( $i = 1; $i < $depth; $i++ ){
-				$cals = $cals * 3;
-			}
-
-			$trigger = $cals *  951606.95;
-			$total_sales = $this->totalSales();
-			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
-			$position = number_format((float)$position, 2, '.', ''); 
-			$sale_status = 'ruby';
-			$color_indication = '#e0115f';
-		}
-
-
-		if ( $groupSales > 951606.95 && $groupSales >=  1903212.9) {
-
-			for( $i = 1; $i < $depth; $i++ ){
-				$cals = $cals * 3;
-			}
-
-			$trigger = $cals * 1903212.9;
-			$total_sales = $this->totalSales();
-			$position =  (  (float)$total_sales /  (float)$trigger ) * 100;
-			$position = number_format((float)$position, 2, '.', ''); 
-			$sale_status = 'diamond';
-			$color_indication = '#b9f2ff';
-
-		}
-
-		 $response = array(
-        	'group_sales' => $groupSales,
-        	'level' => Affiliate::withDepth()->where('user_id', '=', $userId)->first()->depth,
-        	'position' => $position,
-        	'total_sales' => $total_sales,
-        	'trigger' => $trigger,
-        	'status' => $sale_status,
-        	'color' => $color_indication
-         );
-
-		 return $response;
+		return $response = $this->salesStatus($groupSales);
     }
 
     /**
