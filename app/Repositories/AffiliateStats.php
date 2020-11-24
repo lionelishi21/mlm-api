@@ -61,22 +61,22 @@ class AffiliateStats extends Helper {
 		$percentage = '';
 
 		if ($groupSales <= 12 ) {
-			$status = 'Tier 1';
+			$status = 'BP 1';
 			$percentage = $this->percentageOf($groupSales, 12);
 		}
 
 		if ( $groupSales > 12 && $groupSales <= 108 ) {
-			$status = 'Tier 2';
+			$status = 'BP 2';
 			$percentage = $this->percentageOf($groupSales, 108);
 		}
 
 		if ( $groupSales > 108 && $groupSales <= 324) {
-			$status = 'Tier 3';
+			$status = 'BP 3';
 			$percentage = $this->percentageOf($groupSales, 324);
 		}
 
 		if ( $groupSales > 324 && $groupSales <= 927) {
-			$status = 'Tier 4';
+			$status = 'BP 4';
 			$percentage = $this->percentageOf($groupSales, 927);
 		}
 
