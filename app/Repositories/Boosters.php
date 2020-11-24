@@ -544,6 +544,7 @@ class Boosters {
            	$user = User::find($affil->user_id);
 			$response[] = array(
 				'id'     => $affil->user_id,
+				'affiliate_id' => $affil->id,
 				'name'   => $user->first_name.' '.$user->last_name,
 				'email'  => $user->email,
 				// 'escrow' => $this->getRealEscrow($affil->id),
