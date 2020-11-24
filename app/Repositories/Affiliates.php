@@ -459,6 +459,7 @@ class Affiliates {
 	public function getGroupSales($userId) {
 
 		$userAffiliateId = Affiliate::where('user_id', '=', $userId)->first();
+
 	    // get the first three
 	    $affiliates = Affiliate::where('parent_id', '=', $userAffiliateId->id)->get();
 	    $firstCounts = count($affiliates);
@@ -471,6 +472,7 @@ class Affiliates {
                 	$count += 1 ;
                 }
         }
+        
 	    return $count + $firstCounts; 
     }
 

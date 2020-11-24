@@ -37,4 +37,15 @@ class BoosterController extends Controller
     		return $details;
     	}
     }
+
+    /**
+     * [summary description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function summary(Request $request) {
+
+    	$userId= $request->user()->id;
+    	return $this->booster->getUserBoosterSummary($userId);
+    }
 }

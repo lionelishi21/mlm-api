@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Repositories\Purchases;
 use App\Repositories\Affiliates;
+use App\Repositories\AffiliateStats;
 use App\Booster;
 use App\Bonus;
 use App\User;
@@ -591,14 +592,42 @@ class Boosters {
 	    $count = 0;
 
         foreach($affiliates as $affiliate) {
-                // $sales = Affiliate::descendantsOf($affiliate->user_id);
+              
                 $sales = Booster::descendantsOf($affiliate->id);
                 foreach($sales as $sale) {
-                	$count += $sale->cost ;
+                	$count + 1 ;
                 }
         }
 
-	    return number_format( $count, 2); 
+	    return $count + $firstCounts; 
+    }
+
+
+    /**
+     * [getUserBoosterSummary description]
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
+    public function getUserBoosterSummary($userId) {
+
+    	$boosters = Booster::where('user_id', '=', $userId)->where('is_system', '=', 0)->get();
+    	
+    	$response = array();
+    	foreach( $boosters as $booster ) {
+
+    		$stats = new AffiliateStats;
+    		$group_sales = $this->getGroupSales($booster->id);
+
+    		$response[] = array(
+    			'booster' => $booster->id,
+    			'sales' => $group_sales,
+    			'stats' => $stats->boosterSalesStats($group_sales),
+    			'is_system' => $booster->is_system,
+    		 	'date' => $booster->created_at
+    		);
+    	}
+
+    	return $response;
     }
 
 }
