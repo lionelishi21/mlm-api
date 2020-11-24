@@ -595,8 +595,9 @@ class Boosters {
         foreach($affiliates as $affiliate) {
               
                 $sales = Booster::descendantsOf($affiliate->id);
+               
                 foreach($sales as $sale) {
-                	$count + 1 ;
+                	$count += 1 ;
                 }
         }
 
