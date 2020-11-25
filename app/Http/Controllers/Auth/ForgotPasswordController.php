@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\ApiCode;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Password;
 
