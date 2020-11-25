@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\ApiCode;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Password;
@@ -10,12 +11,13 @@ use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
+
     public function forgot(Request $request) {
         $credentials = request()->validate(['email' => 'required|email']);
 
         Password::sendResetLink($credentials);
 
-        return $this->respondWithMessage('Reset password link sent on your email id.');
+        return response()->json(["msg" => 'Reset password link sent on your email id.']);
     }
 
 

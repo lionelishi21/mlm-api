@@ -32,4 +32,13 @@ class ResetPasswordController extends Controller
 
         return response(['error'=> $response]);
     }
+
+    
+    public function forgot(Request $request) {
+        $credentials = request()->validate(['email' => 'required|email']);
+
+        Password::sendResetLink($credentials);
+
+        return $this->respondWithMessage('Reset password link sent on your email id.');
+    }
 }
