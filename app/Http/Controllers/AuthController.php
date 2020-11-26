@@ -149,7 +149,10 @@ class AuthController extends Controller
             if (Hash::check($request->password, $user->password)) {
 
 
+
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $token->expires_at = now()->addHours( $remember_me ? 24 : 12 );
+                
                 $response = ['token' => $token, 'user' => $user, 'message' => 'Login successfull'];
 
                 return response($response, 200);
