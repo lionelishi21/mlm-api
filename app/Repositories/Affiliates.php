@@ -273,7 +273,7 @@ class Affiliates {
 	 * @return [type]         [description]
 	 */
 	public function boosterPackageCount($userId) {
-		return Booster::where('user_id', '=' $userId)->count();
+		return Booster::where('user_id', '=', $userId)->count();
 	}
 
 	/**
