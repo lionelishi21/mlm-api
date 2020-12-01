@@ -32,7 +32,7 @@ class Purchases {
 	 * @param  [type] $user_id  [description]
 	 * @return [type]           [description]
 	 */
-	public function store($affil_id, $user_id, $cost = 34.95){
+	public function store($affil_id, $user_id, $is_system = 0){
 
 		$affil = Affiliate::where('affiliate_id', '=', $affil_id)->first();
 		$userId = $affil->user_id;
@@ -44,7 +44,7 @@ class Purchases {
 		$purchase->save();
 
 		if ($purchase->save()) {
-			$this->affiliate->place($user_id, $purchase->sales_id, $cost);
+			$this->affiliate->place($user_id, $purchase->sales_id, $is_system);
 		}
 
         return [
@@ -60,7 +60,7 @@ class Purchases {
     public function createMccSystemPackages($userId, $cost) {
       
        $affiliateId = $this->placeSalesPurchase($userId);
-       return $this->affiliate->place($userId, $affiliateId, $cost);
+       return $this->affiliate->place($userId, $affiliateId, 1);
     }
 
 

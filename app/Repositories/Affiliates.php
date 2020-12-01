@@ -152,13 +152,14 @@ class Affiliates {
 	 * @param  [type] $group_id [descriptiono
 	 * @return [type]           [description]
 	 */
-	public function place( $purchaser_id, $affiliate_id, $cost) {
+	public function place( $purchaser_id, $affiliate_id, $is_system = 0) {
 
 
 		$affiliate = new Affiliate;
 		$affiliate->user_id = $purchaser_id;
 		$affiliate->parent_id = $affiliate_id;
-		$affiliate->cost = $cost;
+		$affiliate->cost = '34.95';
+		$affiliate->is_system = $is_system;
 		$affiliate->affiliate_id = $this->generateAffliateIDs();
 		$affiliate->save();
 
@@ -254,18 +255,26 @@ class Affiliates {
     			'parent' => $affiliate->parent_id,
     			'affiliate_id' => $affiliate->affiliate_id,
     			'details' => $details,
+    			'booster' => $this->boosterPackageCount($affiliate->user->id),
     			'parent' => $this->getParentById($affiliate->affiliate_id),
     			'sales' => $this->getEbookSalesCount($affiliate->user->id),
     			'status' => $this->getAffiliateStatusName($affiliate->user->id),
     			'sponsor' => $this->getSponsor($affiliate->user->id),
-    			
-    			
+    
     		);
     	}
 
     	return $response;
 	}
 
+	/**
+	 * [boosterPackageCount description]
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function boosterPackageCount($userId) {
+		return Booster::where('user_id', '=' $userId)->count()
+	}
 
 	/**
 	 * GEt user that sponsor sale
@@ -422,7 +431,7 @@ class Affiliates {
 
 		$sales = $this->getEbookSalesCount($userId);
 
-		if ($sales >= 3 AND $sales < 12) {
+		if ($sales >= 3 AND $sales < 12 ) {
 			return 'Active';
 		}
 
