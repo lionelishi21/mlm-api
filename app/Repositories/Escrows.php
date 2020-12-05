@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Escrow;
+use App\PersonalGroupSales;
 use App\Repositories\Affiliates;
 use App\Affiliate;
 
@@ -85,13 +86,13 @@ class Escrows {
 	/**
 	 * *************************************************************
 	 * This function check if the escrow exiest
-	 * @param  [type] $affliateId [description]
+	 * @param  [type] $userId [description]
 	 * @param  [type] $status     [description]
 	 * @return [type]             [description]
 	 */
-	public function checkIfEscrowExist($affliateId, $status) {
+	public function checkIfEscrowExist($userId, $status) {
 
-		$escrow = $this->escrow->where('tier', '=', $status)->where('user_id', '=', $affliateId)->count();
+		$escrow = $this->escrow->where('tier', '=', $status)->where('user_id', '=', $userId)->count();
 		if ( $escrow > 0 ) {
 			return true;
 		}
@@ -104,19 +105,22 @@ class Escrows {
 	 * @param  [type] $affiliateId [description]
 	 * @return [type]              [description]
 	 */
-	public function createEscrow($groupSales, $affiliateId){
+	public function createEscrow($gsales, $userId){
 
+
+		$pgsales = PersonalGroupSales::where('user_id', '=', $userId)->count();
+		$groupSales = $gsales + $pgsales;
 
 		 if ($groupSales >= $this->bronze) {
 
-		 	 if (!$this->checkIfEscrowExist($affiliateId, 'Bronze')) {
+		 	 if (!$this->checkIfEscrowExist($userId, 'Bronze')) {
 
 			 	 $attributes = array ('tier' => 'Bronze', 
 			 	 	'pf' => 34.95, 
 			 	 	'amount_recieved' => 314.55, 
 			 	 	'escrow' => 214.55,
 			 	 	'sales' => 12,
-			 	 	'user_id' => $affiliateId,
+			 	 	'user_id' => $userId,
 			 	 	'cash_bonus' => 100.00
 			 	 );
 

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Helper;
 use App\Repositories\Affiliates;
+use App\PersonalGroupSales;
 
 class AffiliateStats extends Helper {
 
@@ -14,34 +15,41 @@ class AffiliateStats extends Helper {
 	}
 
 
-	public function salesStatus($groupSales) {
+	public function salesStatus($gSales, $pSales) {
 
 		$status = '';
 		$percentage = '';
+		$boost = '';
+		$groupSales = $gSales + $pSales;
 
 		if ($groupSales <= 12 ) {
 			$status = 'Bronze';
 			$percentage = $this->percentageOf($groupSales, 12);
+			$boost = $this->percentageOf($pSales, 12);
 		}
 
 		if ( $groupSales > 12 && $groupSales <= 108 ) {
 			$status = 'Silver';
 			$percentage = $this->percentageOf($groupSales, 108);
+			$boost = $this->percentageOf($pSales, 108);
 		}
 
 		if ( $groupSales > 108 && $groupSales <= 324) {
 			$status = 'Gold';
 			$percentage = $this->percentageOf($groupSales, 324);
+			$boost = $this->percentageOf($pSales, 324);
 		}
 
 		if ( $groupSales > 324 && $groupSales <= 927) {
 			$status = 'Ruby';
 			$percentage = $this->percentageOf($groupSales, 927);
+			$boost = $this->percentageOf($pSales, 927);
 		}
 
 		if ( $groupSales > 927 && $groupSales <= 11124) {
 			$status = 'Diamond';
-			$percentage = $this->percentageOf($groupSales, 927);
+			$percentage = $this->percentageOf($groupSales, 11124);
+			$boost = $this->percentageOf($pSales, 11124);
 		}
 
 
@@ -49,6 +57,8 @@ class AffiliateStats extends Helper {
 			'groupSales' => $groupSales,
 			'current_status' => $status,
 			'percentage' => $percentage,
+			'boost' => $boost,
+			'pgroupsales' => $pSales
 		);
 
 		return $response;

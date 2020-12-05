@@ -295,69 +295,38 @@ class Accounts extends Stripe {
 
 		$customer = Customer::where('user_id' , '=', $userId)->first();
 		$bonuses =  $this->escrow->where('user_id', '=', $userId)->where('status', '=', 'Ready')->get();
-
-
 		$details = UserDetail::where('user_id', '=', $userId)->first();
 
-		if ($details->country == 'GB') {
-
-			foreach($bonuses as $bonus) {
-				$stripe = new \Stripe\StripeClient($this->stripeLive);
-
-				$amount = 0.00;
-				
-				if ($bonus->tier == 'Bronze') {
-					$amount = 76;
-				}
-
-				if ($bonus->tier == 'Silver') {
-					$amount = 458;
-				}
-
-				if ($bonus->tier == 'Gold') {
-					$amount = 2899;
-				}
-
-				if ($bonus->tier == 'Ruby') {
-					$amount = 16786;
-				}
-
-				if ($bonus->tier == 'Diamond') {
-					$amount = 412855;
-				}
-
-				$transfer = $stripe->transfers->create([
-					'amount' => $amount,
-					'currency' => 'gbp',
-				    'destination' => $customer->account_id,
-			        'transfer_group' => 'payout_england',
-				]);	
-
-
-				$update = Escrow::find($bonus->id);
-				$update->status = 'Pending';
-				$update->save();
-
-				$this->saveTransfer($transfer->id, $userId, 'Bank', $amount);
-			}
-
-			return true;
-		}
-
 		foreach($bonuses as $bonus) {
+		
 			$stripe = new \Stripe\StripeClient($this->stripeLive);
 
 			$amount = 0.00;
+			
 			if ($bonus->tier == 'Bronze') {
 				$amount = 10000;
 			}
 
+
+			if ($bonus->tier == 'tier 2') {
+				$amount = 40000;
+			}
+
+
 			if ($bonus->tier == 'Silver') {
-				// $amount = 60000;
+				$amount = 60000;
 			}
 
 			if ($bonus->tier == 'Gold') {
 				// $amount = 380000;
+			}
+
+			if ($bonus->tier == 'tier 3') {
+				// $amount = 400000;
+			}
+
+			if ($bonus->tier == 'tier 4') {
+				// $amount = 1000000;
 			}
 
 			if ($bonus->tier == 'Ruby') {
@@ -596,7 +565,7 @@ class Accounts extends Stripe {
 	/**
 	 * [CustomerAccountLink description]
 	 * @param [type] $userId [description]
-	 */
+	 */ 
 	public function CustomerAccountLink($userId) {
 
 		 $customer = Customer::where('user_id', '=', $userId)->first();

@@ -288,7 +288,7 @@ class Boosters {
 
 				$allboosters = $this->booster->get();
 				foreach( $allboosters as $boost) {
-					$cash = $this->triggerCashbonus($booster->id, $booster->user_id);
+					$cash = $this->triggerCashbonus($boost->id, $boost->user_id);
 				}
 				
 			}
@@ -310,39 +310,17 @@ class Boosters {
 		$sales = $this->getGroupSales( $affiliateId );
 		$escrow = $this->getPayitForwadAmount( $affiliateId );
 
-		if ( $sales  == 12 && $sales < 108 ) {
+		if ( $sales >= 12 && $sales < 108 ) {
 
-			$c_bonus = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-			if ( $c_bonus ) {
-				return;
-			}
-
-			$twospaces = 70.00;
-			$scrow  = ( $sales * 25 )  - $twospaces;
-
-			$bonus = new Bonus;
-			$bonus->affiliate_id = $affiliateId;
-			$bonus->amount = 225.00;
-			$bonus->escrow = $scrow;
-			$bonus->save();
-
-			if ( $bonus->save() ) {
-
-				$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 2);
-
-				return [
-					'pgroupsales' => $per_group_sales,
-					'space' => $spaces,
-					'status' => true
-				];
-			}
+				$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 2, 'BP1');
+				return $per_group_sales;
 		}
 
 		
-		if ($escrow >= 108 && $escrow < 324 ) {
+		if ($sales >= 108 && $sales < 324 ) {
 			
-			$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 735 )->count();
-			if ( $bonus_check > 0) {
+			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 6, 'BP2');;
+			if ( $per_group_sales == false ) {
 				return;
 			}
 
@@ -350,31 +328,15 @@ class Boosters {
 			$cashbonus =  400.00;
 			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 2');
 
-
-			// create personal group sales spaces
-			$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 6);
-
-
 			//create system packages 
 			$system_qty = 2;
 			$system_purchases = $this->createBooster($userId, $system_qty, $sys = 1);
-			
-
-			// update userescrow
-			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-			if ( $cash ) {
-				$cash->amount = 1395;
-				$cash->escrow = 735;
-				$cash->save();
-			}
-		
 		}
+		
+		if ( $sales >= 324 && $sales < 927 ) {
 
-		if ( $escrow >= 324 && $escrow < 927 ) {
-
-			$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 1840 )->count();
-			
-			if ( $bonus_check > 0) {
+			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 20, 'BP3');;
+			if ( $per_group_sales == false ) {
 				return;
 			}
 
@@ -382,32 +344,17 @@ class Boosters {
 			$cashbonus =  4000.00;
 			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 3');
 
-
-			//create mcc space
-			$mcc_spaces = 700.00;
-			$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 20);
-
-
 			//create system packages 
 			$system_qty = 3;
 			$system_purchases = $this->createBooster($userId, $system_qty, $sys = 1);
-			
-
-			// update userescrow
-			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-			if ($cash ) {
-				$cash->amount = 6615;
-				$cash->escrow = 1840;
-				$cash->save();
-			}
 		
 		}
 
 
-		if ( $escrow >= 16560.00 ) {
+		if ( $sales >= 927 ) {
 
-			$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 400 )->count();
-			if ( $bonus_check > 0) {
+			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 50, 'BP4');;
+			if ( $per_group_sales == false ) {
 				return;
 			}
 
@@ -415,45 +362,21 @@ class Boosters {
 			$cashbonus =  10600.00;
 			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 4');
 
-			//create mcc space
-			$mcc_spaces = 3500.00;
+	
 			$spaces = $this->createMccSpaces($userId, 50);
-
-			// Create personal group sales
-			$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 50);
-
 
 			//create system packages 
 			$system_qty = 5;
 			$system_purchases = $this->superBooster->createBooster($userId, $system_qty, $sys = 1);
-			
-			//create superbooster packages spaces;
-			// $superbooster = $this->superBooster->create($userId, 8);
-			
-
-			// update userescrow
-			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-			if ($cash ) {
-				$cash->amount = 16560;
-				$cash->escrow = 400;
-				$cash->save();
-		   }
+		
 		}
 	}
 
-
-
-
 	public function createSystemPackages() {}
 
-
-
-
 	public function getPayitForwadAmount($affiliateId) {
-
 		$boosters = Booster::where('parent_id', '=', $affiliateId)->get();
 		$escrow = 0;
-		
 		if ($boosters) {
 			foreach( $boosters as $boost) {
 			
@@ -466,8 +389,6 @@ class Boosters {
 				}
 			}	
 		}
-	
-
 		return $escrow;
 	}
 
@@ -538,7 +459,7 @@ class Boosters {
                 $count += count($escrows);
         }
        
-	    return $count; 
+	    return $count + $firstCounts; 
 	}
 
 	/**
@@ -561,11 +482,13 @@ class Boosters {
            	$user = User::find($affil->user_id);
 			$response[] = array(
 				'id'     => $affil->user_id,
+				'booster_id' => $affil->id,
+				'sales' => $this->getGroupSalesCount($affil->id),
 				'affiliate_id' => $affil->id,
 				'name'   => $user->first_name.' '.$user->last_name,
 				'email'  => $user->email,
 				// 'escrow' => $this->getRealEscrow($affil->id),
-				// 'is_system' => $affil->is_system,
+				'is_system' => $affil->is_system,
 				'boosters' =>  count(Booster::where('user_id', '=', $affil->user_id)->where('is_system', '=', 0)->get()),
 				'systems' => count(Booster::where('user_id', '=', $affil->user_id)->where('is_system', '=', 1)->get())
 			);
@@ -574,7 +497,7 @@ class Boosters {
 
 		}
 
-		$allboosters = $this->booster->get();
+		$allboosters = $this->booster->all();
 		foreach( $allboosters as $booster) {
 			$cash = $this->triggerCashbonus($booster->id, $booster->user_id);
 		}
@@ -657,13 +580,20 @@ class Boosters {
      * @param  [type] $spaces     [description]
      * @return [type]             [description]
      */
-    public function createPersonalGroupSales($user_id, $booster_id, $spaces ) {
+    public function createPersonalGroupSales($user_id, $booster_id, $spaces, $tier) {
 
+
+    	$check = PersonalGroupSales::where('tier', '=', $tier)->where('booster_id', '=', $booster_id)->count();
+    	if ( $check > 0 ) {
+    		return false;
+    	}
+    	
     	for ($x = 0; $x < $spaces; $x++) {
 		  	$personal_group_sales = new PersonalGroupSales;
-		  	$personal_group_sales->$user_id = $user_id;
+		  	$personal_group_sales->user_id = $user_id;
 		  	$personal_group_sales->booster_id = $booster_id;
-		  	$personalgroupsales->save();
+		  	$personal_group_sales->tier = $tier;
+		  	$personal_group_sales->save();
 		}
 
 		return true;
