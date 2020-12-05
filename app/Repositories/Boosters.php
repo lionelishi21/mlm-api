@@ -1,24 +1,31 @@
 <?php 
 namespace App\Repositories;
 
-use App\Repositories\Purchases;
-use App\Repositories\Affiliates;
 use App\Repositories\AffiliateStats;
+use App\Repositories\SuperBoosters;
+use App\Repositories\Affiliates;
+use App\Repositories\Purchases;
+use App\PersonalGroupSales;
+use Carbon\Carbon;
 use App\Booster;
 use App\Bonus;
 use App\User;
-use Carbon\Carbon;
 use DB;
 
 class Boosters {
 
-	protected $booster;
 	protected $affiliate;
+	protected $superbooster;
+	protected $super;
 	protected $user;
 
 	public function __construct() {
-		$this->booster = new Booster;
+
+		$this->personalgroupsales = new PersonalGroupSales;
+
+		$this->superbooster = new SuperBoosters;
 		$this->affiliates = new Affiliates;
+		$this->booster = new Booster;
 		$this->user = new User;
 	}
 
@@ -270,6 +277,7 @@ class Boosters {
 	public function createBooster( $user_id, $qty, $sys = 0) {
 
 		for($i = 0; $i < $qty; $i++) {
+		
 			$booster = new Booster;
 			$booster->parent_id = $this->nextAvailableSpot();
 			$booster->user_id = $user_id;
@@ -297,7 +305,7 @@ class Boosters {
 	 * @return [type]              [description]
 	 * ********************************************************************
 	 */
-	public function triggerCashbonus( $affiliateId, $userId ) {
+	public function triggerCashbonus( $affiliateId, $userId  ) {
 
 		$sales = $this->getGroupSales( $affiliateId );
 		$escrow = $this->getPayitForwadAmount( $affiliateId );
@@ -320,9 +328,10 @@ class Boosters {
 
 			if ( $bonus->save() ) {
 
-				$spaces = $this->createMccSpaces($userId, $twospaces);
+				$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 2);
 
 				return [
+					'pgroupsales' => $per_group_sales,
 					'space' => $spaces,
 					'status' => true
 				];
@@ -342,9 +351,8 @@ class Boosters {
 			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 2');
 
 
-			//create mcc space
-			$mcc_spaces = 210.00;
-			$spaces = $this->createMccSpaces($userId, $mcc_spaces);
+			// create personal group sales spaces
+			$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 6);
 
 
 			//create system packages 
@@ -365,6 +373,7 @@ class Boosters {
 		if ( $escrow >= 324 && $escrow < 927 ) {
 
 			$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 1840 )->count();
+			
 			if ( $bonus_check > 0) {
 				return;
 			}
@@ -376,7 +385,7 @@ class Boosters {
 
 			//create mcc space
 			$mcc_spaces = 700.00;
-			$spaces = $this->createMccSpaces($userId, $mcc_spaces);
+			$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 20);
 
 
 			//create system packages 
@@ -395,42 +404,47 @@ class Boosters {
 		}
 
 
-		// if ( $escrow >= 16560.00 ) {
+		if ( $escrow >= 16560.00 ) {
 
-		// 	$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 400 )->count();
-		// 	if ( $bonus_check > 0) {
-		// 		return;
-		// 	}
+			$bonus_check = Bonus::where('affiliate_id', '=', $affiliateId)->where('escrow', '=', 400 )->count();
+			if ( $bonus_check > 0) {
+				return;
+			}
 
-		// 	//Creste Cash bonues
-		// 	$cashbonus =  10600.00;
-		// 	$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 4');
+			//Creste Cash bonues
+			$cashbonus =  10600.00;
+			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 4');
+
+			//create mcc space
+			$mcc_spaces = 3500.00;
+			$spaces = $this->createMccSpaces($userId, 50);
+
+			// Create personal group sales
+			$per_group_sales = $this->createPersonalGroupSales($userid, $affiliateId, 50);
 
 
-		// 	//create mcc space
-		// 	$mcc_spaces = 3500.00;
-		// 	$spaces = $this->createMccSpaces($userId, $mcc_spaces);
-
-
-		// 	//create system packages 
-		// 	$system_qty = 5;
-		// 	$system_purchases = $this->createBooster($userId, $system_qty, $sys = 1);
+			//create system packages 
+			$system_qty = 5;
+			$system_purchases = $this->superBooster->createBooster($userId, $system_qty, $sys = 1);
+			
+			//create superbooster packages spaces;
+			// $superbooster = $this->superBooster->create($userId, 8);
 			
 
-		// 	// update userescrow
-		// 	$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
-		// 	if ($cash ) {
-		// 		$cash->amount = 16560;
-		// 		$cash->escrow = 400;
-		// 		$cash->save();
-		//    }
-		// }
+			// update userescrow
+			$cash = Bonus::where('affiliate_id', '=', $affiliateId)->first();
+			if ($cash ) {
+				$cash->amount = 16560;
+				$cash->escrow = 400;
+				$cash->save();
+		   }
+		}
 	}
 
 
-	public function createSystemPackages() {
 
-	}
+
+	public function createSystemPackages() {}
 
 
 
@@ -464,9 +478,12 @@ class Boosters {
 	 * @param  [type] $cost   [description]
 	 * @return [type]         [description]
 	 */
-	public function createMccSpaces($userId, $cost) {
-		$purchase = new Purchases;
-		$purchase->createMccSystemPackages($userId, $cost);
+	public function createMccSpaces($userId, $space) {
+
+		for ($x = 0; $x < $spaces; $x++) {
+	  		$purchase = new Purchases;
+        	$purchase->createMccSystemPackages($userId, $cost);
+		}
 	}	
 
 	/**
@@ -630,6 +647,26 @@ class Boosters {
     	}
 
     	return $response;
+    }
+
+
+    /**
+     * THIS FUNCTION CREATE MCC GROUP SALES
+     * @param  [type] $user_id    [description]
+     * @param  [type] $booster_id [description]
+     * @param  [type] $spaces     [description]
+     * @return [type]             [description]
+     */
+    public function createPersonalGroupSales($user_id, $booster_id, $spaces ) {
+
+    	for ($x = 0; $x < $spaces; $x++) {
+		  	$personal_group_sales = new PersonalGroupSales;
+		  	$personal_group_sales->$user_id = $user_id;
+		  	$personal_group_sales->booster_id = $booster_id;
+		  	$personalgroupsales->save();
+		}
+
+		return true;
     }
 
 }

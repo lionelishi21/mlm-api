@@ -40,7 +40,7 @@ class AuthController extends Controller
         $stripe = new StripeRepository;
 
 
-         $validator = Validator::make($request->all()['user'], [
+         $validator = Validator::make($request->all()['email'], [
                 'email' => 'email|unique:users',
           ]);
         

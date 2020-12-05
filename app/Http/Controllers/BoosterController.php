@@ -24,15 +24,24 @@ class BoosterController extends Controller
     }
 
 
+    /**
+     * ADMIN FUNCTIONALITY FOR CREATE BOOSTERS
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
     public function transfer($userId) {
     	$booster = $this->booster->createBooster($userId, 1);
     	return $booster;
     }
 
+    /**
+     * THIS FUNCTION GET BOOSTER DETAILS INFORMATION
+     * @param  [type] $user_id [description]
+     * @return [type]          [description]
+     */
     public function userBoosters( $user_id ) {
 
     	$details = $this->booster->getUserBoosterDetails($user_id);
-
     	if ( $details  ) {
     		return $details;
     	}
@@ -44,8 +53,18 @@ class BoosterController extends Controller
      * @return [type]           [description]
      */
     public function summary(Request $request) {
-
-    	$userId= $request->user()->id;
+    	$userId = $request->user()->id;
     	return $this->booster->getUserBoosterSummary($userId);
+    }
+
+    /**
+     * THIS FUNCTION GET USER BOOSTER LIST
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function list( $id ) {
+
+    	$userId = Affiliate::where('affiliate_id', '=', $id)->first()->user_id;
+    	return $this->$this->booster->getUserBoosterSummary($userId);
     }
 }
