@@ -297,7 +297,7 @@ class Affiliates {
 		$stats = new AffiliateStats;
 
 		$gsales = $this->getGroupSales($userId);
-		$psales = PersonalGroupSales::where('user_id', '=', $userId)->count()
+		$psales = PersonalGroupSales::where('user_id', '=', $userId)->count();
 
 	    $sales_stats = $stats->salesStatus($this->getGroupSales($userId), $psales);
 
