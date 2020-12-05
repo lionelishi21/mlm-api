@@ -296,7 +296,7 @@ class Affiliates {
 
 		$stats = new AffiliateStats;
 
-		$psales = PersonalGroupSales::where('user_id', '=', $userId)->count();
+		$psales = PersonalGroupSales::where('user_id', '=', $userId)->count()
 
 		$response = array(
 			'user' => $user,
@@ -307,7 +307,7 @@ class Affiliates {
             'group_sales' => $this->getGroupSales($userId),
             'boosters' => $this->getBoosterPackages($userId),
             'parent' => $this->getParentById($id),
-            'stats' => $stats->salesStatus($this->getGroupSales($userId, $psales)
+            'stats' => $stats->salesStatus($this->getGroupSales($userId), $psales )
 		);
 
 		return $response;
