@@ -167,9 +167,10 @@ class Affiliates {
 
 	public function getAffiliateStatus($userId) {
 
-		$status = 'Inactive';
+		// $status = 'Inactive';
 
-		if ( )
+		// $booster
+		// if ( )
 	}
 
 	/**
