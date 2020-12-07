@@ -164,13 +164,21 @@ class Affiliates {
     	return $response;
 	}
 
+
+	public function getAffiliateStatus($userId) {
+
+		$status = 'Inactive';
+
+		if ( )
+	}
+
 	/**
 	 * [boosterPackageCount description]
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
 	 */
 	public function boosterPackageCount($userId) {
-		return Booster::where('user_id', '=', $userId)->count();
+		return Booster::where('user_id', '=', $userId, '')->count();
 	}
 
 	/**

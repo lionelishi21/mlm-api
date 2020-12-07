@@ -10,7 +10,6 @@ use App\Repositories\Bank;
 use App\Repositories\Paypal;
 use App\Repositories\Boosters;
 use App\Repositories\StripeRepository;
-use App\Repositories\Rayhope;
 
 class CustomerController extends Controller
 {
@@ -25,7 +24,6 @@ class CustomerController extends Controller
         $this->bank = new Bank;
         $this->paypal = new Paypal;
         $this->debit = new DebitCard;
-        $this->hope = new Rayhope;
         $this->booster = new Boosters;
     }
 
@@ -50,7 +48,6 @@ class CustomerController extends Controller
     	    $stripe = $repo->purchaseBooster($attributes, $userId);
 
     	    if ( $stripe ) {
-    	        // $this->hope->createAffiliate($userId, $attributes['qty']);
     	        $this->booster->createBooster($userId, $attributes['qty']);
     	    }
     	}
