@@ -132,22 +132,30 @@ class Affiliates {
 
     	foreach($affiliates as $affiliate) {
 
+    		$status = 'Inactive';
+
     	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
 
-    		$response[] = array(
+    	    $sales   = $this->getEbookSalesCount($affiliate->user->id);
+    	    $booster = $this->boosterPackageCount($affiliate->user->id);
 
+    	    if ( $sales > 2 || $booster > 0) {
+    	    	$stutus = 'Active';
+    	    }
+
+    		$response[] = array(
     			'order' => $affiliate->id,
     			'user_id' => $affiliate->user->id,
     			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
     			'children' => $affiliate['children'],
     			'email' => $affiliate->user->email,
     			'parent' => $affiliate->parent_id,
-    			'affiliate_id' => $affiliate->affiliate_id,
+    			'affiliateid' => $affiliate->affiliate_id,
     			'details' => $details,
-    			'booster' => $this->boosterPackageCount($affiliate->user->id),
+    			'booster' => $booster,
     			'parent' => $this->getParentById($affiliate->affiliate_id),
-    			'sales' => $this->getEbookSalesCount($affiliate->user->id),
-    			'status' => $this->getAffiliateStatusName($affiliate->user->id),
+    			'sales' => $sales,
+    			'status' => $status,
     			'sponsor' => $this->getSponsor($affiliate->user->id),
     
     		);
