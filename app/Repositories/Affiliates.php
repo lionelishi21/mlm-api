@@ -48,7 +48,7 @@ class Affiliates {
 	public function switchAffiliate($affiliateId, $exhangId) {
 
 		$affiliate = $this->affiliate::find($affiliateId);
-		$userId = $affiliate->id;
+		$userId = $affiliate->user_id;
 
 
 		$exchange = $this->affiliate::find($exhangId);
