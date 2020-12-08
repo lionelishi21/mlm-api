@@ -161,14 +161,14 @@ class Affiliates {
 	public function getAllAffliates() {
 
 		$response = array();
-    	$affiliates = Affiliate::orderBy('created_at', 'desc')->with('children')->get();
+    	$affiliates = Affiliate::orderBy('created_at', 'desc')->with('user')->get();
 
     	foreach($affiliates as $affiliate) {
 
     		$status = 'Inactive';
 
     		if ($affiliate->user) {
-    			
+
 	    	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
 
 	    	    $sales   = $this->getEbookSalesCount($affiliate->user->id);
