@@ -167,31 +167,35 @@ class Affiliates {
 
     		$status = 'Inactive';
 
-    	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
+    		if ($affiliate->user) {
+    			
+	    	    $details = UserDetail::where('user_id', '=', $affiliate->user->id)->first();
 
-    	    $sales   = $this->getEbookSalesCount($affiliate->user->id);
-    	    $booster = $this->boosterPackageCount($affiliate->user->id);
+	    	    $sales   = $this->getEbookSalesCount($affiliate->user->id);
+	    	    $booster = $this->boosterPackageCount($affiliate->user->id);
 
-    	    if ( $sales > 2 || $booster > 0) {
-    	    	$stutus = 'Active';
-    	    }
+	    	    if ( $sales > 2 || $booster > 0) {
+	    	    	$stutus = 'Active';
+	    	    }
 
-    		$response[] = array(
-    			'order' => $affiliate->id,
-    			'user_id' => $affiliate->user->id,
-    			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
-    			'children' => $affiliate['children'],
-    			'email' => $affiliate->user->email,
-    			'parent' => $affiliate->parent_id,
-    			'affiliateid' => $affiliate->affiliate_id,
-    			'details' => $details,
-    			'booster' => $booster,
-    			'parent' => $this->getParentById($affiliate->affiliate_id),
-    			'sales' => $sales,
-    			'active' => $this->getAffiliateActiveStatus($affiliate->user->id),
-    			'sponsor' => $this->getSponsor($affiliate->user->id),
-    
-    		);
+	    		$response[] = array(
+	    			'order' => $affiliate->id,
+	    			'user_id' => $affiliate->user->id,
+	    			'name' => $affiliate->user->first_name.' '.$affiliate->user->last_name,
+	    			'children' => $affiliate['children'],
+	    			'email' => $affiliate->user->email,
+	    			'parent' => $affiliate->parent_id,
+	    			'affiliateid' => $affiliate->affiliate_id,
+	    			'details' => $details,
+	    			'booster' => $booster,
+	    			'parent' => $this->getParentById($affiliate->affiliate_id),
+	    			'sales' => $sales,
+	    			'active' => $this->getAffiliateActiveStatus($affiliate->user->id),
+	    			'sponsor' => $this->getSponsor($affiliate->user->id),
+	    
+	    		);
+    		}
+
     	}
 
     	return $response;
