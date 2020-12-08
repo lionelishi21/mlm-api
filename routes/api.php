@@ -73,6 +73,7 @@ Route::group(['prefix' => 'v1'], function(){
   		   	 Route::post('/add-affiliate', 'UserController@addAffiliate');
   		   	 Route::get('/delete-affailiate/{id}', 'AffiliateController@removeAffiliate');
              Route::get('/personal-sales', 'AffiliateController@getPersonalSales');
+             Route::post('/compression', 'AffiliateController@compression');
 
   		  });
 

@@ -95,6 +95,12 @@ class AffiliateController extends Controller
             ];
         }
     }
+    
+    /** This function compression affiliates manually */
+    public function compression(Request $request) {
+        $attributes = $request->all();
+        return $this->model->switchAffiliate($attributes['selectedAffiliate'], $attributes['exchange_id']);
+    }
 
     /**
      * Get personal sales

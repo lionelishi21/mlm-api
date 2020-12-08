@@ -21,6 +21,7 @@ class Affiliates {
 	
 	public function __construct() {
 		$this->booster = new Booster;
+		$this->affiliate = new Affiliate;
 	}
 	
 	/**
@@ -36,6 +37,38 @@ class Affiliates {
 		}
 		return true;
 	}
+
+
+		/**
+	 * *********************************************
+	 * This function swtich affiliate 
+	 * @param  [type] $affiliateId [description]
+	 * @return [type]              [description]
+	 */
+	public function switchAffiliate($affiliateId, $exhangId) {
+
+		$affiliate = $this->affiliate::find($affiliateId);
+		$userId = $affiliate->id;
+
+
+		$exchange = $this->affiliate::find($exhangId);
+		$exchangeUserId = $exchange->user_id;
+
+		$affiliate->user_id = $exchangeUserId;
+		$affiliate->save();
+
+		if ( $affiliate->save()) {
+			$exchange->user_id = $userId;
+			$exchange->save();
+
+			if ( $exchange->save() ) {
+				return [
+					'User successfully swap'
+				];
+			}
+		}
+	}
+
 
 	/**
 	 * [place description]
@@ -155,7 +188,7 @@ class Affiliates {
     			'booster' => $booster,
     			'parent' => $this->getParentById($affiliate->affiliate_id),
     			'sales' => $sales,
-    			'status' => $status,
+    			'active' => $this->getAffiliateActiveStatus($affiliate->user->id),
     			'sponsor' => $this->getSponsor($affiliate->user->id),
     
     		);
@@ -165,12 +198,19 @@ class Affiliates {
 	}
 
 
-	public function getAffiliateStatus($userId) {
+	public function getAffiliateActiveStatus($userId) {
 
-		// $status = 'Inactive';
+		$booster = Booster::where('user_id', '=', $userId)->count();
+		if ( $booster > 0 ) {
+			return true;
+		}
 
-		// $booster
-		// if ( )
+		$personalSales =  $this->getEbookSalesCount($userId);
+		if ( $personalSales > 2 ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
