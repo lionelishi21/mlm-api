@@ -217,13 +217,13 @@ class Affiliates {
     	foreach( $users as $user) {
 
     		$affiliates = Affiliate::where('user_id', '=', $user->id)->get();
-    		$boosters = Booster::where('user_id', '=', $user->id)->get();
+    		$boosters = Booster::where('user_id', '=', $user->id)->where('is_system', '=', 0)->get();
     	
     		if ( count($affiliates) > 1 ) {
     			$response[] = array(
     				'id' => $user->id,
     				'name' => $user->first_name.''.$user->last_name,
-    				'systems' => $affiliates,
+    				'systems' => count($affiliates),
     				'booster' => count($boosters)
     			);
     		}
