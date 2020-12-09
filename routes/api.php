@@ -119,7 +119,7 @@ Route::group(['prefix' => 'v1'], function(){
             Route::get('/account', 'CustomerController@account');
 
             Route::post('/paypal-withdrawal', 'CustomerController@paypalWithdrawal');
-            Route::get('/transactions', 'CustomerController@getTPransactions');
+            Route::get('/transactions', 'CustomerController@getTransactions');
             Route::get('/payout-accounts', 'CustomerController@getUserAccounts');
 
             Route::post('/add-debitcard', 'CustomerController@debitCard');
