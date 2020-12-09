@@ -242,7 +242,7 @@ class Affiliates {
 
 		$user = User::find($userId);
 		$ebook = Affiliate::where('user_id', '=', $user->id)->orderBy('id', 'desc')->get();
-		$booster = Booster::where('user_id', '=', $user->id)->where('is_system,', '=', 1)->get();
+		$booster = Booster::where('user_id', '=', $user->id)->where('is_system', '=', 1)->get();
 
 		$response = array(
 			'user' => $user,
