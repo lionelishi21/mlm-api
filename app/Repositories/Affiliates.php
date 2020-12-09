@@ -218,7 +218,7 @@ class Affiliates {
 
     		$affiliates = Affiliate::where('user_id', '=', $user->id)->get();
     		$boosters = Booster::where('user_id', '=', $user->id)->where('is_system', '=', 0)->get();
-    		$booster_system_purchase = Booster::where('user_id', '=', $user->id)->where('is_system,', '=', 1)->get()
+    		$booster_system_purchase = Booster::where('user_id', '=', $user->id)->where('is_system,', '=', 1)->get();
     	
     		if ( count($affiliates) > 1 ) {
     			$response[] = array(
