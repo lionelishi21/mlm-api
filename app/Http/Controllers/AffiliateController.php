@@ -98,13 +98,18 @@ class AffiliateController extends Controller
 
 
     public function systemPurchaseDetails($id) {
-        return $this->affiliate->systemPurchasesDetails($id);
+        return $this->model->systemPurchasesDetails($id);
     }
 
 
+    /**
+     * THIS FUNCTION CHANGE SYSTEM PURCHASE AFFILIATE BACK TO JUST PSPACES
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function updateSystemPurchase(Request $request) {
         $attributes = $request->all();
-        return  $this->affiliate->updateEbookSystemPurchasesById($attributes['id']);
+        return  $this->model->updateEbookSystemPurchasesById($attributes['id']);
     }
 
     
