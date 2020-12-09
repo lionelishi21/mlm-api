@@ -225,7 +225,7 @@ class Affiliates {
     				'name' => $user->first_name.''.$user->last_name,
     				'systems' => $affiliates,
     				'booster' => count($boosters)
-    			)
+    			);
     		}
     	}
 
