@@ -95,6 +95,18 @@ class AffiliateController extends Controller
             ];
         }
     }
+
+
+    public function systemPurchaseDetails($id) {
+        return $this->affiliate->systemPurchasesDetails($id);
+    }
+
+
+    public function updateSystemPurchase(Request $request) {
+        $attributes = $request->all();
+        return  $this->affiliate->updateEbookSystemPurchasesById($attributes['id']);
+    }
+
     
     /** This function compression affiliates manually */
     public function compression(Request $request) {
@@ -103,7 +115,7 @@ class AffiliateController extends Controller
     }
 
 
-    
+
     public function getSystemPackages() {
         return $this->model->getAllSystemPurchases();
     }

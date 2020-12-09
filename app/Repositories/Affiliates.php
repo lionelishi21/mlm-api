@@ -218,21 +218,64 @@ class Affiliates {
 
     		$affiliates = Affiliate::where('user_id', '=', $user->id)->get();
     		$boosters = Booster::where('user_id', '=', $user->id)->where('is_system', '=', 0)->get();
+    		$booster_system_purchase = Booster::where('user_id', '=', $user->id)->where('is_system,', '=', 1)->get()
     	
     		if ( count($affiliates) > 1 ) {
     			$response[] = array(
     				'id' => $user->id,
     				'name' => $user->first_name.''.$user->last_name,
     				'systems' => count($affiliates),
+    				'bsystems' => count($booster_system_purchase ),
     				'booster' => count($boosters)
     			);
     		}
     	}
-
     	return $response;
 	}
 
+	/**
+	 * SHow user system purchases details
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function systemPurchasesDetails( $userId ) {
+
+		$user = User::find($userId);
+		$ebook = Affiliate::where('user_id', '=', $user->id)->order('id', 'desc')->get();
+		$booster = Booster::where('user_id', '=', $user->id)->where('is_system,', '=', 1)->get();
+
+		$response = array(
+			'user' => $user,
+			'ebook' => $ebooks,
+			'booster' => $boosters,
+		);
+
+		return $response;
+	}
+
+	/**
+	 * 'this fucntion give add me system packages'
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function updateEbookSystemPurchasesById($id) {
+
+		$affiliate = Affiliate::find( $id );
+		$affiliate->user_id = 1;
+		$affiliate->save();
+
+		if ( $affiliate->save() ) {
+			return true;
+		}
+
+		return false;
+	}
 	
+	/**
+	 * get Affiliate active Status
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
 	public function getAffiliateActiveStatus($userId) {
 
 		$booster = Booster::where('user_id', '=', $userId)->count();

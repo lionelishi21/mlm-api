@@ -75,6 +75,8 @@ Route::group(['prefix' => 'v1'], function(){
              Route::get('/personal-sales', 'AffiliateController@getPersonalSales');
              Route::post('/compression', 'AffiliateController@compression');
              Route::get('/system-packages', 'AffiliateController@getSystemPackages');
+             Route::get('/system-packages/{id}', 'AffiliateController@systemPurchaseDetails');
+             Route::post('/update/ebook-system'. 'AffiliateController@updateSystemPurchase' );
 
   		  });
 
