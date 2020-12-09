@@ -186,6 +186,7 @@ class Affiliates {
 	    			'email' => $affiliate->user->email,
 	    			'parent' => $affiliate->parent_id,
 	    			'affiliateid' => $affiliate->affiliate_id,
+	    		    'affiliate_id' => $affiliate->affiliate_id,
 	    			'details' => $details,
 	    			'booster' => $booster,
 	    			'parent' => $this->getParentById($affiliate->affiliate_id),
@@ -201,7 +202,37 @@ class Affiliates {
     	return $response;
 	}
 
+		/**
+	 * [getAllAffliates description]
+	 * @return [type] [description]
+	 */
+    public function getAllSystemPurchases() {
 
+		$response = array();
+    	$affiliates = Affiliate::orderBy('created_at', 'desc')->with('user')->get();
+
+    	$users = User::get();
+    	$response = array();
+
+    	foreach( $users as $user) {
+
+    		$affiliates = Affiliate::where('user_id', '=', $user->id)->get();
+    		$boosters = Booster::where('user_id', '=', $user->id)->get();
+    	
+    		if ( count($affiliates) > 1 ) {
+    			$response[] = array(
+    				'id' => $user->id,
+    				'name' => $user->first_name.''.$user->last_name,
+    				'systems' => $affiliates,
+    				'booster' => count($boosters)
+    			)
+    		}
+    	}
+
+    	return $response;
+	}
+
+	
 	public function getAffiliateActiveStatus($userId) {
 
 		$booster = Booster::where('user_id', '=', $userId)->count();

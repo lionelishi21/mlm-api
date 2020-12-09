@@ -102,6 +102,12 @@ class AffiliateController extends Controller
         return $this->model->switchAffiliate($attributes['selectedAffiliate'], $attributes['exchange_id']);
     }
 
+
+    
+    public function getSystemPackages() {
+        return $this->model->getAllSystemPurchases();
+    }
+
     /**
      * Get personal sales
      * @param  [type] $userId [description]
