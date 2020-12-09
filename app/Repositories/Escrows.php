@@ -131,14 +131,14 @@ class Escrows {
 
 		 if ($groupSales >= $this->silver) {
 
-		 	  if (!$this->checkIfEscrowExist($affiliateId, 'Silver')) {
+		 	  if (!$this->checkIfEscrowExist($userId, 'Silver')) {
 
 		 	  	 $attributes = array ('tier' => 'Silver', 
 			 	 	'pf' => 214.55, 
 			 	 	'amount_recieved' => 1930.95, 
 			 	 	'escrow' => 1330.95,
 			 	 	'sales' => 36,
-			 	 	'user_id' => $affiliateId,
+			 	 	'user_id' => $userId,
 			 	 	'cash_bonus' => 600.00
 			 	 );
 
@@ -148,14 +148,14 @@ class Escrows {
 
 		 if ( $groupSales >= $this->gold) {
 
-		 	 if (!$this->checkIfEscrowExist($affiliateId, 'Gold')) {
+		 	 if (!$this->checkIfEscrowExist($userId, 'Gold')) {
 
 		 	 	 $attributes = array ('tier' => 'Gold', 
 			 	 	'pf' => 1330.95 , 
 			 	 	'amount_recieved' => 11978.55, 
 			 	 	'escrow' => 8178.55 ,
 			 	 	'sales' => 108,
-			 	 	'user_id' => $affiliateId,
+			 	 	'user_id' => $userId,
 			 	 	'cash_bonus' => 3800
 			 	 );
 
@@ -168,14 +168,14 @@ class Escrows {
 		 
 		 if ( $groupSales >= $this->ruby) {
 
-		  	if (!$this->checkIfEscrowExist($affiliateId, 'Ruby')) {
+		  	if (!$this->checkIfEscrowExist($userId, 'Ruby')) {
 		  		 $attributes = array (
 		  		 	'tier' => 'Ruby', 
 			 	 	'pf' =>  8178.55 , 
 			 	 	'amount_recieved' => 73606.95, 
 			 	 	'escrow' => 51606.95,
 			 	 	'sales' => 324,
-			 	 	'user_id' => $affiliateId,
+			 	 	'user_id' => $userId,
 			 	 	'cash_bonus' => 22000.00
 			 	 );
 		  		  $this->escrow->create($attributes);
