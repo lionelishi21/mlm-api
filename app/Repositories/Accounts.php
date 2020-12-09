@@ -304,7 +304,7 @@ class Accounts extends Stripe {
 			$amount = 0.00;
 			
 			if ($bonus->tier == 'Bronze') {
-				$amount = 10000;
+				// $amount = 10000;
 			}
 
 
