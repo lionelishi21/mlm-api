@@ -163,6 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Shivella\Bitly\BitlyServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
+
         // NZTim\Mailchimp\MailchimpServiceProvider::class,
         // Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
@@ -233,7 +235,8 @@ return [
         'Token'=>\Dirape\Token\Facades\Facade::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
         'Bitly' => Shivella\Bitly\Facade\Bitly::class,
-        'PayPal' => Srmklive\PayPal\Facades\PayPal::class
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+        'Curl' => Ixudra\Curl\Facades\Curl::class,
 
     ],
 

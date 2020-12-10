@@ -6,8 +6,9 @@ use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use App\Repositories\Stripe;
 use App\UserDetail;
+use App\User;
 
-
+use TransferWise\TransferWise;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,20 +22,7 @@ use App\UserDetail;
 
 Route::get('/download-ebook/{id}', 'DownloadController@downloadEbook');
 
-Route::get('/test', function() {
-	   $data = [
-          'name' => 'email',
-          'email' => 'lionelishmael@gmail.com',
-          'book_link' => 'link',
-          'message' => 'message',
-            'token' => '$userToken'
-
-        ];
-        $email = 'lionelishmael@gmail.com';
-        $send = Mail::to($email)->send(new WelcomeMail($data));
-
-       return $data;
-});
+Route::get('/test', 'HomeController@getData');
 
 Route::get('/customer/{email}', 'CustomerController@stripecustomer');
 Route::get('/payout', 'CustomerController@testPayout');

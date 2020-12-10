@@ -36,22 +36,20 @@ class AuthController extends Controller
     public function register(Request $request) {
 
 
-        $userdetails = $request->user;
-        $stripe = new StripeRepository;
+         $userdetails = $request->user;
+         $stripe = new StripeRepository;
 
-
-         $validator = Validator::make($request->all()['email'], [
+         $validator = Validator::make($request->all()['user'], [
                 'email' => 'email|unique:users',
           ]);
         
-
      
-        // if ($validator->fails()){
-        //   return response()->json([
-        //         "error" => 'validation_error',
-        //         "message" => $validator->errors(),
-        //     ], 422);
-        // }
+        if ($validator->fails()){
+          return response()->json([
+                "error" => 'validation_error',
+                "message" => $validator->errors(),
+            ], 422);
+        }
 
          if ($userdetails['code'] == 'Majestic365!') {
 
@@ -65,7 +63,6 @@ class AuthController extends Controller
                  );
             }
          }
-
        
 
         $user = New User;

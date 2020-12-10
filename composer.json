@@ -16,6 +16,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "getresponse/sdk-php": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
+        "ixudra/curl": "^6.21",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^7.0",
         "laravel/passport": "^9.2",
@@ -23,6 +24,7 @@
         "laravel/ui": "^2.0",
         "nztim/mailchimp": "^3.11",
         "paypal/rest-api-sdk-php": "^1.14",
+        "sharik709/laravel-transferwise": "^0.0.4",
         "shivella/laravel-bitly": "^1.1",
         "stripe/stripe-php": "^7.61",
         "transferwise-php/sdk": "dev-master"
