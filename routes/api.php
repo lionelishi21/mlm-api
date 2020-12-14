@@ -15,19 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-
-
 Route::group(['prefix' => 'v1'], function(){
 
 
-   
-   
-   //  Route::group(['prefix' => 'rayofhopes'], function() {
-	  //  	Route::get('/', 'RayofhopeController@index');
-	  //  	Route::gept('/{id}', 'RayofhopeController@details');
-	  //  	Route::get('/create', 'RayofhopeController@store');
-	  // });
 
 	Route::middleware('auth:api')->group(function () { 
 
@@ -45,6 +35,7 @@ Route::group(['prefix' => 'v1'], function(){
 		  	Route::get('/', 'BoosterController@index');
 		  	Route::get('/details/{id}', 'BoosterController@details');
 		  	Route::get('/user-boosters/{id}', 'BoosterController@userBoosters');
+		  	Route::get('{id}/list', 'BoosterController@userSummar');
 		  });
 
 		  Route::group(['prefix' => 'rayofhopes'], function() {
@@ -105,7 +96,6 @@ Route::group(['prefix' => 'v1'], function(){
         Route::group(['prefix' => 'escrow'], function() {
         	  Route::get('/', 'EscrowController@getEscrows');
         	  Route::get('/all', 'EscrowController@index');
-        });
 
         Route::post('change-password', 'UserController@changePassword');
 

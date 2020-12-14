@@ -30,5 +30,11 @@ class TransferwiseController extends Controller
 
     public function delete() {}
 
-    public function transfer(Request $request) {}
+    public function transfer(Request $request) {
+
+    	
+    }
+
+
+
 }

@@ -57,6 +57,12 @@ class BoosterController extends Controller
     	return $this->booster->getUserBoosterSummary($userId);
     }
 
+
+    public function userSummary($id) {
+  		$affiliate = Affiliate::where('affiliate_id', '=', $id)->first()
+  		return $this->booster->getUserBoosterSummary($affiliate->user_id);
+    }
+
     /**
      * THIS FUNCTION GET USER BOOSTER LIST
      * @param  [type] $id [description]

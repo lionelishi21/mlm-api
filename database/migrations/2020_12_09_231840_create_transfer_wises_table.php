@@ -17,6 +17,7 @@ class CreateTransferWisesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('email');
+            $table->string('currency');
             $table->string('phone_number')->nullable();
             $table->timestamps();
         });

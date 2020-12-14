@@ -1,6 +1,7 @@
 <?php 
 namespace  App\Repositories;
 
+use App\Repositories\TransferWise\TransferWise;
 use App\Repositories\Stripe;
 use App\Customer;
 use App\User;
@@ -17,6 +18,7 @@ class Accounts extends Stripe {
 		// $this->stripe = new \Stripe\StripeClient($this->stripeLive);
 		$this->customer = new Customer;
 		$this->escrow = new Escrow;
+		$this->transferwise = new TransferWise;
 	}
 
 	/**
@@ -291,7 +293,7 @@ class Accounts extends Stripe {
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
 	 */
-	public function transfer($amount, $userId) {
+	public function transfer($amount, $userId, $type = 'stripe') {
 
 		$customer = Customer::where('user_id' , '=', $userId)->first();
 		$bonuses =  $this->escrow->where('user_id', '=', $userId)->where('status', '=', 'Ready')->get();
@@ -336,12 +338,25 @@ class Accounts extends Stripe {
 				// $amount = 41285500;
 			}
 
-			$transfer = $stripe->transfers->create([
-				'amount' => $amount,
-				'currency' => 'usd',
-			    'destination' => $customer->account_id,
-		        // 'transfer_group' => 'payout_'.$userId,
-			]);	
+
+			if ( $type == 'stripe') {
+				
+				 $transfer = $stripe->transfers->create([
+					'amount' => $amount,
+					'currency' => 'usd',
+				    'destination' => $customer->account_id,
+			        // 'transfer_group' => 'payout_'.$userId,
+			    ]);	
+			}
+
+			if ( $type == 'transferwise' ) {
+				$transferwise = $this->transferwise->payout( $amount );
+				if ($transferwise == false ) {
+					return false;
+				} 
+			}
+
+		
 
 			$update = Escrow::find($bonus->id);
 			$update->status = 'Pending';
