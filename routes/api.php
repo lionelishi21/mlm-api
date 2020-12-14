@@ -129,8 +129,8 @@ Route::group(['prefix' => 'v1'], function(){
 
 	Route::group(['prefix' => 'transferwises'], function() {
 		Route::get('', 'TransferwiseContoller@index');
-	})
-	;
+	});
+	
 	Route::get('/users', 'UserController@index');
     Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
