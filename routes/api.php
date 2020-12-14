@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function(){
 
-
-
 	Route::middleware('auth:api')->group(function () { 
 
 		  Route::post('/purchase/booster-packages', 'CustomerController@buyBooster');
