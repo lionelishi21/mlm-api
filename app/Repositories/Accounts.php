@@ -1,7 +1,7 @@
 <?php 
 namespace  App\Repositories;
 
-use App\Repositories\TransferWise\TransferWise;
+use App\Repositories\TransferWise\TransferWises;
 use App\Repositories\Stripe;
 use App\Customer;
 use App\User;
@@ -18,7 +18,7 @@ class Accounts extends Stripe {
 		// $this->stripe = new \Stripe\StripeClient($this->stripeLive);
 		$this->customer = new Customer;
 		$this->escrow = new Escrow;
-		$this->transferwise = new TransferWise;
+		$this->transferwise = new TransferWises;
 	}
 
 	/**
