@@ -59,7 +59,7 @@ class BoosterController extends Controller
 
 
     public function userSummary($id) {
-  		$affiliate = Affiliate::where('affiliate_id', '=', $id)->first()
+  		$affiliate = Affiliate::where('affiliate_id', '=', $id)->first();
   		return $this->booster->getUserBoosterSummary($affiliate->user_id);
     }
 
