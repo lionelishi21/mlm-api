@@ -45,6 +45,7 @@ Route::group(['prefix' => 'v1'], function(){
 		  	Route::get('/', 'BoosterController@index');
 		  	Route::get('/details/{id}', 'BoosterController@details');
 		  	Route::get('/user-boosters/{id}', 'BoosterController@userBoosters');
+		  	Route::get('/list/{id}', 'BoosterController@userSummary');
 		  });
 
 		  Route::group(['prefix' => 'rayofhopes'], function() {
