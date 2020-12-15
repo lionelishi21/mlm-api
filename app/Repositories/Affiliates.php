@@ -367,7 +367,7 @@ class Affiliates {
 			$affiliate = Affiliate::where('user_id', '=', $sale->purchase_by)->first();
 
 			if ( $affiliate ) {
-				$affiliate =  $affiliate->id;
+				$affiliate =  $affiliate->affiliate_id;
 			} else {
 				$affiliate = 1;
 			}
