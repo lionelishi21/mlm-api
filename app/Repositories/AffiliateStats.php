@@ -54,6 +54,7 @@ class AffiliateStats extends Helper {
 
 
 		$response = array(
+			'gSales' => $gSales,
 			'groupSales' => $groupSales,
 			'current_status' => $status,
 			'percentage' => $percentage,
@@ -94,7 +95,6 @@ class AffiliateStats extends Helper {
 		// 	$status = 'Diamond';
 		// 	$percentage = $this->percentageOf($groupSales, 927);
 		// }
-
 
 		$response = array(
 			'groupSales' => $groupSales,
