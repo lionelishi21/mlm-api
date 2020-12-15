@@ -428,7 +428,7 @@ class Affiliates {
 
 		$response = array();
 
-		$affiliate_details = Affiliate::where('affiliate_id', '=', $id)->first()
+		$affiliate_details = Affiliate::where('affiliate_id', '=', $id)->first();
 		$userId = $affiliate_details->user_id;
 
 		$user = User::with('detail')->find($userId);
