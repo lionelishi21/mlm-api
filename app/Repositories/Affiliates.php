@@ -349,7 +349,7 @@ class Affiliates {
 	 * @param  [type] $user_id [description]
 	 * @return [type]          [description]
 	 */
-	public function getEbookSales( $user_id , $type="sales") {
+	public function getEbookSales( $user_id , $type ="sales") {
 
 		$response = array();
 
@@ -364,8 +364,16 @@ class Affiliates {
 			$users = new Users;
 			$bitly = $users->getUserLink($sale->user_id);
 
+			$affiliate = Affiliate::where('user_id', '=', $sale->purchase_by)->first();
+
+			if ( $affiliate ) {
+				$affiliate =  $affiliate->id;
+			} else {
+				$affiliate = 1;
+			}
+
 			$response[] = array(
-				'affiliate_id' => Affiliate::where('user_id', '=', $sale->purchase_by)->first()->affiliate_id,
+				'affiliate_id' => $affiliate,
 				'purchaser_id' => $sale->purchase_by,
 				'purchaser_name' => $sale->purchaser->first_name.' '.$sale->purchaser->last_name,
 				'seller_id' => $sale->user_id,
