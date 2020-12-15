@@ -428,10 +428,12 @@ class Affiliates {
 
 		$response = array();
 
-		$userId = Affiliate::where('affiliate_id', '=', $id)->first()->user_id;
+		$affiliate_details = Affiliate::where('affiliate_id', '=', $id)->first()
+		$userId = $affiliate_details->user_id;
+
 		$user = User::with('detail')->find($userId);
 
-		$affiliates = $this->getUserAffiliates($userId);
+		$affiliates = $this->getUserAffiliates($affiliate_details->id);
 
 		$sales = $this->getEbookSales($userId);
 
