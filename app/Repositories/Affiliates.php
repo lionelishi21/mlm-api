@@ -365,7 +365,7 @@ class Affiliates {
 			$bitly = $users->getUserLink($sale->user_id);
 
 			$response[] = array(
-				'affiliate_id' => Affiliate::where('user_id', '=', $sales->purchase_by)->first()->affiliate_id,
+				'affiliate_id' => Affiliate::where('user_id', '=', $sale->purchase_by)->first()->affiliate_id,
 				'purchaser_id' => $sale->purchase_by,
 				'purchaser_name' => $sale->purchaser->first_name.' '.$sale->purchaser->last_name,
 				'seller_id' => $sale->user_id,
