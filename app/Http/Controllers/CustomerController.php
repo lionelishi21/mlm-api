@@ -48,7 +48,7 @@ class CustomerController extends Controller
     	    $stripe = $repo->purchaseBooster($attributes, $userId);
 
     	    if ( $stripe ) {
-    	        $this->booster->createBooster($userId, $attributes['qty']);
+    	        // $this->booster->createBooster($userId, $attributes['qty']);
     	    }
     	}
 
