@@ -91,10 +91,10 @@ class AffiliateStats extends Helper {
 			$percentage = $this->percentageOf($groupSales, 927);
 		}
 
-		// if ( $groupSales > 927 && $groupSales <= 11124) {
-		// 	$status = 'Diamond';
-		// 	$percentage = $this->percentageOf($groupSales, 927);
-		// }
+		if ( $groupSales > 927 && $groupSales <= 11124) {
+			$status = 'BP 5';
+			$percentage = $this->percentageOf($groupSales, 11124);
+		}
 
 		$response = array(
 			'groupSales' => $groupSales,
