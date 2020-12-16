@@ -7,6 +7,7 @@ use App\Customer;
 use App\User;
 use App\Transfer;
 use App\UserDetail;
+use App\Transferwise;
 use App\Escrow;
 
 class Accounts extends Stripe {
@@ -140,6 +141,8 @@ class Accounts extends Stripe {
 
 		$response = array();
 		$customers = Customer::where('user_id', '=', $userId)->get();
+		$transferwise = Transferwise::where('user_id', '=', $userId)->first();
+
 
 
 		foreach( $customers as $cus) {
@@ -181,6 +184,8 @@ class Accounts extends Stripe {
 				);
 			}
 		}
+
+
 
 		return  $response;
 	}
@@ -350,7 +355,7 @@ class Accounts extends Stripe {
 			}
 
 			if ( $type == 'transferwise' ) {
-				$transferwise = $this->transferwise->payout( $amount );
+				$transferwise = $this->transferwise->payout( $userId, $amount );
 				if ($transferwise == false ) {
 					return false;
 				} 

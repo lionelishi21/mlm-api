@@ -311,7 +311,6 @@ class Boosters {
 		$escrow = $this->getPayitForwadAmount( $affiliateId );
 
 		if ( $sales >= 12 && $sales < 108 ) {
-
 				$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 2, 'BP1');
 				return $per_group_sales;
 		}
@@ -326,7 +325,7 @@ class Boosters {
 
 			//Creste Cash bonues
 			$cashbonus =  400.00;
-			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 2');
+			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'BP2');
 
 			//create system packages 
 			$system_qty = 2;
@@ -342,7 +341,7 @@ class Boosters {
 
 			//Creste Cash bonues
 			$cashbonus =  4000.00;
-			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 3');
+			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'BP3');
 
 			//create system packages 
 			$system_qty = 3;
@@ -360,7 +359,7 @@ class Boosters {
 
 			//Creste Cash bonues
 			$cashbonus =  10600.00;
-			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'tier 4');
+			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'BP4');
 
 	
 			$spaces = $this->createMccSpaces($userId, 50);

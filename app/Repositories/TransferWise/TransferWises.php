@@ -14,6 +14,39 @@ class TransferWises extends TransferWiseAbstract {
           return $this->get('profiles');
     }
 
+
+   
+
+
+    public function save(array $array, $userId) {
+
+        $transferwise = new TransferWise;
+        $transferwise->email = $array['email'];
+        $transferwise->currency = $array['currency'];
+        $transferwise->user_id = $userId;
+
+        $transferwise->save();
+
+        if ( $transferwise->save() ) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public function getAccountInformation( $userId ) {
+
+        $transferwise = TransferWise::where('user_id', '=', $userId)->first();
+        if ( $transferwise) {
+            return $transferwise;
+        }
+
+        return [
+            'msg' => 'Someing went work for the affiliates'
+        ];
+    }
+
     /**
      * this function payout via transferwise
      * @param  [type] $user_id [description]
@@ -25,12 +58,11 @@ class TransferWises extends TransferWiseAbstract {
         $user = User::find($user_id);
         $transferwise = TransferWise::where('user_id', '=', $user_id)->first();
 
-        $amount = '100.00';
-        $currency = 'GBP';
+        $currency = $transferwise->currency;
         $quote = $this->getQuote($amount, 'USD', $currency );
 
-        $name = '$transferwise->name;';
-        $email = '$transferwise->email';
+        $name =  $user->first_name.' '.$user->last_name ;
+        $email = $transferwise->email;
 
         $details = array(
             'currency' => $currency,
@@ -40,7 +72,7 @@ class TransferWises extends TransferWiseAbstract {
         );
 
         $account  =  $this->createRecipient($details);
-        return $transfer = $this->createTransfer($quote['id'], $account['id']);
+        $transfer = $this->createTransfer($quote['id'], $account['id']);
 
         return [
             'account' => $account,
@@ -77,15 +109,14 @@ class TransferWises extends TransferWiseAbstract {
      */
     public function createRecipient( array $array) {
 
-        $currency = 'GBP';
 
         return $this->post('accounts', [
-            'currency' => $currency,
+            'currency' => $array['currency'],
             'profile' => '14705301',
-            'accountHolderName' => $name = "LIONEL FRANCIS", 
+            'accountHolderName' => $array['name'], 
             'type' => 'email',
             'details' => [
-                  'email' => "lionelishmael@gmail.com"
+                  'email' => $array['email']
             ]
         ]);
     }

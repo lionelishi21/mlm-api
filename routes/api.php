@@ -33,6 +33,12 @@ Route::group(['prefix' => 'v1'], function(){
 
 		  Route::post('/purchase/booster-packages', 'CustomerController@buyBooster');
 		  Route::get('/transfer/booster-packages/{id}', 'BoosterController@transfer');
+
+	      Route::group(['prefix' => 'transferwises'], function() {
+				Route::get('', 'TransferwiseController@index');
+				Route::post('/save', 'TransferwiseController@store');
+				Route::post('/payout', 'TransferwiseController@payout');
+	      });
 		  
 		  Route::group(['prefix' => 'accounts'], function() {
         	Route::get('/all', 'UserAccountController@index');
@@ -141,10 +147,7 @@ Route::group(['prefix' => 'v1'], function(){
 	 });
 
 
-	Route::group(['prefix' => 'transferwises'], function() {
-		Route::get('', 'TransferwiseContoller@index');
-	})
-	;
+
 	Route::get('/users', 'UserController@index');
     Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
