@@ -41,10 +41,6 @@ class TransferWises extends TransferWiseAbstract {
         if ( $transferwise) {
             return $transferwise;
         }
-
-        return [
-            'msg' => 'Someing went work for the affiliates'
-        ];
     }
 
     /**
