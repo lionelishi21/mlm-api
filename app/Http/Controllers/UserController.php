@@ -31,15 +31,16 @@ class UserController extends Controller
     public function index(Request $request) {
 
 
-       $attributes = $request->all();
+        $attributes = $request->all();
         $users = User::with('affiliate');
+        $response = array();
 
-         if ($attributes['filter']) {
-            $users = $users->where('first_name', 'like', '%' . $attributes['filter'] . '%');
-         }
+        foreach($users as $user) {
+            
+        }
 
         if ( $users ) {
-            return $users->paginate($request->offset);
+            return $users->get();
         }
     }
 
