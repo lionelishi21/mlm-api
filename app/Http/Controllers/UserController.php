@@ -32,16 +32,28 @@ class UserController extends Controller
 
 
         $attributes = $request->all();
-        $users = User::with('affiliate');
+        $users = User::with('affiliate')->get();
+
         $response = array();
-
         foreach($users as $user) {
-            
+
+            $status = false;
+            $affiliate = Affiliate::where('user_id', '=', $user->id) ->first();
+
+            if ( $status == true ) {
+                $status = true;
+            }
+
+            $response[] = array(
+                'id' -= $user->id,
+                'name' => $user->first_name.' '.$user->last_name,
+                'email' => $user->email,
+                'affiliate_id' => $affiliate->affiliate_id,
+                'status' => $status,
+            );
         }
 
-        if ( $users ) {
-            return $users->get();
-        }
+        return $response;
     }
 
 
