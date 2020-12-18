@@ -279,6 +279,10 @@ class Affiliates {
 	 */
 	public function getAffiliateActiveStatus($userId) {
 
+		if ($userId ==  1) {
+			return 'system';
+		}
+
 		$booster = Booster::where('user_id', '=', $userId)->count();
 		if ( $booster > 0 ) {
 			return true;
@@ -745,6 +749,11 @@ class Affiliates {
     }
 
 
+    /**
+     * [updateSystemPackagesById description]
+     * @param  array  $array [description]
+     * @return [type]        [description]
+     */
     public function updateSystemPackagesById(array $array) {
 
     	$affiliateId = $array['affiliate_id'];
