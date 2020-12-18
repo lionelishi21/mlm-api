@@ -102,16 +102,6 @@ class AffiliateController extends Controller
     }
 
 
-    /**
-     * THIS FUNCTION CHANGE SYSTEM PURCHASE AFFILIATE BACK TO JUST PSPACES
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
-    public function updateSystemPurchase(Request $request) {
-        $attributes = $request->all();
-        return  $this->model->updateEbookSystemPurchasesById($attributes['id']);
-    }
-
     
     /** This function compression affiliates manually */
     public function compression(Request $request) {
@@ -123,6 +113,17 @@ class AffiliateController extends Controller
 
     public function getSystemPackages() {
         return $this->model->getAllSystemPurchases();
+    }
+
+    /**
+     * [updateSystemPacakges description]
+     * @return [type] [description]
+     */
+    public function updateSystemPacakges(Request $request) {
+
+        $attributes = $request->all();
+        return $this->model->updateSystemPackagesById($attributes);
+
     }
 
     /**

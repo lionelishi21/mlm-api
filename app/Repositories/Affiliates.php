@@ -743,6 +743,22 @@ class Affiliates {
     public function userAffiliateCount($affiliateId){
 	    return Affiliate::where('parent_id', '=', $affiliateId)->count();
     }
+
+
+    public function updateSystemPackagesById(array $array) {
+
+    	$affiliateId = $array['affiliate_id'];
+    	
+    	$affiliate = Affiliate::find($affiliateId);
+    	$affiliate->user_id = 1;
+    	$affiliate->save();
+
+    	if ( $affiliate->save()) {
+    		return true;
+    	}
+
+    	return false;
+    }
 }
 
  ?>
