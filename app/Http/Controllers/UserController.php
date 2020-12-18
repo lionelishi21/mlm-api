@@ -45,7 +45,7 @@ class UserController extends Controller
             }
 
             $response[] = array(
-                'id' -= $user->id,
+                'id' => $user->id,
                 'name' => $user->first_name.' '.$user->last_name,
                 'email' => $user->email,
                 'affiliate_id' => $affiliate->affiliate_id,
