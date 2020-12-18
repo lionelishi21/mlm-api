@@ -39,19 +39,19 @@ class UserController extends Controller
 
             $status = false;
             $afid = null;
-            
+
             $affiliate = Affiliate::where('user_id', '=', $user->id) ->first();
 
             if ( $affiliate ) {
                 $status = true;
-                $afid =  $affiliate->affiliate_id,
+                $afid =  $affiliate->affiliate_id;
             }
 
             $response[] = array(
                 'id' => $user->id,
                 'name' => $user->first_name.' '.$user->last_name,
                 'email' => $user->email,
-                'affiliate_id' => $afid
+                'affiliate_id' => $afid,
                 'status' => $status,
             );
         }
