@@ -241,7 +241,7 @@ class Escrows {
 				'user' => $payout->user->first_name.' '.$payout->user->last_name,
 				'email' => $payout->user->email,
 				'phone_numner' => $payout->phone_number,
-				'user_id' => $payout->user->id,
+				// 'user_id' => $payout->user->id,
 				// 'status' => $payout->status,
 				'status' => $this->payoutStatus($payout->updated_at, $payout->status),
 				'payout' => $payout->cash_bonus
@@ -293,7 +293,13 @@ class Escrows {
 			return  'Completed';
 		} 
 
-		return 'Pending';
+		if ($status == 'Pending' && $daysForExtraCoding  < 2) {
+			return 'In Transit'
+		}
+
+		if ($status == 'Ready') {
+			return 'Available';
+		}
 	}
 }
 
