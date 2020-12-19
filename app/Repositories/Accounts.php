@@ -367,7 +367,7 @@ class Accounts extends Stripe {
 				
 				$transferwise = $this->transferwise->payout( $userId, $amount );
 				if ($transferwise == false ) {
-					return false;
+					// return false;
 				} 
 				
 				$update = Escrow::find($bonus->id);
@@ -378,6 +378,8 @@ class Accounts extends Stripe {
 			}
 
 		}
+
+		return $bonuses;
 	}  
 
 
