@@ -243,7 +243,8 @@ class Escrows {
 				'phone_numner' => $payout->phone_number,
 				'user_id' => $payout->user->id,
 				'status' => $payout->status,
-				'status1' => $this->payoutStatus($payout->updated_at, $payout->status)
+				'status1' => $this->payoutStatus($payout->updated_at, $payout->status),
+				'payout' => $payout->cash_bonus
 			);
 		}
 		return $response;
@@ -288,7 +289,7 @@ class Escrows {
 		       return !$date->isWeekend();
 		}, $today);
 
-		if ($status == 'pending') {
+		if ($status == 'Pending') {
 			return  $daysForExtraCoding;
 		} 
 	}
