@@ -230,7 +230,7 @@ class Escrows {
 	public function getPayouts() {
 
 		$payouts = $this->escrow->with('user')->orderBy('id', 'desc')->get();
-		$response = array():
+		$response = array();
 
 		foreach( $payouts as $payout) {
 
