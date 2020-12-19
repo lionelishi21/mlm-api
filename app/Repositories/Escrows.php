@@ -242,8 +242,8 @@ class Escrows {
 				'email' => $payout->user->email,
 				'phone_numner' => $payout->phone_number,
 				'user_id' => $payout->user->id,
-				'status' => $payout->status,
-				'status1' => $this->payoutStatus($payout->updated_at, $payout->status),
+				// 'status' => $payout->status,
+				'status' => $this->payoutStatus($payout->updated_at, $payout->status),
 				'payout' => $payout->cash_bonus
 			);
 		}
@@ -289,9 +289,11 @@ class Escrows {
 		       return !$date->isWeekend();
 		}, $today);
 
-		if ($status == 'Pending') {
-			return  $daysForExtraCoding;
+		if ($status == 'Pending' && $daysForExtraCoding  >= 2) {
+			return  'Completed';
 		} 
+
+		return 'Pending';
 	}
 }
 
