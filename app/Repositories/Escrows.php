@@ -4,7 +4,10 @@ namespace App\Repositories;
 use App\Escrow;
 use App\PersonalGroupSales;
 use App\Repositories\Affiliates;
+use App\Repositories\Accounts;
 use App\Affiliate;
+use Carbon\Carbon;
+
 
 class Escrows {
 
@@ -18,6 +21,7 @@ class Escrows {
     protected $ruby =  927;
     protected $diamond = 11124;
 
+
 	/**
 	 * [__construct description]
 	 * @param Escrow $escrow [description]
@@ -25,6 +29,7 @@ class Escrows {
 	public function __construct() {
 		$this->escrow = new Escrow;
 		$this->affiliate = New Affiliates;
+		$this->account = new Accounts;
 
 	}
 
@@ -43,9 +48,19 @@ class Escrows {
 	 * @return [type] [description]
 	 */
 	public function getAll() {
-		
+		 
 		$response = array();		
 		$escrows = Escrow::with('user')->orderBy('id', 'desc')->get();
+
+
+		$response = array();
+
+		foreach ($escrows as $escrow) {
+			
+			$response = array(
+				''
+			);
+		}
 
 		if ( $escrows ) {
 			return $escrows;
@@ -206,6 +221,76 @@ class Escrows {
 
 		 // }
 
+	}
+
+	/**
+	 * THIS FUNCTION GET ALL USER PAYOUTS
+	 * @return [type] [description]
+	 */
+	public function getPayouts() {
+
+		$payouts = $this->escrow->with('user')->orderBy('id', 'desc')->get();
+		$response = array():
+
+		foreach( $payouts as $payout) {
+
+			$response[] = array(
+				'id' => $payout->id,
+				'tier' => $payout->tier,
+				'status' => $payout->status,
+				'user' => $payout->user->first_name.' '.$payout->user->last_name,
+				'email' => $payout->user->email,
+				'phone_numner' => $payout->phone_number,
+				'user_id' => $payout->user->id,
+				'status' => $payout->status,
+				'status1' => $this->payoutStatus($payout->updated_at, $payout->status)
+			);
+		}
+		return $response;
+	}
+
+
+	/**
+	 * this function create manual payouts for the user
+	 * @param  array  $array [description]
+	 * @return [type]        [description]
+	 */
+	public function makeManualPayout(array $array, $type) {
+
+		$payoutId = $array['payout_id'];
+		$update = Escrow::find($payoutId);
+		$update->status = 'Pending';
+		$update->save(); 
+
+		if ( $update->save()) {
+			return $this->account->saveTransfer('manual_payout_by_admin', $update->user_id, $type, $update->cash_bonus );
+		}
+		
+		return false
+
+	}
+
+	/**
+	 * GET USER PAYOUT STATUS
+	 * @param  [type] $date   [description]
+	 * @param  [type] $status [description]
+	 * @return [type]         [description]
+	 */
+	public function payoutStatus($date, $status) {
+
+		$date1 = Carbon::parse($date);
+		$today = Carbon::today();
+
+		$dt = Carbon::create(2017, 4, 4);
+        $dt2 = Carbon::create(2017, 4, 18);
+
+        $daysForExtraCoding = $date1->diffInDaysFiltered(function(Carbon $date) {
+		       return !$date->isWeekend();
+		}, $today);
+
+		if ($status == 'pending') {
+			return  $daysForExtraCoding;
+		} 
 	}
 }
 

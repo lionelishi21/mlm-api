@@ -29,7 +29,6 @@ class EscrowController extends Controller
      * ************************************************************************************************
      */
     public function index(Request $request) {
-
         $attributes = $request->all();
         $bonuses = Escrow::with('user')->orderBy('id', 'desc');
         return $bonuses->paginate();
@@ -78,7 +77,11 @@ class EscrowController extends Controller
     }
 
 
+    public function manualPayout(Request $request) {
 
+        $attributes = $request->all();
+        return $this->escrows->makeManualPayout($attributes);
+    }
 
 
 

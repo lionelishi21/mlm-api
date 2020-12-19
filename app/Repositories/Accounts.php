@@ -7,7 +7,7 @@ use App\Customer;
 use App\User;
 use App\Transfer;
 use App\UserDetail;
-use App\Transferwise;
+use App\TransferWise;
 use App\Escrow;
 
 class Accounts extends Stripe {
@@ -352,25 +352,32 @@ class Accounts extends Stripe {
 				    'destination' => $customer->account_id,
 			        // 'transfer_group' => 'payout_'.$userId,
 			    ]);	
+
+
+			    $update = Escrow::find($bonus->id);
+				$update->status = 'Pending';
+				$update->save();
+
+				return $this->saveTransfer($transfer->id, $userId, $type, $amount);
 			}
 
+
+
 			if ( $type == 'transferwise' ) {
+				
 				$transferwise = $this->transferwise->payout( $userId, $amount );
 				if ($transferwise == false ) {
 					return false;
 				} 
+				
+				$update = Escrow::find($bonus->id);
+				$update->status = 'Pending';
+				$update->save();
+
+			   return $this->saveTransfer('transferwise', $userId, $type, $amount);
 			}
 
-		
-
-			$update = Escrow::find($bonus->id);
-			$update->status = 'Pending';
-			$update->save();
-
-			$this->saveTransfer($transfer->id, $userId, $type, $amount);
 		}
-
-		return true;
 	}  
 
 
@@ -382,7 +389,7 @@ class Accounts extends Stripe {
 	 */
 	public function saveTransfer($transferId, $userId, $type, $amount) {
 
-		$total = 0;
+		$total = $amount;
 
 		if ($amount == 10000) {
 			$total = 100;
