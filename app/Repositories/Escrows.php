@@ -266,7 +266,7 @@ class Escrows {
 			return $this->account->saveTransfer('manual_payout_by_admin', $update->user_id, $type, $update->cash_bonus );
 		}
 		
-		return false
+		return false;
 
 	}
 
