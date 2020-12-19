@@ -133,7 +133,7 @@ class CustomerController extends Controller
     public function transfer(Request $request) {
     	
     	$userId = $request->user()->id;
-    	$amount = $request->transfer;
+    	return $amount = $request->transfer;
 
     	$transfer = $this->account->transfer($amount, $userId);
 
