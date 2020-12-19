@@ -139,7 +139,7 @@ class CustomerController extends Controller
 
         return [
             'transfer' => true,
-            'message' => 'Transfer'
+            'message' => $transfer
         ];
     }
 

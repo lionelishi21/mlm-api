@@ -30,8 +30,7 @@ class EscrowController extends Controller
      */
     public function index(Request $request) {
         $attributes = $request->all();
-        $bonuses = Escrow::with('user')->orderBy('id', 'desc');
-        return $bonuses->paginate();
+        return $this->escrows->getPayouts();
     }
 
     
