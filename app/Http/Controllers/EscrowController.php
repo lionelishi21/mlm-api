@@ -75,7 +75,11 @@ class EscrowController extends Controller
         ];
     }
 
-
+    /**
+     * this function create manual payouts
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function manualPayout(Request $request) {
 
         $attributes = $request->all();

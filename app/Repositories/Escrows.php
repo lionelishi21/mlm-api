@@ -38,21 +38,15 @@ class Escrows {
 	 * @param  [type] $affiliateId [description]
 	 * @return [type]              [description]
 	 */
-	public function escrow($affiliateId) {
-			
-		// $escrow-> $this->		
-	} 
+	public function escrow($affiliateId) {} 
 
 	/**
 	 * [all description]
 	 * @return [type] [description]
 	 */
 	public function getAll() {
-		 
-		$response = array();		
+	
 		$escrows = Escrow::with('user')->orderBy('id', 'desc')->get();
-
-
 		$response = array();
 
 		foreach ($escrows as $escrow) {
@@ -90,7 +84,6 @@ class Escrows {
 	public function checkAffiliatesEscrow() {
 
 		$affiliates = Affiliate::get();
-
 		foreach( $affiliates as $affiliate) {
 			
 			$groupSales = $this->affiliate->getGroupSales($affiliate->user_id);
@@ -256,7 +249,7 @@ class Escrows {
 	 * @param  array  $array [description]
 	 * @return [type]        [description]
 	 */
-	public function makeManualPayout(array $array, $type) {
+	public function makeManualPayout(array $array) {
 
 		$payoutId = $array['payout_id'];
 		$update = Escrow::find($payoutId);
@@ -264,7 +257,7 @@ class Escrows {
 		$update->save(); 
 
 		if ( $update->save()) {
-			return $this->account->saveTransfer('manual_payout_by_admin', $update->user_id, $type, $update->cash_bonus );
+			return $this->account->saveTransfer('manual_payout_by_admin', $update->user_id, $array['method'], $update->cash_bonus );
 		}
 		
 		return false;
@@ -294,7 +287,7 @@ class Escrows {
 		} 
 
 		if ($status == 'Pending' && $daysForExtraCoding  < 2) {
-			return 'In Transit';
+			return 'Processing';
 		}
 
 		if ($status == 'Ready') {
