@@ -289,7 +289,7 @@ class Escrows {
 		       return !$date->isWeekend();
 		}, $today);
 
-		if ($status == 'Pending' && $daysForExtraCoding  >= 2) {
+		if ($status == 'Pending' AND $daysForExtraCoding  >= 2) {
 			return  'Completed';
 		} 
 
