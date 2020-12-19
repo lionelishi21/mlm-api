@@ -294,7 +294,7 @@ class Escrows {
 		} 
 
 		if ($status == 'Pending' && $daysForExtraCoding  < 2) {
-			return 'In Transit'
+			return 'In Transit';
 		}
 
 		if ($status == 'Ready') {
