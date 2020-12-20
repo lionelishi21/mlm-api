@@ -154,6 +154,9 @@ class Affiliates {
 		$newAffiliates->save();
 	}
 
+
+
+
 	/**
 	 * [getAllAffliates description]
 	 * @return [type] [description]
@@ -486,6 +489,21 @@ class Affiliates {
 		);
 
 		return $response;
+	}
+
+	/**
+	 * THIS FUNCTION GET AFFILIATE STATUS BY USER ID
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function getAffiliateStatusByUserId($userId) {
+
+		$gsales = $this->getGroupSales($userId);
+		$psales = PersonalGroupSales::where('user_id', '=', $userId)->count();
+
+		$stats = new AffiliateStats;
+
+		return $stats->salesStatus($gsales, $psales);
 	}
 
 	/**

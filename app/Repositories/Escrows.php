@@ -240,7 +240,8 @@ class Escrows {
 				// 'status' => $payout->status,
 				'user_status' => $this->affiliate->getAffiliateActiveStatus($payout->user_id),
 				'status' => $this->payoutStatus($payout->updated_at, $payout->status),
-				'payout' => $payout->cash_bonus
+				'payout' => $payout->cash_bonus, 
+				'sales_stats' => $this->affiliate->getAffiliateStatusByUserId($payout->user_id)
 			);
 		}
 		return $response;
