@@ -238,6 +238,7 @@ class Escrows {
 				'phone_numner' => $payout->phone_number,
 				// 'user_id' => $payout->user->id,
 				// 'status' => $payout->status,
+				'user_status' => $this->affiliate->getAffiliateActiveStatus($payout->user_id),
 				'status' => $this->payoutStatus($payout->updated_at, $payout->status),
 				'payout' => $payout->cash_bonus
 			);
