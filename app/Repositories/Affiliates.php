@@ -344,8 +344,23 @@ class Affiliates {
 	 * @return [type]          [description]
 	 */
 	public function getEbookSalesCount($user_id) {
+		return Purchase::where('user_id', '=', $user_id)->count();
+	}
+
+	/**
+	 * [getSalesBoosterCount description]
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function getSalesBoosterCount( $userId ) {
+
 		$salesCount = Purchase::where('user_id', '=', $user_id)->count();
-		return $salesCount;
+		$boosterCount = Booster::where('user_id', '=', $user_id)->count();
+
+		$response = array('sales' => $salesCount, 'booster' => $boosterCount );
+
+		return $response;
+
 	}
 
 	/**

@@ -7,7 +7,9 @@ use App\Repositories\Affiliates;
 use App\Repositories\Accounts;
 use App\Affiliate;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CashBonus;
+use App\User;
 
 class Escrows {
 
@@ -259,7 +261,7 @@ class Escrows {
 		if ( $update->save()) {
 			return $this->account->saveTransfer('manual_payout_by_admin', $update->user_id, $array['method'], $update->cash_bonus );
 		}
-		
+
 		return false;
 
 	}
@@ -293,6 +295,33 @@ class Escrows {
 		if ($status == 'Ready') {
 			return 'Available';
 		}
+	}
+
+	/**
+	 * [cashBunusReminder description]
+	 * @return [type] [description]
+	 */
+	public function cashBonusReminder() {
+
+		return $payouts = Escrow::where('status', '=', 'Ready')->get();
+
+		foreach( $payouts as $payout ) {
+			$this->sendmail($payout->toArray());
+		}
+
+	}
+
+	/**
+	 * [sendmail description]
+	 * @param  array  $details [description]
+	 * @return [type]          [description]
+	 */
+	public function sendmail(array $details) {
+
+		$user = User::find($details['user_id']);
+		$data = array('name' => $user->first_name.' '.$user->last_name, 'amount' => $details['cash_bonus']);
+	    Mail::to('lionelishmael@gmail.com')->send(new CashBonus($data));
+	    // Mail::to($user->email)->send(new CashBonus($data));
 	}
 }
 

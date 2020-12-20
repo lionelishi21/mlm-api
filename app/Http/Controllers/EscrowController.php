@@ -87,5 +87,10 @@ class EscrowController extends Controller
     }
 
 
+    public function payoutEmail() {
+        return $this->escrows->cashBonusReminder();
+    }
+
+
 
 }

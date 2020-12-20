@@ -316,12 +316,12 @@ class Accounts extends Stripe {
 
 
 			if ($bonus->tier == 'BP2') {
-				$amount = 10000;
+				$amount = 40000;
 			}
 
-			// if ($bonus->tier == 'Silver') {
-			// 	$amount = 60000;
-			// }
+			if ($bonus->tier == 'Silver') {
+				$amount = 60000;
+			}
 
 			if ($bonus->tier == 'Gold') {
 				// $amount = 380000;

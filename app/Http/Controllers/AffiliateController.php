@@ -96,7 +96,11 @@ class AffiliateController extends Controller
         }
     }
 
-
+    /**
+     * this function get system packgages details
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public function systemPurchaseDetails($id) {
         return $this->model->systemPurchasesDetails($id);
     }
@@ -133,11 +137,13 @@ class AffiliateController extends Controller
      */
     public function getPersonalSales(Request $request) {
         $userId = $request->user()->id;
-        return $this->model->getEbookSalesCount($userId);
+        return $this->model->getSalesBoosterCount($userId);
     }
 
-    public function addAffiliate(Request $equest) {}
-
+    /**
+     * [fix description]
+     * @return [type] [description]
+     */
     public function fix() {
         return $this->model->fixMatrix();
     }
