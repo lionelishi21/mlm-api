@@ -97,7 +97,7 @@ class AffiliateController extends Controller
     }
 
     /**
-     * this function get system packgages details
+     * this function get system packgages
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
@@ -136,6 +136,7 @@ class AffiliateController extends Controller
      * @return [type]         [description]
      */
     public function getPersonalSales(Request $request) {
+     
         $userId = $request->user()->id;
         return $this->model->getSalesBoosterCount($userId);
     }

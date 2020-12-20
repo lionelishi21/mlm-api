@@ -347,21 +347,23 @@ class Affiliates {
 		return Purchase::where('user_id', '=', $user_id)->count();
 	}
 
+
 	/**
 	 * [getSalesBoosterCount description]
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
 	 */
-	public function getSalesBoosterCount( $userId ) {
+	public function getSalesBoosterCount( $user_id ) {
 
 		$salesCount = Purchase::where('user_id', '=', $user_id)->count();
 		$boosterCount = Booster::where('user_id', '=', $user_id)->count();
 
-		$response = array('sales' => $salesCount, 'booster' => $boosterCount );
+		$response = array('sales' => $salesCount, 'booster' => $boosterCount);
 
 		return $response;
 
 	}
+
 
 	/**
 	 * this function all ebook sales by user id
@@ -407,6 +409,11 @@ class Affiliates {
 		return $response;
 	}
 
+	/**
+	 * THIS FUNCTIOON GET USER AFFILIATES INFORMATION
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
 	public function getUserAffiliates($userId) {
 
 		$response = array();
