@@ -768,6 +768,49 @@ class Affiliates {
 
     	return false;
     }
+
+    /**
+     * [fixMatrix description]
+     * @return [type] [description]
+     */
+    public function fixMatrix() {
+
+    	$affiliates = Affiliate::orderBy('id', 'asc')->get();
+
+    	$i = 0;
+    	$parent = 1;
+    	foreach( $affiliates as $affiliate) {
+
+
+    		if($affiliate->id == 1) {
+    			$parent = null;
+    		}
+
+    		$details =  Affiliate::find($affiliate->id);
+    		$details->parent_id = $parent;
+    		$details->save();
+
+    		if ($details->save()) {
+
+
+    			if($parent == null) {
+    			   $parent = 1;
+    		     } else {
+
+    		     	$i++;
+
+	    			if ($i == 3) {
+	    				$parent++;
+	    				$i = 0;
+	    			}
+    		     }
+    		
+
+    		}
+    	}
+
+    	return Affiliate::fixTree();
+    }
 }
 
  ?>

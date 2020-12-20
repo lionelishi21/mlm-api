@@ -137,4 +137,8 @@ class AffiliateController extends Controller
     }
 
     public function addAffiliate(Request $equest) {}
+
+    public function fix() {
+        return $this->model->fixMatrix();
+    }
 }

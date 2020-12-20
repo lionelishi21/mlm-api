@@ -87,6 +87,8 @@ Route::group(['prefix' => 'v1'], function(){
              Route::post('/update/ebook-system'. 'AffiliateController@updateSystemPurchase' );
              Route::post('/convert-system-packages', 'AffiliateController@updateSystemPacakges');
 
+             Route::get('/fix', 'AffiliateController@fix');
+
   		  });
 
   		  Route::get('/cashbonuses/{id}', 'UserController@cashbonuses');
@@ -170,6 +172,8 @@ Route::group(['prefix' => 'v1'], function(){
   	Route::get('/email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
     Route::get('/email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
     Route::post('/password/email-link', 'Auth\ForgotPasswordController@forgot');
+
+    Route::get('/fix', 'AffiliateController@fix');
 
 });
 

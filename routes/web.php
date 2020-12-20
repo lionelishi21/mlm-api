@@ -28,7 +28,7 @@ Route::get('/customer/{email}', 'CustomerController@stripecustomer');
 Route::get('/payout', 'CustomerController@testPayout');
 
 Route::get('/stripe', 'CustomerController@teststripe');
-
+   Route::get('/fix', 'AffiliateController@fix');
 Route::get('/countries', function() {
 
        
