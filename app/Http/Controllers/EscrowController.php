@@ -100,7 +100,7 @@ class EscrowController extends Controller
 
         $escrow = Escrow::find($id);
         if ( $escrow ) {
-           return  $escrow->destroy();
+           return  $escrow->delete();
         } 
     }
 
