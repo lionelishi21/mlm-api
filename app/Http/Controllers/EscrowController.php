@@ -33,7 +33,7 @@ class EscrowController extends Controller
         return $this->escrows->getPayouts();
     }
 
-    
+     
     /**
      * ************************************************************************************************
      * [escrow description]
@@ -91,6 +91,17 @@ class EscrowController extends Controller
         return $this->escrows->cashBonusReminder();
     }
 
+    /**
+     * remove payouts
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function delete($id) {
 
+        $escrow = Escrow::find($id);
+        if ( $escrow ) {
+           return  $escrow->destroy();
+        } 
+    }
 
 }

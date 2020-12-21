@@ -118,6 +118,7 @@ Route::group(['prefix' => 'v1'], function(){
         	  Route::get('/all', 'EscrowController@index');
 
         	  Route::post('/manual-transfer', 'EscrowController@manualPayout');
+        	  Route::get('/delete/{id}', 'EscrowController@delete');
         });
 
         Route::post('change-password', 'UserController@changePassword');
