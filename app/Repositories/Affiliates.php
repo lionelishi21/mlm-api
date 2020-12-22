@@ -471,7 +471,7 @@ class Affiliates {
 
 		$stats = new AffiliateStats;
 
-		$gsales = $this->getGroupSales($userId);
+		$gsales = $this->getGroupSales($affiliate_details->id);
 		$psales = PersonalGroupSales::where('user_id', '=', $userId)->count();
 
 	    $sales_stats = $stats->salesStatus($gsales, $psales);
@@ -549,17 +549,16 @@ class Affiliates {
      * @return int
      * *************************************************************
      */
-	public function getGroupSales($userId) {
+	public function getGroupSales($affiliateId) {
 
-		$userAffiliateId = Affiliate::where('user_id', '=', $userId)->first();
 
 	    // get the first three
-	    $affiliates = Affiliate::where('parent_id', '=', $userAffiliateId->id)->get();
+	    $affiliates = Affiliate::where('parent_id', '=', $affiliateId)->get();
 	    $firstCounts = count($affiliates);
 	    $count = 0;
 
         foreach($affiliates as $affiliate) {
-                // $sales = Affiliate::descendantsOf($affiliate->user_id);
+               
                 $sales = Affiliate::descendantsOf($affiliate->id);
                 foreach($sales as $sale) {
                 	$count += 1 ;

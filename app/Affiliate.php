@@ -10,6 +10,7 @@ class Affiliate extends Model
     use NodeTrait;
 
     protected $fillable = ['user_id', 'parent_id'];
+  
   	public function user() {
   		return $this->belongsTo('App\User', 'user_id', 'id');
   	}
@@ -23,7 +24,7 @@ class Affiliate extends Model
     }
 
   	public function children() {
-        return $this->hasMany('App\Affiliate', 'parent_id', 'user_id');
+        return $this->hasMany('App\Affiliate', 'parent_id', 'id');
     }
 
     public function allChildren() {
