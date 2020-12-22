@@ -425,7 +425,7 @@ class Affiliates {
 
 		foreach ($affiliates as $affiliate) {
 
-			$childs = Affiliate::where('parent_id', '=', $affiliate->user_id)->get();
+			$childs = Affiliate::where('parent_id', '=', $affiliate->id)->get();
 			$response1 = array();
 
 			foreach($childs as $child) {
@@ -591,6 +591,7 @@ class Affiliates {
 
 		$groupSales = $this->getGroupSales($userId);
 		$personalGroupSales  = PersonalGroupSales::where('user_id', '=', $userId)->count();
+	
 		$stats = new AffiliateStats;
 		return $stats->salesStatus($groupSales, $personalGroupSales);
     }
