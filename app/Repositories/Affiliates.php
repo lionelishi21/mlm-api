@@ -571,9 +571,10 @@ class Affiliates {
     }
 
 
-
-
-
+    /**
+     * [totalSales description]
+     * @return [type] [description]
+     */
     public function totalSales() {
 
     	$affiliates = Affiliate::get();
