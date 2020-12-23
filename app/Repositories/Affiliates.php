@@ -591,7 +591,7 @@ class Affiliates {
      */
     public function getSalesPercentage($userId) {
 
-    	$affiliatesId = Affiliate::where('user_id', '=', $userId)->first()->id
+    	$affiliatesId = Affiliate::where('user_id', '=', $userId)->first()->id;
 		$groupSales = $this->getGroupSales( $affiliatesId );
 		$personalGroupSales  = PersonalGroupSales::where('user_id', '=', $userId)->count();
 	
