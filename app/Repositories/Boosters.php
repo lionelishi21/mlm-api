@@ -318,7 +318,7 @@ class Boosters {
 		
 		if ($sales >= 108 && $sales < 324 ) {
 			
-			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 6, 'BP2');;
+			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 6, 'BP2');
 			if ( $per_group_sales == false ) {
 				return;
 			}
@@ -334,13 +334,13 @@ class Boosters {
 		
 		if ( $sales >= 324 && $sales < 927 ) {
 
-			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 20, 'BP3');;
+			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 20, 'BP3');
 			if ( $per_group_sales == false ) {
 				return;
 			}
 
 			//Creste Cash bonues
-			$cashbonus =  4000.00;
+			$cashbonus =  400.00;
 			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'BP3');
 
 			//create system packages 
@@ -352,7 +352,7 @@ class Boosters {
 
 		if ( $sales >= 927 ) {
 
-			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 50, 'BP4');;
+			$per_group_sales = $this->createPersonalGroupSales($userId, $affiliateId, 50, 'BP4');
 			if ( $per_group_sales == false ) {
 				return;
 			}
@@ -479,6 +479,7 @@ class Boosters {
 		foreach($affiliates as $affil) {
            
            	$user = User::find($affil->user_id);
+
 			$response[] = array(
 				'id'     => $affil->user_id,
 				'booster_id' => $affil->id,

@@ -498,7 +498,9 @@ class Affiliates {
 	 */
 	public function getAffiliateStatusByUserId($userId) {
 
-		$gsales = $this->getGroupSales($userId);
+		$affiliateId = Affiliate::where('user_id', '=', $userId)->first()->id;
+
+		$gsales = $this->getGroupSales($affiliateId);
 		$psales = PersonalGroupSales::where('user_id', '=', $userId)->count();
 
 		$stats = new AffiliateStats;

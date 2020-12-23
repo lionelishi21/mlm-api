@@ -14,6 +14,10 @@ class Stripe {
 	   $this->stripe = new \Stripe\StripeClient($this->stripeLive);
 	}
 
+	/**
+	 * [balance description]
+	 * @return [type] [description]
+	 */
 	public function balance() {
 		$stripe = new \Stripe\StripeClient($this->stripeLive);
         $balance = $stripe->balance->retrieve();
