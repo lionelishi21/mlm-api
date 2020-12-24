@@ -88,7 +88,7 @@ class Escrows {
 		$affiliates = Affiliate::get();
 		foreach( $affiliates as $affiliate) {
 			
-			$groupSales = $this->affiliate->getGroupSales($affiliate->user_id);
+			$groupSales = $this->affiliate->getGroupSales($affiliate->id);
 			$this->createEscrow($groupSales, $affiliate->user_id);
 		}
 	}

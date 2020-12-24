@@ -21,7 +21,7 @@ use TransferWise\TransferWise;
 */
 
 Route::get('/fix-booster', 'BoosterController@fixBooster');
-Route::get('/download-ebook/{id}', 'DownloadController@downloadEbook');
+Route::get('/download-ebook', 'DownloadController@downloadEbook');
 
 Route::get('/test', 'HomeController@getData');
 

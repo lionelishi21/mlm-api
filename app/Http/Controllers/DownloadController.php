@@ -13,10 +13,10 @@ class DownloadController extends Controller
      * @param $token
      * @return mixed
      */
-    public function downloadEbook($token) {
+    public function downloadEbook() {
 
-        $download = DownloadToken::where('token', '=', $token)->first();
-        if ($download) {
+        // $download = DownloadToken::where('token', '=', $token)->first();
+        // if ($download) {
             //PDF file is stored under project/public/download/info.pdf
             $file = public_path(). "/download/mcc_ebook.pdf";
 
@@ -27,9 +27,9 @@ class DownloadController extends Controller
 //            $delete = $download->delete();
 
             return Response::download($file, 'ebook.pdf', $headers);
-        }
+        // }
 
-        return 'download limit';
+        // return 'download limit';
     }
 
     public function download(Request $request) {
