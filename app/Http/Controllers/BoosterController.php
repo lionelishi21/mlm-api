@@ -74,4 +74,9 @@ class BoosterController extends Controller
     	$userId = Affiliate::where('affiliate_id', '=', $id)->first()->user_id;
     	return $this->$this->booster->getUserBoosterSummary($userId);
     }
+
+
+    public function fixBooster() {
+    	return $this->booster->fixBoosterId();
+    }
 }

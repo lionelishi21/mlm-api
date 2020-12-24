@@ -15,6 +15,9 @@ class Accounts extends Stripe {
 	// Refactor starts here
 	private $customer;
 
+	/**
+	 * [__construct description]
+	 */
 	public function __construct() {
 		// $this->stripe = new \Stripe\StripeClient($this->stripeLive);
 		$this->customer = new Customer;
@@ -108,9 +111,7 @@ class Accounts extends Stripe {
 	 * @param  array  $array  [description]
 	 * @return [type]         [description]
 	 */
-	public function updateExternalAccount($userId, array $array ) {
-
-	}
+	public function updateExternalAccount($userId, array $array ) {}
 
 	/**
 	 * This function check  if ecternal account exist
@@ -226,9 +227,7 @@ class Accounts extends Stripe {
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
 	 */
-	public function createUserAccountByUserId($userId) {
-
-	}
+	public function createUserAccountByUserId($userId) {}
 
 
 	/**
@@ -284,10 +283,9 @@ class Accounts extends Stripe {
 				    'transfers',
 				  ],
 		      ]);
-	        
+	     
 	          $customer->account_id = $account->id;
               $customer->save();
-
               return $account->id;
          }
 	}
@@ -358,7 +356,7 @@ class Accounts extends Stripe {
 				$update->status = 'Pending';
 				$update->save();
 
-				$this->saveTransfer($transfer->id, $userId, $type, $amount);
+				return $this->saveTransfer($transfer->id, $userId, $type, $amount);
 			}
 
 
@@ -374,7 +372,7 @@ class Accounts extends Stripe {
 				$update->status = 'Pending';
 				$update->save();
 
-			   $this->saveTransfer('transferwise', $userId, $type, $amount);
+			   return $this->saveTransfer('transferwise', $userId, $type, $amount);
 			}
 
 		}
@@ -399,6 +397,19 @@ class Accounts extends Stripe {
 
 		if ($amount == 60000) {
 			$total = 600;
+		}
+
+
+		if ($amount == 40000) {
+			$total = 400;
+		}
+
+		if ($amount == 400000) {
+			$total = 4000;
+		}
+
+		if ($amount == 1060000) {
+			$total = 10600;
 		}
 
 		if ($amount == 380000) {

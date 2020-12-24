@@ -22,12 +22,6 @@ Route::group(['prefix' => 'v1'], function(){
 
 
    
-   
-   //  Route::group(['prefix' => 'rayofhopes'], function() {
-	  //  	Route::get('/', 'RayofhopeController@index');
-	  //  	Route::gept('/{id}', 'RayofhopeController@details');
-	  //  	Route::get('/create', 'RayofhopeController@store');
-	  // });
 
 	Route::middleware('auth:api')->group(function () { 
 

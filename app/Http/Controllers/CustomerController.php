@@ -44,6 +44,7 @@ class CustomerController extends Controller
 		 }
 
     	if ($attributes['method'] == 'stripe') {
+    		
     		$repo = new StripeRepository;
     	    $stripe = $repo->purchaseBooster($attributes, $userId);
 
@@ -135,12 +136,7 @@ class CustomerController extends Controller
     	$userId = $request->user()->id;
     	$amount = $request->transfer;
 
-    	$transfer = $this->account->transfer($amount, $userId);
-
-        return [
-            'transfer' => true,
-            'message' => $transfer
-        ];
+    	return $transfer = $this->account->transfer($amount, $userId);
     }
 
     /**

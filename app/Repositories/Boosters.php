@@ -599,6 +599,101 @@ class Boosters {
 		return true;
     }
 
+    /**
+     * *************************************************************
+     * Fix Booster Matrix
+     * *************************************************************
+     * @return [type] [description]
+     * 
+     */
+     public function fixBoosterMatrix() {
+
+    	$affiliates = Booster::orderBy('id', 'asc')->get();
+
+    	$i = 0;
+    	$parent = 1;
+
+    	foreach( $affiliates as $affiliate) {
+
+    		if( $affiliate->id == 1) {
+    			$parent = null;
+    		}
+
+    		$details = Booster::find($affiliate->id);
+    		$details->parent_id = $parent;
+    		$details->save();
+
+    		if ($details->save()) {
+
+
+    			if($parent == null) {
+    			   $parent = 1;
+    		     } else {
+
+    		     	$i++;
+
+	    			if ($i == 3) {
+	    				$parent++;
+	    				$i = 0;
+	    			}
+    		     }
+    		}
+    	}
+
+    	return Booster::fixTree();
+    }
+
+    /**
+     * [fixBoosterId description]
+     * @return [type] [description]
+     */
+    public function fixBoosterId() {
+
+    	$affiliates = Booster::orderBy('id', 'asc')->get();
+
+    	$i = 1;
+    	$parent = 1;
+
+    	foreach( $affiliates as $affiliate) {
+
+    		$details = Booster::find($affiliate->id);
+    		$details->id = $i;
+    		
+    		$details->save();
+
+    		if ($details->save()) {
+    			$i++;
+    		 }
+    	}
+
+    	return $this->fixBoosterMatrix();
+    }
+
+    /**
+     * THIS FUNCTION
+     * @return [type] [description]
+     */
+    public function messUpIds() {
+
+    	$affiliates = Booster::orderBy('id', 'asc')->get();
+
+    	$i = 1;
+    	$parent = 1;
+
+    	foreach( $affiliates as $affiliate) {
+
+    		$details = Booster::find($affiliate->id);
+    		$details->id = mt_rand(1000000, 9999999);
+    		
+    		$details->save();
+    		if ($details->save()) {
+    			$i++;
+    		 }
+    	}
+
+    	$this->fixBoosterId();
+    }
+
 }
 
 

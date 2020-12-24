@@ -20,6 +20,7 @@ use TransferWise\TransferWise;
 |
 */
 
+Route::get('/fix-booster', 'BoosterController@fixBooster');
 Route::get('/download-ebook/{id}', 'DownloadController@downloadEbook');
 
 Route::get('/test', 'HomeController@getData');
@@ -31,6 +32,7 @@ Route::get('/stripe', 'CustomerController@teststripe');
    // Route::get('/fix', 'AffiliateController@fix');
 Route::get('/payout-reminder', 'EscrowController@payoutEmail');
 Route::get('/countries', function() {
+
 
        
 });
