@@ -356,7 +356,19 @@ class Accounts extends Stripe {
 				$update->status = 'Pending';
 				$update->save();
 
-				return $this->saveTransfer($transfer->id, $userId, $type, $amount);
+				$respons =  $this->saveTransfer($transfer->id, $userId, $type, $amount);
+
+				if ( $response ) {
+					return [
+						'status' => true,
+						'msg' => 'You withdraw was successfull, your funds will reach your account in 2 business days'
+					];
+				}
+
+				return [
+					'status' => false
+				];
+				
 			}
 
 
