@@ -166,6 +166,8 @@ class Accounts extends Stripe {
 				$account_type = 'MCC';
 			}
 
+			
+
 			if ($cus->account_id != null && $cus->type == 3) {
 				$response[] = array(
 					'type' => $account_type
