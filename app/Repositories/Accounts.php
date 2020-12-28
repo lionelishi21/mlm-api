@@ -218,7 +218,7 @@ class Accounts extends Stripe {
 
 		$customer = $this->customer->where('user_id', '=', $userId)->first();
 		if ($customer) {
-			return $$this->getUserAccountByAccountId($customer->account_id);
+			return $this->getUserAccountByAccountId($customer->account_id);
 		
 		}
 	}
