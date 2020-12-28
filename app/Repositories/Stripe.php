@@ -192,8 +192,8 @@ class Stripe {
 
 		$accountLink =  $stripe->accountLinks->create([
 		  'account' => $accountId,
-		  'refresh_url' => 'https://majesticares.com/dashboard/settings',
-		  'return_url' => 'https://majesticares.com/dashboard/settings',
+		  'refresh_url' => 'https://app.majesticares.com/dashboard/settings',
+		  'return_url' => 'https://app.majesticares.com/dashboard/settings',
 		  'type' => 'account_onboarding',
 		]);
 
@@ -208,8 +208,8 @@ class Stripe {
 
 		$accountLink =  $stripe->accountLinks->create([
 		  'account' => $accountId,
-		  'refresh_url' => 'https://majesticares.com/dashboard/settings',
-		  'return_url' => 'https://majesticares.com/dashboard/settings',
+		  'refresh_url' => 'https://app.majesticares.com/dashboard/settings',
+		  'return_url' => 'https://app.majesticares.com/dashboard/settings',
 		  'type' => 'account_update',
 		]);
 

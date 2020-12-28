@@ -216,8 +216,16 @@ class Accounts extends Stripe {
 
 		$customer = $this->customer->where('user_id', '=', $userId)->first();
 		if ($customer) {
-			return $this->getUserAccountByAccountId($customer->account_id);
+			$response = $this->getUserAccountByAccountId($customer->account_id);
+			return [
+				'msg' => 'Bank information was added successfully',
+				'status' => true
+			];
 		}
+
+		return [
+			'status' => false
+		];
 
 	}
 
@@ -356,7 +364,7 @@ class Accounts extends Stripe {
 				$update->status = 'Pending';
 				$update->save();
 
-				$respons =  $this->saveTransfer($transfer->id, $userId, $type, $amount);
+				$response =  $this->saveTransfer($transfer->id, $userId, $type, $amount);
 
 				if ( $response ) {
 					return [

@@ -362,7 +362,7 @@ class Boosters {
 			$create_cash_bonus = $this->affiliates->createBoosterPayout($cashbonus, $userId, 'BP4');
 
 	
-			$spaces = $this->createMccSpaces($userId, 50);
+			$spaces = $this->createMccSpaces($userId, 50, $affiliateId);
 
 			//create system packages 
 			$system_qty = 5;
@@ -398,11 +398,11 @@ class Boosters {
 	 * @param  [type] $cost   [description]
 	 * @return [type]         [description]
 	 */
-	public function createMccSpaces($userId, $space) {
+	public function createMccSpaces($userId, $space, $booster_id) {
 
 		for ($x = 0; $x < $spaces; $x++) {
 	  		$purchase = new Purchases;
-        	$purchase->createMccSystemPackages($userId, $cost);
+        	$purchase->createMccSystemPackages($userId, $cost, $booster_id);
 		}
 	}	
 
@@ -608,26 +608,27 @@ class Boosters {
      */
      public function fixBoosterMatrix() {
 
-    	$affiliates = Booster::orderBy('id', 'asc')->get();
+    	$boosters = Booster::orderBy('id', 'asc')->get();
 
     	$i = 0;
     	$parent = 1;
 
-    	foreach( $affiliates as $affiliate) {
+    	foreach( $boosters as $booster) {
 
-    		if( $affiliate->id == 1) {
+    		if( $booster->id == 1) {
     			$parent = null;
     		}
 
-    		$details = Booster::find($affiliate->id);
+    		$details = Booster::find($booster->id);
     		$details->parent_id = $parent;
     		$details->save();
 
     		if ($details->save()) {
 
-
-    			if($parent == null) {
+    			if ($parent == null) {
+    			  
     			   $parent = 1;
+    		   
     		     } else {
 
     		     	$i++;
@@ -643,56 +644,6 @@ class Boosters {
     	return Booster::fixTree();
     }
 
-    /**
-     * [fixBoosterId description]
-     * @return [type] [description]
-     */
-    public function fixBoosterId() {
-
-    	$affiliates = Booster::orderBy('id', 'asc')->get();
-
-    	$i = 1;
-    	$parent = 1;
-
-    	foreach( $affiliates as $affiliate) {
-
-    		$details = Booster::find($affiliate->id);
-    		$details->id = $i;
-    		
-    		$details->save();
-
-    		if ($details->save()) {
-    			$i++;
-    		 }
-    	}
-
-    	return $this->fixBoosterMatrix();
-    }
-
-    /**
-     * THIS FUNCTION
-     * @return [type] [description]
-     */
-    public function messUpIds() {
-
-    	$affiliates = Booster::orderBy('id', 'asc')->get();
-
-    	$i = 1;
-    	$parent = 1;
-
-    	foreach( $affiliates as $affiliate) {
-
-    		$details = Booster::find($affiliate->id);
-    		$details->id = mt_rand(1000000, 9999999);
-    		
-    		$details->save();
-    		if ($details->save()) {
-    			$i++;
-    		 }
-    	}
-
-    	$this->fixBoosterId();
-    }
 
 }
 

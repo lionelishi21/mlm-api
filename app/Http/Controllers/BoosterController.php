@@ -77,6 +77,7 @@ class BoosterController extends Controller
 
 
     public function fixBooster() {
-    	return $this->booster->fixBoosterId();
+    	return $this->booster->messUpIds();
+    	// return $this->booster->fixBoosterMatrix();
     }
 }

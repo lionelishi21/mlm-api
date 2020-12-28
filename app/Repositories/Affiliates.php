@@ -11,6 +11,7 @@ use App\Repositories\Users;
 use App\Repositories\AffiliateStats;
 use Illuminate\Support\Collection;
 use App\PersonalGroupSales;
+use App\BoosterEbookSystem;
 
 use App\Booster;
 
@@ -75,7 +76,7 @@ class Affiliates {
 	 * @param  [type] $group_id [descriptiono
 	 * @return [type]           [description]
 	 */
-	public function place( $purchaser_id, $affiliate_id, $is_system = 0) {
+	public function place( $purchaser_id, $affiliate_id, $is_system = 0, $booster_id = 0) {
 
 
 		$affiliate = new Affiliate;
@@ -87,13 +88,36 @@ class Affiliates {
 		$affiliate->save();
 
 		if ( $affiliate->save() ) {
-           // Cash bonus trigger should go here
+			
+
+			if ($is_system == 1) {
+				$this->llinkSystemBooster($booster_id, $affiliate->id, $purchaser_id);
+			}		
 
 			return true;
 		}
 		return false;
 	}
 
+
+	/**
+	 * Link booster to thier ebook and system purchase
+	 * @return [type] [description]
+	 */
+	public function linkSystemBooster($booster_id, $ebook_id, $user_id) {
+
+		$ebooksystem = new BoosterEbookSystem;
+		$ebooksystem->booster_id = $booster_id;
+		$ebooksystem->ebook_id = $ebook_id;
+		$ebooksystem->user_id = $user_id;
+		$ebooksystem->save();
+
+		if ( $ebooksystem->save()) {
+			return true;
+		}
+
+		return false;
+	}
 
 	/**
 	 * [getGroupId description]

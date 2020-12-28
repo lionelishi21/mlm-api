@@ -57,10 +57,10 @@ class Purchases {
      * [createMccSystemPackages description]
      * @return [type] [description]
      */
-    public function createMccSystemPackages($userId, $cost) {
+    public function createMccSystemPackages($userId, $cost, $booster) {
       
        $affiliateId = $this->placeSalesPurchase($userId);
-       return $this->affiliate->place($userId, $affiliateId, 1);
+       return $this->affiliate->place($userId, $affiliateId, 1, $booster);
     }
 
 
