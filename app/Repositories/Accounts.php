@@ -166,7 +166,7 @@ class Accounts extends Stripe {
 				$account_type = 'MCC';
 			}
 
-			
+
 
 			if ($cus->account_id != null && $cus->type == 3) {
 				$response[] = array(
@@ -218,17 +218,9 @@ class Accounts extends Stripe {
 
 		$customer = $this->customer->where('user_id', '=', $userId)->first();
 		if ($customer) {
-			$response = $this->getUserAccountByAccountId($customer->account_id);
-			return [
-				'msg' => 'Bank information was added successfully',
-				'status' => true
-			];
+			return $$this->getUserAccountByAccountId($customer->account_id);
+		
 		}
-
-		return [
-			'status' => false
-		];
-
 	}
 
 

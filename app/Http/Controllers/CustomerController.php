@@ -106,7 +106,7 @@ class CustomerController extends Controller
      */
     public function getUserAccounts(Request $request) {
         $userId = $request->user()->id;
-        // return $this->account->getUserAccountsByUserId($userId);
+        return $this->account->getUserAccountsByUserId($userId);
     }
 
 
