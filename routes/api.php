@@ -123,7 +123,7 @@ Route::group(['prefix' => 'v1'], function(){
             Route::post('/add-paypal', 'CustomerController@paypal');
             Route::get('/get-paypal', 'CustomerController@getPaypalAccount');
 
-    		Route::get('/account', 'CustomerController@store');
+    		Route::get('/account', 'CustomerController@getUserAccounts');
     		Route::post('/transfer', 'CustomerController@transfer');
             Route::get('/', 'CustomerController@index');
             Route::get('/account', 'CustomerController@account');
