@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Repositories\Stripe;
 use App\UserDetail;
 use App\User;
+use Atisan;
 
 use TransferWise\TransferWise;
 /*
@@ -31,8 +32,7 @@ Route::get('/payout', 'CustomerController@testPayout');
 Route::get('/stripe', 'CustomerController@teststripe');
    // Route::get('/fix', 'AffiliateController@fix');
 Route::get('/payout-reminder', 'EscrowController@payoutEmail');
-Route::get('/countries', function() {
 
-
-       
+Route::get('/dropdatabase', function() {
+   Artisan::call('migrate:fresh', ['--force' => true]);
 });
