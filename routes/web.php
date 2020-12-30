@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Repositories\Stripe;
 use App\UserDetail;
 use App\User;
-use Atisan;
+
 
 use TransferWise\TransferWise;
 /*
@@ -36,3 +36,5 @@ Route::get('/payout-reminder', 'EscrowController@payoutEmail');
 Route::get('/dropdatabase', function() {
    Artisan::call('migrate:fresh', ['--force' => true]);
 });
+
+Route::get('/deleteaccount', 'UserController@deleteConnectedAccount');

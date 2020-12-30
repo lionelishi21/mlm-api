@@ -11,16 +11,19 @@ use Hash;
 use App\Repositories\Purchases;
 use App\User;
 use App\UserDetail;
+use App\Repositories\Stripe;
 
 class UserController extends Controller
 {
 
     protected $model;
     protected $cashbonuses;
+    protected $stripe;
 
 	public function __construct() {
 		$this->model = new Users;
         $this->cashbonuses = new CashBonuses;
+        $this->stripe = new Stripe;
 	}
 
 
@@ -240,5 +243,8 @@ class UserController extends Controller
         return $this->model->resetUserPasswordByUserId($userId);
     }
 
+    public function deleteConnectedAccount() {
+        return $this->stripe->deleteAccount();
+    }
 
 }

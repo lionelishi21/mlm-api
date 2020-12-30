@@ -390,6 +390,21 @@ class Stripe {
 		$stripe = new \Stripe\StripeClient($this->stripeLive);
 		return $stripe->accounts->all()['data'];
 	 }
+
+
+    public function deleteAccount() {
+
+        $stripe = new \Stripe\StripeClient(
+          $this->stripeLive
+        );
+        $response =  $stripe->accounts->delete(
+          'acct_1I3RAaPBGTVpQCO8',
+          []
+        );
+
+        return $response;
+    }
+	 
 }
 
  ?>
