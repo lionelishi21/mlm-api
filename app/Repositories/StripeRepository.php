@@ -61,7 +61,7 @@ class StripeRepository
     public function purchaseBooster(array $array, $userId) {
 
         $test = 'sk_test_Yha4F4mAhvGfsvZSvvCDgbBy00nMLLAhkJ';
-        $live = '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';
+        $live = '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';
         
         $stripe =  new \Stripe\StripeClient($live);
         
