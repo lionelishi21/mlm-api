@@ -43,13 +43,10 @@ class PasswordResetNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $urlToResetForm = "http://app.majesticares.com/reset-password?token=". $this->token;
-        return (new MailMessage)
-            ->subject('Hey! Reset Password Notification')
-            ->line('You requested here you go!')
-            ->action('Reset Password', $urlToResetForm)
-            ->line('This password reset link will expire in 1 minute minutes.', ['count' => config('auth.passwords.users.expire')])
-            ->line('If you did not request a password reset, no further action is required');
+         return (new MailMessage)
+            ->line('You are receiving this email because we received a password reset request for your account.')
+            ->action('Reset Password', 'http://app.majesticares.com/reset-password?token='.$this->token).'?email='.urlencode($notifiable->email))
+            ->line('If you did not request a password reset, no further action is required.');
     }
 
     /**
